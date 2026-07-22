@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1A365D;
+  --color-dark-navy: #0F2442;
+  --color-accent: #E66A1F;
+  --color-highlight: #F4B41A;
+  --color-beige: #E9D8C0;
+  --color-bg-light: #F5F5F7;
+  --color-logo-green: #2A7A42;
+  --font-sans: "Tajawal", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-primary font-sans antialiased;
+    font-family: "Tajawal", sans-serif;
+  }
+
+  ::selection {
+    background-color: #E66A1F;
+    color: #ffffff;
+  }
+}
