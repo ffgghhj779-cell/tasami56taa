@@ -1,5 +1,5 @@
-import { useState, FormEvent } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useState, FormEvent, useEffect } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   ChevronDown,
   ArrowLeft,
@@ -11,8 +11,6 @@ import {
   Globe,
   Quote,
   Star,
-  Menu,
-  X,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────
@@ -220,8 +218,19 @@ const navLinks = [
 
 export default function App() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const reduceMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const motionOff = !!reduceMotion || isMobile;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -246,38 +255,40 @@ export default function App() {
   }
 
   return (
-    <div className="font-sans text-slate-800 bg-white selection:bg-[#F4B41A] selection:text-white">
-      {/* ═══ Navbar — dark navy like Shengda ═══ */}
+    <div className="font-sans text-slate-800 bg-white selection:bg-[#F4B41A] selection:text-white overflow-x-hidden">
+      {/* ═══ Navbar — Shengda mobile: centered brand + links under ═══ */}
       <nav className="bg-[#0E2A47] w-full z-50 sticky top-0">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 h-[88px] md:h-24 flex justify-between items-center">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 py-3 md:py-0 md:h-24 flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-6">
           <a
             href="#home"
-            className="flex items-center gap-3 sm:gap-4 shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F4B41A]/60 rounded-lg"
+            className="flex items-center justify-center md:justify-start gap-2.5 sm:gap-3 shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F4B41A]/60 rounded-lg"
             aria-label="تسامي الوطنية — الصفحة الرئيسية"
           >
             <img
               src="/logo-mark.png"
               alt=""
               aria-hidden="true"
-              className="h-11 sm:h-12 md:h-14 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)] transition-transform duration-300 group-hover:scale-[1.03]"
+              width={56}
+              height={56}
+              decoding="async"
+              className="h-10 sm:h-12 md:h-14 w-auto object-contain"
             />
-            <span className="flex flex-col justify-center border-r border-white/15 pr-3 sm:pr-4 min-w-0">
-              <span className="font-brand text-base sm:text-xl md:text-2xl font-black leading-tight tracking-tight text-white group-hover:text-white/95 transition-colors">
-                تسامي{" "}
-                <span className="text-[#2A7A42]">الوطنية</span>
+            <span className="flex flex-col justify-center md:border-r border-white/15 md:pr-3 min-w-0 text-center md:text-start">
+              <span className="font-brand text-[15px] sm:text-xl md:text-2xl font-black leading-tight tracking-tight text-white">
+                تسامي <span className="text-[#2A7A42]">الوطنية</span>
               </span>
-              <span className="font-brand mt-0.5 text-[10px] sm:text-xs md:text-[13px] font-bold leading-snug text-[#E66A1F]">
+              <span className="font-brand mt-0.5 text-[9px] sm:text-xs md:text-[13px] font-bold leading-snug text-[#E66A1F]">
                 توريدات الجملة للمطاعم والأسواق
               </span>
             </span>
           </a>
 
-          <div className="hidden md:flex items-center gap-10 font-bold text-white text-sm">
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-4 gap-y-2 sm:gap-x-6 md:gap-8 lg:gap-10 font-bold text-white text-[12px] sm:text-sm pb-1 md:pb-0">
             {navLinks.map((link, i) => (
               <a
                 key={link.href}
                 href={link.href}
-                className={`transition-colors hover:text-[#F4B41A] ${
+                className={`transition-colors active:opacity-80 touch-manipulation hover:text-[#F4B41A] ${
                   i === 0 ? "text-[#F4B41A]" : ""
                 }`}
               >
@@ -285,65 +296,36 @@ export default function App() {
               </a>
             ))}
           </div>
-
-          <button
-            type="button"
-            className="md:hidden text-white"
-            aria-label="القائمة"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
-
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="md:hidden bg-[#0E2A47] border-t border-white/10 overflow-hidden"
-            >
-              <div className="flex flex-col p-6 gap-6 font-bold text-white">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-[#F4B41A] transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </nav>
 
       {/* ═══ Hero — centered, dark overlay ═══ */}
       <section
         id="home"
-        className="relative min-h-[92vh] bg-[#0F2442] flex flex-col justify-center pb-36"
+        className="relative min-h-[85vh] md:min-h-[92vh] bg-[#0F2442] flex flex-col justify-center pb-20 md:pb-36"
       >
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2400&q=80"
+            src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=70"
+            srcSet="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=65 800w, https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=70 1200w, https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=75 2000w"
+            sizes="100vw"
             alt="توريدات ولوجستيات الجملة"
-            className="w-full h-full object-cover opacity-35 mix-blend-luminosity"
+            fetchPriority="high"
+            decoding="async"
+            className="w-full h-full object-cover opacity-35 md:mix-blend-luminosity"
           />
-          <div className="absolute inset-0 bg-[#0A182D]/55" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A182D]/80 via-transparent to-[#0A182D]/40" />
+          <div className="absolute inset-0 bg-[#0A182D]/60 md:bg-[#0A182D]/55" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A182D]/85 via-transparent to-[#0A182D]/45" />
         </div>
 
-        <div className="relative z-10 max-w-[1400px] w-full mx-auto px-6 lg:px-12 mt-10 text-center">
+        <div className="relative z-10 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-12 mt-6 md:mt-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={motionOff ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: motionOff ? 0 : 0.55, ease: "easeOut" }}
           >
-            <div className="flex items-center justify-center gap-2 text-[#F4B41A] font-bold text-[11px] sm:text-xs tracking-widest uppercase mb-8 flex-wrap">
-              <span className="w-5 h-5 rounded-full border border-[#F4B41A] flex items-center justify-center text-[8px] leading-none">
+            <div className="flex items-center justify-center gap-1.5 sm:gap-2 text-[#F4B41A] font-bold text-[10px] sm:text-xs tracking-widest uppercase mb-5 sm:mb-8 flex-wrap px-1">
+              <span className="w-5 h-5 rounded-full border border-[#F4B41A] flex items-center justify-center text-[8px] leading-none shrink-0">
                 SA
               </span>
               <span>• توريد غذائي معتمد</span>
@@ -351,46 +333,46 @@ export default function App() {
               <span>• منذ 2014</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black text-white leading-[1.1] tracking-tight mb-8 max-w-4xl mx-auto">
+            <h1 className="text-[1.85rem] leading-[1.25] sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black text-white tracking-tight mb-5 sm:mb-8 max-w-4xl mx-auto">
               توريدات جملة فاخرة
               <br />
               للمطاعم والأسواق المركزية
             </h1>
 
-            <p className="text-white/80 text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-12 leading-relaxed font-light">
+            <p className="text-white/80 text-[0.95rem] sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-12 leading-relaxed font-light px-1">
               نورد الدواجن المبردة والفريش، البطاطس المجمدة، والبيض الطازج —
               بجودة مضمونة وأسعار جملة تنافسية وتوصيل مبرد إلى جميع أنحاء المملكة.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 max-w-md sm:max-w-none mx-auto">
               <a
                 href="#contact"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#16A34A] hover:bg-[#15803D] text-white px-8 py-4 rounded-md font-bold transition-all text-lg shadow-[0_8px_24px_rgba(22,163,74,0.35)] hover:scale-[1.03]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#16A34A] active:bg-[#15803D] hover:bg-[#15803D] text-white px-8 py-3.5 sm:py-4 rounded-md font-bold transition-colors text-base sm:text-lg shadow-[0_6px_20px_rgba(22,163,74,0.35)] touch-manipulation"
               >
                 طلب عرض سعر
-                <ArrowLeft size={20} />
+                <ArrowLeft size={18} className="sm:w-5 sm:h-5" />
               </a>
               <a
                 href="#products"
-                className="w-full sm:w-auto inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white border border-white/25 px-8 py-4 rounded-md font-bold transition-all backdrop-blur-sm text-lg hover:scale-[1.03]"
+                className="w-full sm:w-auto inline-flex items-center justify-center bg-white/10 active:bg-white/20 hover:bg-white/20 text-white border border-white/25 px-8 py-3.5 sm:py-4 rounded-md font-bold transition-colors text-base sm:text-lg touch-manipulation"
               >
                 عرض المنتجات
               </a>
             </div>
 
             {/* Glass cards — stats + why choose us */}
-            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-start">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
-                <div className="grid grid-cols-2 gap-y-8 gap-x-6">
+            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto text-start">
+              <div className="glass-card bg-white/10 md:backdrop-blur-md border border-white/20 rounded-2xl p-5 sm:p-8 shadow-xl">
+                <div className="grid grid-cols-2 gap-y-6 sm:gap-y-8 gap-x-4 sm:gap-x-6">
                   {stats.map((stat, idx) => (
                     <div key={idx}>
                       <div
-                        className="text-3xl font-black text-[#F4B41A] mb-2"
+                        className="text-2xl sm:text-3xl font-black text-[#F4B41A] mb-1.5 sm:mb-2"
                         dir="ltr"
                       >
                         {stat.value}
                       </div>
-                      <div className="text-xs font-bold text-white/90 leading-relaxed">
+                      <div className="text-[11px] sm:text-xs font-bold text-white/90 leading-relaxed">
                         {stat.label}
                       </div>
                     </div>
@@ -398,11 +380,11 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl flex flex-col justify-center">
-                <h3 className="text-[#F4B41A] font-bold text-xl mb-4">
+              <div className="glass-card bg-white/10 md:backdrop-blur-md border border-white/20 rounded-2xl p-5 sm:p-8 shadow-xl flex flex-col justify-center">
+                <h3 className="text-[#F4B41A] font-bold text-lg sm:text-xl mb-3 sm:mb-4">
                   لماذا تختارنا؟
                 </h3>
-                <p className="text-white text-lg leading-relaxed font-medium">
+                <p className="text-white text-[0.95rem] sm:text-lg leading-relaxed font-medium">
                   نحن رواد السوق في توريد الدواجن والأغذية، موثوقون من قبل
                   الموزعين وشركات الخدمات الغذائية في جميع أنحاء المملكة.
                 </p>
@@ -413,28 +395,28 @@ export default function App() {
       </section>
 
       {/* ═══ Certifications ═══ */}
-      <section id="certifications" className="py-24 bg-white">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 text-center">
-          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-4">
+      <section id="certifications" className="py-14 sm:py-20 md:py-24 bg-white">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 text-center">
+          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-3 sm:mb-4">
             • الشهادات والثقة
           </div>
-          <h2 className="text-4xl lg:text-[2.75rem] font-black text-[#0A182D] mb-6 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-black text-[#0A182D] mb-4 sm:mb-6 tracking-tight">
             مبنية للامتثال للمعايير العالمية
           </h2>
-          <p className="text-slate-500 text-lg max-w-3xl mx-auto mb-16">
+          <p className="text-slate-500 text-base sm:text-lg max-w-3xl mx-auto mb-10 sm:mb-16">
             كل شحنة مدعومة بالشهادات، والتتبع، والوثائق الصارمة التي يطلبها
             المشترون وهيئة الغذاء والدواء.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
             {certifications.map((cert, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={motionOff ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.08, duration: 0.5 }}
-                className="bg-white p-8 rounded-[2rem] shadow-[0_4px_24px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col items-center text-center hover:shadow-[0_12px_40px_rgba(10,24,45,0.08)] hover:-translate-y-1 transition-all duration-300"
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: motionOff ? 0 : idx * 0.05, duration: motionOff ? 0 : 0.35 }}
+                className="bg-white p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0_4px_24px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col items-center text-center"
               >
                 <div className="w-14 h-14 rounded-full bg-slate-50 flex items-center justify-center mb-6 border border-slate-100">
                   <cert.icon size={24} className="text-[#0A182D]" />
@@ -452,21 +434,23 @@ export default function App() {
       </section>
 
       {/* ═══ About Us ═══ */}
-      <section id="about" className="py-24 bg-white border-t border-slate-100">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+      <section id="about" className="py-14 sm:py-20 md:py-24 bg-white border-t border-slate-100">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <div>
-              <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-4">
+              <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-3 sm:mb-4">
                 • عن المؤسسة
               </div>
-              <h2 className="text-4xl lg:text-[3.5rem] font-black text-[#0A182D] mb-8 leading-[1.05] tracking-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-[#0A182D] mb-6 sm:mb-8 leading-[1.1] tracking-tight">
                 شريكك الموثوق لتوريد الأغذية
               </h2>
 
               <div className="relative mt-12 mb-10 lg:mb-0 hidden lg:block">
                 <img
-                  src="https://images.unsplash.com/photo-1558222218-b7b54eede3f3?auto=format&fit=crop&w=1000&q=80"
+                  src="https://images.unsplash.com/photo-1558222218-b7b54eede3f3?auto=format&fit=crop&w=1000&q=75"
                   alt="منشأة سلاسل التبريد"
+                  loading="lazy"
+                  decoding="async"
                   className="rounded-[2rem] h-[28rem] object-cover w-full shadow-lg"
                 />
                 <div className="absolute -bottom-8 -left-8 bg-[#0A182D] text-white p-8 rounded-3xl shadow-xl w-56 flex flex-col justify-center items-center text-center">
@@ -523,16 +507,16 @@ export default function App() {
       </section>
 
       {/* ═══ Featured Products ═══ */}
-      <section id="products" className="py-24 bg-white border-t border-slate-100">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-4">
+      <section id="products" className="py-14 sm:py-20 md:py-24 bg-white border-t border-slate-100">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-3 sm:mb-4">
             • المنتجات المميزة
           </div>
 
-          <h2 className="text-4xl lg:text-[3.5rem] font-black text-[#0A182D] max-w-3xl leading-[1.05] tracking-tight mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-[#0A182D] max-w-3xl leading-[1.1] tracking-tight mb-4 sm:mb-6">
             لمحة عن كتالوج التوريد الخاص بنا
           </h2>
-          <p className="text-slate-500 text-lg mb-16">
+          <p className="text-slate-500 text-base sm:text-lg mb-10 sm:mb-16">
             استكشف المنتجات والأصناف الأكثر طلباً من قبل شركائنا في قطاع
             المطاعم والأسواق المركزية.
           </p>
@@ -549,21 +533,23 @@ export default function App() {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {products.map((product, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={motionOff ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.08, duration: 0.5 }}
-                className="bg-white rounded-[2rem] shadow-[0_4px_24px_rgb(0,0,0,0.03)] border border-slate-100 p-8 flex flex-col group hover:shadow-[0_16px_48px_rgba(10,24,45,0.1)] transition-shadow duration-300"
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ delay: motionOff ? 0 : idx * 0.04, duration: motionOff ? 0 : 0.35 }}
+                className="bg-white rounded-[1.5rem] sm:rounded-[2rem] shadow-[0_4px_24px_rgb(0,0,0,0.03)] border border-slate-100 p-5 sm:p-8 flex flex-col group"
               >
-                <div className="bg-[#F8FAFC] rounded-2xl mb-8 flex items-center justify-center p-8 h-64 border border-slate-100/50">
-                  <div className="relative w-full h-full bg-white shadow-sm border border-slate-200/50 rounded-xl overflow-hidden flex items-center justify-center p-2 transform group-hover:scale-105 transition-transform duration-500">
+                <div className="bg-[#F8FAFC] rounded-2xl mb-5 sm:mb-8 flex items-center justify-center p-4 sm:p-8 h-52 sm:h-64 border border-slate-100/50">
+                  <div className="relative w-full h-full bg-white shadow-sm border border-slate-200/50 rounded-xl overflow-hidden flex items-center justify-center p-2 md:group-hover:scale-105 md:transition-transform md:duration-500">
                     <img
                       src={product.img}
                       alt={product.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover rounded-lg"
                     />
                   </div>
@@ -588,28 +574,28 @@ export default function App() {
       </section>
 
       {/* ═══ Supply Process — dark ═══ */}
-      <section className="py-32 bg-[#0F2442]">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-4">
+      <section className="py-16 sm:py-24 md:py-32 bg-[#0F2442]">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-3 sm:mb-4">
             • عملية التوريد
           </div>
-          <h2 className="text-4xl lg:text-[3.5rem] font-black text-white mb-6 leading-[1.05] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-white mb-4 sm:mb-6 leading-[1.1] tracking-tight">
             من الاستفسار إلى وجهتك النهائية
           </h2>
-          <p className="text-white/60 text-lg max-w-2xl mb-20">
+          <p className="text-white/60 text-base sm:text-lg max-w-2xl mb-10 sm:mb-20">
             عملية مبسطة من خمس خطوات مصممة للمشترين الذين يقدرون السرعة،
             الدقة، والشفافية.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
             {processSteps.map((step, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={motionOff ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1, duration: 0.5 }}
-                className="bg-[#172A46] border border-white/5 p-8 rounded-[2rem] hover:border-[#F4B41A]/30 transition-colors"
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ delay: motionOff ? 0 : idx * 0.05, duration: motionOff ? 0 : 0.35 }}
+                className="bg-[#172A46] border border-white/5 p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem]"
               >
                 <div
                   className="text-3xl font-black text-[#F4B41A] mb-6"
@@ -630,14 +616,14 @@ export default function App() {
       </section>
 
       {/* ═══ Why Choose Us — 8 reasons ═══ */}
-      <section className="py-32 bg-white">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-12 gap-16 lg:gap-24">
+      <section className="py-16 sm:py-24 md:py-32 bg-white">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-24">
             <div className="lg:col-span-5">
-              <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-4">
+              <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-3 sm:mb-4">
                 • لماذا تختارنا
               </div>
-              <h2 className="text-4xl lg:text-[3.5rem] font-black text-[#0A182D] mb-8 leading-[1.05] tracking-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-[#0A182D] mb-6 sm:mb-8 leading-[1.1] tracking-tight">
                 مبنية لشركاء التجارة والأعمال
               </h2>
               <p className="text-slate-500 text-lg leading-relaxed mb-10">
@@ -678,12 +664,12 @@ export default function App() {
       </section>
 
       {/* ═══ Coverage / Markets ═══ */}
-      <section className="py-32 bg-[#0F2442]">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 text-center mb-20">
-          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-4 flex justify-center">
+      <section className="py-16 sm:py-24 md:py-32 bg-[#0F2442]">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 text-center mb-10 sm:mb-20">
+          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-3 sm:mb-4 flex justify-center">
             • التغطية المحلية
           </div>
-          <h2 className="text-4xl lg:text-[3.5rem] font-black text-white mb-6 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-white mb-4 sm:mb-6 tracking-tight">
             الشحن لجميع المناطق
           </h2>
           <p className="text-white/60 text-lg max-w-2xl mx-auto">
@@ -694,10 +680,14 @@ export default function App() {
 
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div className="bg-[#172A46] rounded-[2rem] border border-white/5 h-[480px] flex items-center justify-center relative overflow-hidden">
+            <div className="bg-[#172A46] rounded-[2rem] border border-white/5 h-[280px] sm:h-[480px] flex items-center justify-center relative overflow-hidden">
+              <Globe
+                size={280}
+                className="text-white/[0.03] absolute -right-16 -bottom-16 sm:hidden"
+              />
               <Globe
                 size={400}
-                className="text-white/[0.03] absolute -right-20 -bottom-20"
+                className="text-white/[0.03] absolute -right-20 -bottom-20 hidden sm:block"
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="relative">
@@ -736,12 +726,12 @@ export default function App() {
       </section>
 
       {/* ═══ Testimonials ═══ */}
-      <section className="py-32 bg-slate-50">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 text-center mb-20">
-          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-4 flex justify-center">
+      <section className="py-16 sm:py-24 md:py-32 bg-slate-50">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 text-center mb-10 sm:mb-20">
+          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-3 sm:mb-4 flex justify-center">
             • شهادات العملاء
           </div>
-          <h2 className="text-4xl lg:text-[3.5rem] font-black text-[#0A182D] mb-6 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-[#0A182D] mb-4 sm:mb-6 tracking-tight">
             موثوقون من قبل المشترين
           </h2>
           <p className="text-slate-500 text-lg max-w-2xl mx-auto">
@@ -778,14 +768,14 @@ export default function App() {
       </section>
 
       {/* ═══ FAQ ═══ */}
-      <section id="faq" className="py-32 bg-white">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-            <div className="lg:col-span-5 sticky top-32">
-              <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-4">
+      <section id="faq" className="py-16 sm:py-24 md:py-32 bg-white">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-24 items-start">
+            <div className="lg:col-span-5 lg:sticky lg:top-32">
+              <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-3 sm:mb-4">
                 • الأسئلة الشائعة
               </div>
-              <h2 className="text-4xl lg:text-[3.5rem] font-black text-[#0A182D] mb-8 leading-[1.05] tracking-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-[#0A182D] mb-6 sm:mb-8 leading-[1.1] tracking-tight">
                 تُطرح باستمرار من قبل المشترين
               </h2>
               <p className="text-slate-500 text-lg leading-relaxed mb-10">
@@ -813,7 +803,7 @@ export default function App() {
                       onClick={() =>
                         setOpenFaq(openFaq === idx ? null : idx)
                       }
-                      className="w-full text-start px-8 py-6 flex items-center justify-between font-bold text-[#0A182D] hover:bg-slate-50 transition-colors text-lg gap-4"
+                      className="w-full text-start px-5 sm:px-8 py-5 sm:py-6 flex items-center justify-between font-bold text-[#0A182D] active:bg-slate-50 hover:bg-slate-50 transition-colors text-base sm:text-lg gap-3 sm:gap-4 touch-manipulation min-h-[56px]"
                     >
                       <span>{faq.q}</span>
                       <ChevronDown
@@ -846,12 +836,12 @@ export default function App() {
       </section>
 
       {/* ═══ CTA + Contact Form ═══ */}
-      <section id="contact" className="py-32 bg-[#0F2442] border-b border-white/10">
-        <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center mb-16">
-          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-6 flex justify-center">
+      <section id="contact" className="py-16 sm:py-24 md:py-32 bg-[#0F2442] border-b border-white/10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 text-center mb-10 sm:mb-16">
+          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-4 sm:mb-6 flex justify-center">
             • ابدأ التوريد اليوم
           </div>
-          <h2 className="text-4xl lg:text-[4rem] font-black text-white mb-8 leading-[1.05] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[4rem] font-black text-white mb-6 sm:mb-8 leading-[1.15] tracking-tight">
             جاهز لتوريد منتجات
             <br /> غذائية فاخرة؟
           </h2>
@@ -885,12 +875,12 @@ export default function App() {
         </div>
 
         {/* Supply request form */}
-        <div className="max-w-2xl mx-auto px-6 lg:px-12">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-12">
           <form
             action="https://formspree.io/f/xjkyzzbq"
             method="POST"
             onSubmit={handleSubmit}
-            className="bg-white rounded-[2rem] p-8 md:p-10 shadow-2xl space-y-5 text-start"
+            className="bg-white rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-8 md:p-10 shadow-2xl space-y-4 sm:space-y-5 text-start"
           >
             <h3 className="text-2xl font-black text-[#0A182D] mb-2 text-center">
               📝 قدم طلب توريد الآن
@@ -1016,9 +1006,9 @@ export default function App() {
       </section>
 
       {/* ═══ Corporate Footer ═══ */}
-      <footer className="bg-[#0A182D] text-white/80 pt-24 pb-12">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+      <footer className="bg-[#0A182D] text-white/80 pt-14 sm:pt-20 md:pt-24 pb-10 sm:pb-12">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-16 mb-12 sm:mb-20">
             <div className="space-y-8">
               <a
                 href="#home"
@@ -1164,12 +1154,11 @@ export default function App() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="تواصل عبر واتساب"
-        className="fixed bottom-6 left-6 z-[60] w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_8px_28px_rgba(37,211,102,0.5)] hover:shadow-[0_12px_36px_rgba(37,211,102,0.65)] hover:scale-110 transition-all duration-300"
+        className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-[max(1.25rem,env(safe-area-inset-left))] z-[60] w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_8px_28px_rgba(37,211,102,0.5)] active:scale-95 hover:scale-105 transition-transform duration-200 touch-manipulation"
       >
-        <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
         </svg>
-        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20 pointer-events-none" />
       </a>
     </div>
   );

@@ -16,15 +16,56 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     @apply bg-white text-slate-800 antialiased;
     font-family: "Tajawal", sans-serif;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
 
   ::selection {
     background-color: #E66A1F;
     color: #ffffff;
+  }
+
+  img {
+    content-visibility: auto;
+  }
+
+  @media (max-width: 767px) {
+    html {
+      scroll-padding-top: 8rem;
+    }
+
+    .glass-card {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    section {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 640px;
+    }
+
+    #home {
+      content-visibility: visible;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
