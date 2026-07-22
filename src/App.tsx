@@ -252,14 +252,24 @@ export default function App() {
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 h-[88px] md:h-24 flex justify-between items-center">
           <a
             href="#home"
-            className="flex items-center shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F4B41A]/60 rounded-lg"
+            className="flex items-center gap-3 sm:gap-4 shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F4B41A]/60 rounded-lg"
             aria-label="تسامي الوطنية — الصفحة الرئيسية"
           >
             <img
-              src="/logo.png"
-              alt="تسامي الوطنية | Tasami Al-Wataniya"
-              className="h-14 sm:h-16 md:h-[72px] w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)] transition-transform duration-300 group-hover:scale-[1.03]"
+              src="/logo-mark.png"
+              alt=""
+              aria-hidden="true"
+              className="h-11 sm:h-12 md:h-14 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)] transition-transform duration-300 group-hover:scale-[1.03]"
             />
+            <span className="flex flex-col justify-center border-r border-white/15 pr-3 sm:pr-4 min-w-0">
+              <span className="font-brand text-base sm:text-xl md:text-2xl font-black leading-tight tracking-tight text-white group-hover:text-white/95 transition-colors">
+                تسامي{" "}
+                <span className="text-[#2A7A42]">الوطنية</span>
+              </span>
+              <span className="font-brand mt-0.5 text-[10px] sm:text-xs md:text-[13px] font-bold leading-snug text-[#E66A1F]">
+                توريدات الجملة للمطاعم والأسواق
+              </span>
+            </span>
           </a>
 
           <div className="hidden md:flex items-center gap-10 font-bold text-white text-sm">
@@ -1010,12 +1020,25 @@ export default function App() {
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
             <div className="space-y-8">
-              <a href="#home" className="inline-block" aria-label="تسامي الوطنية">
+              <a
+                href="#home"
+                className="inline-flex items-center gap-4 group"
+                aria-label="تسامي الوطنية"
+              >
                 <img
-                  src="/logo.png"
-                  alt="تسامي الوطنية | Tasami Al-Wataniya"
-                  className="h-20 sm:h-24 w-auto object-contain"
+                  src="/logo-mark.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="h-14 sm:h-16 w-auto object-contain"
                 />
+                <span className="flex flex-col border-r border-white/15 pr-4">
+                  <span className="font-brand text-xl sm:text-2xl font-black text-white leading-tight">
+                    تسامي <span className="text-[#2A7A42]">الوطنية</span>
+                  </span>
+                  <span className="font-brand mt-1 text-xs sm:text-sm font-bold text-[#E66A1F]">
+                    توريدات الجملة للمطاعم والأسواق
+                  </span>
+                </span>
               </a>
               <p className="text-sm leading-relaxed text-white/60">
                 المورد الموثوق لقطاع المطاعم والأسواق المركزية في المملكة

@@ -10,6 +10,7 @@
   --color-green-dark: #15803D;
   --color-logo-green: #2A7A42;
   --font-sans: "Tajawal", sans-serif;
+  --font-brand: "Cairo", "Tajawal", sans-serif;
 }
 
 @layer base {
