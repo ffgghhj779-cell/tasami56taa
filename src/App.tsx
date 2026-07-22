@@ -248,7 +248,7 @@ export default function App() {
   return (
     <div className="font-sans text-slate-800 bg-white selection:bg-[#F4B41A] selection:text-white">
       {/* ═══ Navbar — dark navy like Shengda ═══ */}
-      <nav className="bg-[#0A182D] w-full z-50 sticky top-0 border-b border-white/5">
+      <nav className="bg-[#0E2A47] w-full z-50 sticky top-0">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 h-[88px] md:h-24 flex justify-between items-center">
           <a
             href="#home"
@@ -302,7 +302,7 @@ export default function App() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="md:hidden bg-[#0A182D] border-t border-white/10 overflow-hidden"
+              className="md:hidden bg-[#0E2A47] border-t border-white/10 overflow-hidden"
             >
               <div className="flex flex-col p-6 gap-6 font-bold text-white">
                 {navLinks.map((link) => (
