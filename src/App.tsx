@@ -1,4 +1,10 @@
-import { useState, FormEvent, useEffect } from "react";
+import {
+  useState,
+  FormEvent,
+  useEffect,
+  useRef,
+  type ReactNode,
+} from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   ChevronDown,
@@ -12,6 +18,82 @@ import {
   Quote,
   Star,
 } from "lucide-react";
+
+const WHATSAPP_URL = "https://wa.me/966550266838";
+
+function quoteWhatsApp(productTitle: string) {
+  return `${WHATSAPP_URL}?text=${encodeURIComponent(
+    `السلام عليكم، أرغب في طلب تسعيرة لمنتج: ${productTitle}`,
+  )}`;
+}
+
+function scrollToSection(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const header = document.querySelector("nav");
+  const offset = header instanceof HTMLElement ? header.offsetHeight + 8 : 96;
+  const top = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  history.replaceState(null, "", `#${id}`);
+}
+
+/** Mobile horizontal scroller; on sm+ children join parent grid via display:contents */
+function HScroll({
+  children,
+  wide = false,
+  hint = "اسحب للتصفح ←",
+  showHint = true,
+}: {
+  children: ReactNode;
+  wide?: boolean;
+  hint?: string;
+  showHint?: boolean;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const scrollNext = () => {
+    const el = ref.current;
+    if (!el) return;
+    const items = Array.from(el.children) as HTMLElement[];
+    if (!items.length) return;
+
+    const containerLeft = el.getBoundingClientRect().left;
+    let current = 0;
+    for (let i = 0; i < items.length; i++) {
+      const left = items[i].getBoundingClientRect().left;
+      if (left >= containerLeft - 24) {
+        current = i;
+        break;
+      }
+    }
+    const next = items[Math.min(current + 1, items.length - 1)];
+    next.scrollIntoView({
+      behavior: "smooth",
+      inline: "start",
+      block: "nearest",
+    });
+  };
+
+  return (
+    <div className="h-scroll-wrap min-w-0 w-full max-w-full">
+      {showHint && (
+        <button
+          type="button"
+          onClick={scrollNext}
+          className="sm:hidden text-xs font-bold text-[#E66A1F] mb-4 mx-auto flex items-center justify-center gap-1 touch-manipulation active:opacity-70"
+        >
+          {hint}
+        </button>
+      )}
+      <div
+        ref={ref}
+        className={`h-scroll${wide ? " h-scroll-wide" : ""}`}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
 
 /* ─────────────────────────────────────────────
    Data — structure mirrors shengdameat.com
@@ -75,31 +157,37 @@ const products = [
   {
     img: "/products/chilled-poultry.jpg",
     title: "دواجن مبردة",
+    formValue: "دواجن مبردة",
     desc: "كميات تبدأ من 10 كرتون. منتجات معتمدة ومذبوحة وفق الشريعة الإسلامية، مطابقة لمواصفات هيئة الغذاء والدواء.",
   },
   {
     img: "/products/fresh-poultry.jpg",
     title: "دواجن فريش",
+    formValue: "دواجن فريش",
     desc: "كميات تبدأ من 10 كرتون. طازجة يومياً لتلبية احتياجات المطاعم والأسواق المركزية.",
   },
   {
     img: "/products/fries.jpg",
     title: "بطاطس شرائح (مجمدة)",
+    formValue: "بطاطس شرائح مجمدة",
     desc: "كميات تبدأ من 20 كيس. بطاطس شرائح جاهزة للقلي تلبي احتياجات قطاع المطاعم.",
   },
   {
     img: "/products/eggs.jpg",
     title: "بيض طازج (مزارع)",
+    formValue: "بيض طازج",
     desc: "كميات تبدأ من 50 كرتونة. بيض مائدة طازج عالي الجودة من مزارع معتمدة.",
   },
   {
     img: "/products/chicken-legs.jpg",
     title: "أفخاذ دجاج كاملة",
+    formValue: "دواجن مبردة",
     desc: "بالعظم والجلد؛ يسعر بالوزن. منتجات معتمدة ومطابقة لأعلى معايير الجودة.",
   },
   {
     img: "/products/chicken-breast.jpg",
     title: "صدور دجاج بدون عظم",
+    formValue: "دواجن مبردة",
     desc: "بدون عظم وجلد؛ يسعر بالوزن. منتجة في منشآت تلبي أعلى معايير السلامة الغذائية.",
   },
 ];
@@ -255,7 +343,7 @@ export default function App() {
   }
 
   return (
-    <div className="font-sans text-slate-800 bg-white selection:bg-[#F4B41A] selection:text-white overflow-x-hidden">
+    <div className="font-sans text-slate-800 bg-white selection:bg-[#F4B41A] selection:text-white">
       {/* ═══ Navbar — Shengda mobile: centered brand + links under ═══ */}
       <nav className="bg-[#0E2A47] w-full z-50 sticky top-0">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 py-3 md:py-0 md:h-24 flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-6">
@@ -288,6 +376,10 @@ export default function App() {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(link.href.slice(1));
+                }}
                 className={`transition-colors active:opacity-80 touch-manipulation hover:text-[#F4B41A] ${
                   i === 0 ? "text-[#F4B41A]" : ""
                 }`}
@@ -346,17 +438,23 @@ export default function App() {
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 max-w-md sm:max-w-none mx-auto">
               <a
-                href="#contact"
+                href={`${WHATSAPP_URL}?text=${encodeURIComponent("السلام عليكم، أرغب في طلب عرض سعر للجملة")}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#16A34A] active:bg-[#15803D] hover:bg-[#15803D] text-white px-8 py-3.5 sm:py-4 rounded-md font-bold transition-colors text-base sm:text-lg shadow-[0_6px_20px_rgba(22,163,74,0.35)] touch-manipulation"
               >
-                طلب عرض سعر
+                طلب عرض سعر واتساب
                 <ArrowLeft size={18} className="sm:w-5 sm:h-5" />
               </a>
               <a
-                href="#products"
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("contact");
+                }}
                 className="w-full sm:w-auto inline-flex items-center justify-center bg-white/10 active:bg-white/20 hover:bg-white/20 text-white border border-white/25 px-8 py-3.5 sm:py-4 rounded-md font-bold transition-colors text-base sm:text-lg touch-manipulation"
               >
-                عرض المنتجات
+                نموذج التوريد
               </a>
             </div>
 
@@ -403,16 +501,13 @@ export default function App() {
           <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-black text-[#0A182D] mb-4 sm:mb-6 tracking-tight">
             مبنية للامتثال للمعايير العالمية
           </h2>
-          <p className="text-slate-500 text-base sm:text-lg max-w-3xl mx-auto mb-6 sm:mb-16">
+          <p className="text-slate-500 text-base sm:text-lg max-w-3xl mx-auto mb-6 sm:mb-16 px-1">
             كل شحنة مدعومة بالشهادات، والتتبع، والوثائق الصارمة التي يطلبها
             المشترون وهيئة الغذاء والدواء.
           </p>
-          <p className="sm:hidden text-xs font-bold text-[#E66A1F] mb-4 flex items-center justify-center gap-1">
-            اسحب للتصفح ←
-          </p>
 
           <div className="sm:grid sm:grid-cols-2 lg:grid-cols-5 sm:gap-6">
-            <div className="h-scroll">
+            <HScroll hint="اسحب للتصفح ←">
               {certifications.map((cert, idx) => (
                 <motion.div
                   key={idx}
@@ -433,7 +528,7 @@ export default function App() {
                   </p>
                 </motion.div>
               ))}
-            </div>
+            </HScroll>
           </div>
         </div>
       </section>
@@ -442,11 +537,11 @@ export default function App() {
       <section id="about" className="py-14 sm:py-20 md:py-24 bg-white border-t border-slate-100">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-            <div>
+            <div className="min-w-0">
               <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-3 sm:mb-4">
                 • عن المؤسسة
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-[#0A182D] mb-6 sm:mb-8 leading-[1.1] tracking-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-[#0A182D] mb-6 sm:mb-8 leading-[1.15] tracking-tight break-words">
                 شريكك الموثوق لتوريد الأغذية
               </h2>
 
@@ -472,19 +567,16 @@ export default function App() {
               </div>
             </div>
 
-            <div className="lg:pt-4">
-              <p className="text-slate-500 text-lg leading-relaxed mb-10">
+            <div className="lg:pt-4 min-w-0">
+              <p className="text-slate-500 text-base sm:text-lg leading-relaxed mb-10 break-words">
                 مؤسسة تسامي الوطنية هي مورد سعودي موثوق يقدم منتجات الدواجن
                 والأغذية المجمدة عالية الجودة للمشترين التجاريين في جميع أنحاء
                 المملكة العربية السعودية. يمكننا تخصيص المنتجات بمواصفات مختلفة
                 لتناسب احتياجات المطاعم والأسواق المركزية.
               </p>
 
-              <p className="sm:hidden text-xs font-bold text-[#E66A1F] mb-3">
-                اسحب للتصفح ←
-              </p>
               <div className="sm:grid sm:grid-cols-2 sm:gap-6 mb-10 sm:mb-12">
-                <div className="h-scroll">
+                <HScroll hint="اسحب للتصفح ←">
                   {miniCards.map((card, idx) => (
                     <div
                       key={idx}
@@ -501,12 +593,16 @@ export default function App() {
                       </p>
                     </div>
                   ))}
-                </div>
+                </HScroll>
               </div>
 
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center bg-[#0A182D] hover:bg-[#132b52] text-white px-8 py-4 rounded-md font-bold transition-all text-lg hover:scale-[1.02]"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("contact");
+                }}
+                className="inline-flex items-center justify-center bg-[#0A182D] hover:bg-[#132b52] text-white px-8 py-4 rounded-md font-bold transition-all text-lg hover:scale-[1.02] touch-manipulation"
               >
                 تحدث مع فريق التوريد
                 <ArrowLeft size={20} className="mr-3" />
@@ -537,17 +633,18 @@ export default function App() {
             </h3>
             <a
               href="#contact"
-              className="text-sm font-bold text-[#0A182D] hover:text-[#F4B41A] transition-colors inline-flex items-center gap-1"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("contact");
+              }}
+              className="text-sm font-bold text-[#0A182D] hover:text-[#F4B41A] transition-colors inline-flex items-center gap-1 touch-manipulation"
             >
               عرض الكل <ArrowLeft size={16} />
             </a>
           </div>
-          <p className="sm:hidden text-xs font-bold text-[#E66A1F] mb-4">
-            اسحب لاستعراض المنتجات ←
-          </p>
 
           <div className="sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
-            <div className="h-scroll h-scroll-wide">
+            <HScroll wide hint="اسحب لاستعراض المنتجات ←">
               {products.map((product, idx) => (
                 <motion.div
                   key={idx}
@@ -576,16 +673,34 @@ export default function App() {
                   <p className="text-slate-500 text-sm leading-relaxed mb-5 sm:mb-8 flex-grow">
                     {product.desc}
                   </p>
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center justify-center w-full sm:w-max px-6 py-3 border border-[#F4B41A] text-[#0A182D] rounded-md font-bold transition-colors text-sm hover:bg-[#F4B41A] touch-manipulation"
-                  >
-                    طلب تسعيرة
-                    <ArrowLeft size={16} className="mr-2" />
-                  </a>
+                  <div className="flex flex-col gap-2 mt-auto">
+                    <a
+                      href={quoteWhatsApp(product.title)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center w-full px-6 py-3 bg-[#16A34A] hover:bg-[#15803D] text-white rounded-md font-bold transition-colors text-sm touch-manipulation"
+                    >
+                      طلب تسعيرة واتساب
+                      <ArrowLeft size={16} className="mr-2" />
+                    </a>
+                    <a
+                      href="#contact"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const select = document.getElementById(
+                          "product",
+                        ) as HTMLSelectElement | null;
+                        if (select) select.value = product.formValue;
+                        scrollToSection("contact");
+                      }}
+                      className="inline-flex items-center justify-center w-full px-6 py-3 border border-[#F4B41A] text-[#0A182D] rounded-md font-bold transition-colors text-sm hover:bg-[#F4B41A] touch-manipulation"
+                    >
+                      طلب عبر النموذج
+                    </a>
+                  </div>
                 </motion.div>
               ))}
-            </div>
+            </HScroll>
           </div>
         </div>
       </section>
@@ -603,12 +718,9 @@ export default function App() {
             عملية مبسطة من خمس خطوات مصممة للمشترين الذين يقدرون السرعة،
             الدقة، والشفافية.
           </p>
-          <p className="sm:hidden text-xs font-bold text-[#F4B41A] mb-4">
-            اسحب لخطوات التوريد ←
-          </p>
 
           <div className="sm:grid sm:grid-cols-2 md:grid-cols-5 sm:gap-4 lg:gap-6">
-            <div className="h-scroll">
+            <HScroll hint="اسحب لخطوات التوريد ←">
               {processSteps.map((step, idx) => (
                 <motion.div
                   key={idx}
@@ -632,7 +744,7 @@ export default function App() {
                   </p>
                 </motion.div>
               ))}
-            </div>
+            </HScroll>
           </div>
         </div>
       </section>
@@ -641,7 +753,7 @@ export default function App() {
       <section className="py-16 sm:py-24 md:py-32 bg-white">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-24">
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 min-w-0">
               <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-3 sm:mb-4">
                 • لماذا تختارنا
               </div>
@@ -654,19 +766,20 @@ export default function App() {
               </p>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center bg-[#0A182D] hover:bg-[#132b52] text-white px-8 py-4 rounded-md font-bold transition-all text-lg"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("contact");
+                }}
+                className="inline-flex items-center justify-center bg-[#0A182D] hover:bg-[#132b52] text-white px-8 py-4 rounded-md font-bold transition-all text-lg touch-manipulation"
               >
                 تحدث مع فريق المبيعات
                 <ArrowLeft size={20} className="mr-3" />
               </a>
             </div>
 
-            <div className="lg:col-span-7">
-              <p className="sm:hidden text-xs font-bold text-[#E66A1F] mb-3">
-                اسحب للأسباب ←
-              </p>
+            <div className="lg:col-span-7 min-w-0">
               <div className="sm:grid sm:grid-cols-2 sm:gap-4">
-                <div className="h-scroll">
+                <HScroll hint="اسحب للأسباب ←">
                   {reasons.map((reason, idx) => (
                     <div
                       key={idx}
@@ -683,7 +796,7 @@ export default function App() {
                       </p>
                     </div>
                   ))}
-                </div>
+                </HScroll>
               </div>
             </div>
           </div>
@@ -736,7 +849,7 @@ export default function App() {
             </div>
 
             <div className="grid sm:grid-cols-2 sm:gap-4">
-              <div className="h-scroll">
+              <HScroll hint="اسحب للمناطق ←">
               {regions.map((region, idx) => (
                 <div
                   key={idx}
@@ -748,7 +861,7 @@ export default function App() {
                   <h4 className="text-lg sm:text-xl font-bold text-white">{region}</h4>
                 </div>
               ))}
-              </div>
+              </HScroll>
             </div>
           </div>
         </div>
@@ -768,12 +881,9 @@ export default function App() {
           </p>
         </div>
 
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <p className="sm:hidden text-xs font-bold text-[#E66A1F] mb-4">
-            اسحب لآراء العملاء ←
-          </p>
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="sm:grid sm:grid-cols-2 md:grid-cols-3 sm:gap-6">
-            <div className="h-scroll h-scroll-wide">
+            <HScroll wide hint="اسحب لآراء العملاء ←">
               {testimonials.map((test, idx) => (
                 <div
                   key={idx}
@@ -796,7 +906,7 @@ export default function App() {
                   </div>
                 </div>
               ))}
-            </div>
+            </HScroll>
           </div>
         </div>
       </section>
@@ -818,7 +928,11 @@ export default function App() {
               </p>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center bg-[#0A182D] hover:bg-[#132b52] text-white px-8 py-4 rounded-md font-bold transition-all text-lg"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("contact");
+                }}
+                className="inline-flex items-center justify-center bg-[#0A182D] hover:bg-[#132b52] text-white px-8 py-4 rounded-md font-bold transition-all text-lg touch-manipulation"
               >
                 تواصل معنا الآن
                 <ArrowLeft size={20} className="mr-3" />
@@ -892,10 +1006,10 @@ export default function App() {
               📞 055 026 6838
             </a>
             <a
-              href="https://wa.me/966550266838"
+              href={`${WHATSAPP_URL}?text=${encodeURIComponent("السلام عليكم، أرغب في الاستفسار عن توريد الجملة")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center bg-transparent border border-white/20 hover:bg-white/10 text-white px-10 py-5 rounded-md font-bold transition-all text-lg"
+              className="w-full sm:w-auto inline-flex items-center justify-center bg-transparent border border-white/20 hover:bg-white/10 text-white px-10 py-5 rounded-md font-bold transition-all text-lg touch-manipulation"
             >
               مبيعات الواتساب
             </a>
@@ -1076,13 +1190,24 @@ export default function App() {
               </h4>
               <ul className="space-y-4 text-sm font-medium">
                 <li>
-                  <a href="#home" className="hover:text-white transition-colors">
+                  <a
+                    href="#home"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("home");
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
                     الرئيسية
                   </a>
                 </li>
                 <li>
                   <a
                     href="#about"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("about");
+                    }}
                     className="hover:text-white transition-colors"
                   >
                     من نحن
@@ -1091,13 +1216,24 @@ export default function App() {
                 <li>
                   <a
                     href="#certifications"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("certifications");
+                    }}
                     className="hover:text-white transition-colors"
                   >
                     الشهادات
                   </a>
                 </li>
                 <li>
-                  <a href="#faq" className="hover:text-white transition-colors">
+                  <a
+                    href="#faq"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("faq");
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
                     الأسئلة الشائعة
                   </a>
                 </li>
@@ -1112,6 +1248,10 @@ export default function App() {
                 <li>
                   <a
                     href="#products"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("products");
+                    }}
                     className="hover:text-white transition-colors"
                   >
                     دواجن مبردة وفريش
@@ -1120,6 +1260,10 @@ export default function App() {
                 <li>
                   <a
                     href="#products"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("products");
+                    }}
                     className="hover:text-white transition-colors"
                   >
                     أفخاذ وصدور دجاج
@@ -1128,6 +1272,10 @@ export default function App() {
                 <li>
                   <a
                     href="#products"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("products");
+                    }}
                     className="hover:text-white transition-colors"
                   >
                     بطاطس شرائح (جملة)
@@ -1136,6 +1284,10 @@ export default function App() {
                 <li>
                   <a
                     href="#products"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("products");
+                    }}
                     className="hover:text-white transition-colors"
                   >
                     بيض طازج من المزارع
@@ -1184,7 +1336,7 @@ export default function App() {
 
       {/* Floating WhatsApp */}
       <a
-        href="https://wa.me/966550266838"
+        href={`${WHATSAPP_URL}?text=${encodeURIComponent("السلام عليكم، أرغب في الاستفسار عن توريد الجملة من تسامي الوطنية")}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="تواصل عبر واتساب"
