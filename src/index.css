@@ -35,7 +35,7 @@
     content-visibility: auto;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 639px) {
     html {
       scroll-padding-top: 8rem;
     }
@@ -52,6 +52,44 @@
 
     #home {
       content-visibility: visible;
+    }
+
+    .h-scroll {
+      display: flex;
+      gap: 0.875rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 0.75rem;
+      margin-inline: -1rem;
+      padding-inline: 1rem;
+      overscroll-behavior-x: contain;
+    }
+
+    .h-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .h-scroll > * {
+      scroll-snap-align: center;
+      flex: 0 0 min(78vw, 290px);
+    }
+
+    .h-scroll-wide > * {
+      flex: 0 0 min(85vw, 320px);
+    }
+  }
+
+  @media (min-width: 640px) {
+    .h-scroll {
+      display: contents;
+    }
+  }
+
+  @media (max-width: 767px) {
+    html {
+      scroll-padding-top: 8rem;
     }
   }
 

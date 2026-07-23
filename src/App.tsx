@@ -73,32 +73,32 @@ const miniCards = [
 
 const products = [
   {
-    img: "https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=800&q=80",
+    img: "/products/chilled-poultry.jpg",
     title: "دواجن مبردة",
     desc: "كميات تبدأ من 10 كرتون. منتجات معتمدة ومذبوحة وفق الشريعة الإسلامية، مطابقة لمواصفات هيئة الغذاء والدواء.",
   },
   {
-    img: "https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=800&q=80",
+    img: "/products/fresh-poultry.jpg",
     title: "دواجن فريش",
     desc: "كميات تبدأ من 10 كرتون. طازجة يومياً لتلبية احتياجات المطاعم والأسواق المركزية.",
   },
   {
-    img: "https://images.unsplash.com/photo-1518013431117-eb94217b7943?auto=format&fit=crop&w=800&q=80",
+    img: "/products/fries.jpg",
     title: "بطاطس شرائح (مجمدة)",
     desc: "كميات تبدأ من 20 كيس. بطاطس شرائح جاهزة للقلي تلبي احتياجات قطاع المطاعم.",
   },
   {
-    img: "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=800&q=80",
+    img: "/products/eggs.jpg",
     title: "بيض طازج (مزارع)",
     desc: "كميات تبدأ من 50 كرتونة. بيض مائدة طازج عالي الجودة من مزارع معتمدة.",
   },
   {
-    img: "https://images.unsplash.com/photo-1604543519968-3e5860e6f6cb?auto=format&fit=crop&w=800&q=80",
+    img: "/products/chicken-legs.jpg",
     title: "أفخاذ دجاج كاملة",
     desc: "بالعظم والجلد؛ يسعر بالوزن. منتجات معتمدة ومطابقة لأعلى معايير الجودة.",
   },
   {
-    img: "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=800&q=80",
+    img: "/products/chicken-breast.jpg",
     title: "صدور دجاج بدون عظم",
     desc: "بدون عظم وجلد؛ يسعر بالوزن. منتجة في منشآت تلبي أعلى معايير السلامة الغذائية.",
   },
@@ -403,32 +403,37 @@ export default function App() {
           <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-black text-[#0A182D] mb-4 sm:mb-6 tracking-tight">
             مبنية للامتثال للمعايير العالمية
           </h2>
-          <p className="text-slate-500 text-base sm:text-lg max-w-3xl mx-auto mb-10 sm:mb-16">
+          <p className="text-slate-500 text-base sm:text-lg max-w-3xl mx-auto mb-6 sm:mb-16">
             كل شحنة مدعومة بالشهادات، والتتبع، والوثائق الصارمة التي يطلبها
             المشترون وهيئة الغذاء والدواء.
           </p>
+          <p className="sm:hidden text-xs font-bold text-[#E66A1F] mb-4 flex items-center justify-center gap-1">
+            اسحب للتصفح ←
+          </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
-            {certifications.map((cert, idx) => (
-              <motion.div
-                key={idx}
-                initial={motionOff ? false : { opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ delay: motionOff ? 0 : idx * 0.05, duration: motionOff ? 0 : 0.35 }}
-                className="bg-white p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0_4px_24px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col items-center text-center"
-              >
-                <div className="w-14 h-14 rounded-full bg-slate-50 flex items-center justify-center mb-6 border border-slate-100">
-                  <cert.icon size={24} className="text-[#0A182D]" />
-                </div>
-                <h3 className="text-lg font-bold text-[#0A182D] mb-3">
-                  {cert.title}
-                </h3>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  {cert.desc}
-                </p>
-              </motion.div>
-            ))}
+          <div className="sm:grid sm:grid-cols-2 lg:grid-cols-5 sm:gap-6">
+            <div className="h-scroll">
+              {certifications.map((cert, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={motionOff ? false : { opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ delay: motionOff ? 0 : idx * 0.05, duration: motionOff ? 0 : 0.35 }}
+                  className="bg-white p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0_8px_30px_rgba(10,24,45,0.08)] border border-slate-100 flex flex-col items-center text-center"
+                >
+                  <div className="w-14 h-14 rounded-full bg-slate-50 flex items-center justify-center mb-6 border border-slate-100">
+                    <cert.icon size={24} className="text-[#0A182D]" />
+                  </div>
+                  <h3 className="text-lg font-bold text-[#0A182D] mb-3">
+                    {cert.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">
+                    {cert.desc}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -475,23 +480,28 @@ export default function App() {
                 لتناسب احتياجات المطاعم والأسواق المركزية.
               </p>
 
-              <div className="grid sm:grid-cols-2 gap-6 mb-12">
-                {miniCards.map((card, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-white p-8 rounded-[2rem] shadow-[0_4px_24px_rgb(0,0,0,0.04)] border border-slate-100 hover:shadow-[0_8px_32px_rgba(10,24,45,0.08)] transition-shadow"
-                  >
-                    <div className="w-8 h-8 rounded-full border border-[#F4B41A]/30 flex items-center justify-center mb-5">
-                      <span className="w-2 h-2 rounded-full border-[1.5px] border-[#F4B41A]" />
+              <p className="sm:hidden text-xs font-bold text-[#E66A1F] mb-3">
+                اسحب للتصفح ←
+              </p>
+              <div className="sm:grid sm:grid-cols-2 sm:gap-6 mb-10 sm:mb-12">
+                <div className="h-scroll">
+                  {miniCards.map((card, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-white p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0_8px_30px_rgba(10,24,45,0.08)] border border-slate-100"
+                    >
+                      <div className="w-8 h-8 rounded-full border border-[#F4B41A]/30 flex items-center justify-center mb-5">
+                        <span className="w-2 h-2 rounded-full border-[1.5px] border-[#F4B41A]" />
+                      </div>
+                      <h4 className="text-lg font-bold text-[#0A182D] mb-3">
+                        {card.title}
+                      </h4>
+                      <p className="text-slate-500 text-sm leading-relaxed">
+                        {card.desc}
+                      </p>
                     </div>
-                    <h4 className="text-lg font-bold text-[#0A182D] mb-3">
-                      {card.title}
-                    </h4>
-                    <p className="text-slate-500 text-sm leading-relaxed">
-                      {card.desc}
-                    </p>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
 
               <a
@@ -521,8 +531,8 @@ export default function App() {
             المطاعم والأسواق المركزية.
           </p>
 
-          <div className="flex justify-between items-center mb-8 border-b border-slate-100 pb-4">
-            <h3 className="text-2xl font-bold text-[#0A182D]">
+          <div className="flex justify-between items-center mb-4 sm:mb-8 border-b border-slate-100 pb-4">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#0A182D]">
               أفضل المنتجات مبيعاً
             </h3>
             <a
@@ -532,43 +542,50 @@ export default function App() {
               عرض الكل <ArrowLeft size={16} />
             </a>
           </div>
+          <p className="sm:hidden text-xs font-bold text-[#E66A1F] mb-4">
+            اسحب لاستعراض المنتجات ←
+          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {products.map((product, idx) => (
-              <motion.div
-                key={idx}
-                initial={motionOff ? false : { opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ delay: motionOff ? 0 : idx * 0.04, duration: motionOff ? 0 : 0.35 }}
-                className="bg-white rounded-[1.5rem] sm:rounded-[2rem] shadow-[0_4px_24px_rgb(0,0,0,0.03)] border border-slate-100 p-5 sm:p-8 flex flex-col group"
-              >
-                <div className="bg-[#F8FAFC] rounded-2xl mb-5 sm:mb-8 flex items-center justify-center p-4 sm:p-8 h-52 sm:h-64 border border-slate-100/50">
-                  <div className="relative w-full h-full bg-white shadow-sm border border-slate-200/50 rounded-xl overflow-hidden flex items-center justify-center p-2 md:group-hover:scale-105 md:transition-transform md:duration-500">
+          <div className="sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
+            <div className="h-scroll h-scroll-wide">
+              {products.map((product, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={motionOff ? false : { opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ delay: motionOff ? 0 : idx * 0.04, duration: motionOff ? 0 : 0.35 }}
+                  className="bg-white rounded-[1.5rem] sm:rounded-[2rem] shadow-[0_8px_30px_rgba(10,24,45,0.08)] border border-slate-100 p-4 sm:p-8 flex flex-col group overflow-hidden"
+                >
+                  <div className="relative rounded-2xl mb-4 sm:mb-6 overflow-hidden h-48 sm:h-56 bg-slate-100">
                     <img
                       src={product.img}
                       alt={product.title}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-cover rounded-lg"
+                      className="w-full h-full object-cover md:group-hover:scale-105 md:transition-transform md:duration-500"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A182D]/35 via-transparent to-transparent" />
+                    <span className="absolute top-3 right-3 bg-[#F4B41A] text-[#0A182D] text-[10px] font-extrabold px-2.5 py-1 rounded-md">
+                      جملة
+                    </span>
                   </div>
-                </div>
-                <h4 className="text-xl font-bold text-[#0A182D] mb-4">
-                  {product.title}
-                </h4>
-                <p className="text-slate-500 text-sm leading-relaxed mb-8 flex-grow">
-                  {product.desc}
-                </p>
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center w-max px-6 py-3 border border-[#F4B41A] text-[#0A182D] rounded-md font-bold transition-all text-sm hover:bg-[#F4B41A] hover:text-[#0A182D]"
-                >
-                  طلب تسعيرة
-                  <ArrowLeft size={16} className="mr-2" />
-                </a>
-              </motion.div>
-            ))}
+                  <h4 className="text-lg sm:text-xl font-bold text-[#0A182D] mb-2 sm:mb-3">
+                    {product.title}
+                  </h4>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-5 sm:mb-8 flex-grow">
+                    {product.desc}
+                  </p>
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center justify-center w-full sm:w-max px-6 py-3 border border-[#F4B41A] text-[#0A182D] rounded-md font-bold transition-colors text-sm hover:bg-[#F4B41A] touch-manipulation"
+                  >
+                    طلب تسعيرة
+                    <ArrowLeft size={16} className="mr-2" />
+                  </a>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -582,35 +599,40 @@ export default function App() {
           <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-white mb-4 sm:mb-6 leading-[1.1] tracking-tight">
             من الاستفسار إلى وجهتك النهائية
           </h2>
-          <p className="text-white/60 text-base sm:text-lg max-w-2xl mb-10 sm:mb-20">
+          <p className="text-white/60 text-base sm:text-lg max-w-2xl mb-6 sm:mb-20">
             عملية مبسطة من خمس خطوات مصممة للمشترين الذين يقدرون السرعة،
             الدقة، والشفافية.
           </p>
+          <p className="sm:hidden text-xs font-bold text-[#F4B41A] mb-4">
+            اسحب لخطوات التوريد ←
+          </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
-            {processSteps.map((step, idx) => (
-              <motion.div
-                key={idx}
-                initial={motionOff ? false : { opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ delay: motionOff ? 0 : idx * 0.05, duration: motionOff ? 0 : 0.35 }}
-                className="bg-[#172A46] border border-white/5 p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem]"
-              >
-                <div
-                  className="text-3xl font-black text-[#F4B41A] mb-6"
-                  dir="ltr"
+          <div className="sm:grid sm:grid-cols-2 md:grid-cols-5 sm:gap-4 lg:gap-6">
+            <div className="h-scroll">
+              {processSteps.map((step, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={motionOff ? false : { opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ delay: motionOff ? 0 : idx * 0.05, duration: motionOff ? 0 : 0.35 }}
+                  className="bg-[#172A46] border border-white/10 p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem]"
                 >
-                  {step.num}
-                </div>
-                <h4 className="text-xl font-bold text-white mb-3">
-                  {step.title}
-                </h4>
-                <p className="text-sm text-white/50 leading-relaxed">
-                  {step.desc}
-                </p>
-              </motion.div>
-            ))}
+                  <div
+                    className="text-3xl font-black text-[#F4B41A] mb-5"
+                    dir="ltr"
+                  >
+                    {step.num}
+                  </div>
+                  <h4 className="text-xl font-bold text-white mb-3">
+                    {step.title}
+                  </h4>
+                  <p className="text-sm text-white/50 leading-relaxed">
+                    {step.desc}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -640,23 +662,28 @@ export default function App() {
             </div>
 
             <div className="lg:col-span-7">
-              <div className="grid sm:grid-cols-2 gap-4">
-                {reasons.map((reason, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-start gap-5 bg-white p-6 rounded-2xl border border-slate-100 shadow-[0_2px_12px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_24px_rgba(10,24,45,0.06)] transition-shadow"
-                  >
-                    <span
-                      className="text-[#F4B41A] font-bold text-lg leading-none mt-1"
-                      dir="ltr"
+              <p className="sm:hidden text-xs font-bold text-[#E66A1F] mb-3">
+                اسحب للأسباب ←
+              </p>
+              <div className="sm:grid sm:grid-cols-2 sm:gap-4">
+                <div className="h-scroll">
+                  {reasons.map((reason, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-4 bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-[0_6px_24px_rgba(10,24,45,0.06)]"
                     >
-                      {String(idx + 1).padStart(2, "0")}
-                    </span>
-                    <p className="text-[#0A182D] font-bold text-sm leading-relaxed">
-                      {reason}
-                    </p>
-                  </div>
-                ))}
+                      <span
+                        className="text-[#F4B41A] font-bold text-lg leading-none mt-1"
+                        dir="ltr"
+                      >
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      <p className="text-[#0A182D] font-bold text-sm leading-relaxed">
+                        {reason}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -708,18 +735,20 @@ export default function App() {
               </div>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 sm:gap-4">
+              <div className="h-scroll">
               {regions.map((region, idx) => (
                 <div
                   key={idx}
-                  className="bg-[#172A46] border border-white/5 p-8 rounded-[1.5rem] hover:border-[#F4B41A]/25 transition-colors"
+                  className="bg-[#172A46] border border-white/10 p-6 sm:p-8 rounded-[1.5rem]"
                 >
                   <div className="text-[10px] font-bold text-[#F4B41A] uppercase tracking-[0.2em] mb-3">
                     المنطقة
                   </div>
-                  <h4 className="text-xl font-bold text-white">{region}</h4>
+                  <h4 className="text-lg sm:text-xl font-bold text-white">{region}</h4>
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </div>
@@ -740,29 +769,34 @@ export default function App() {
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((test, idx) => (
-              <div
-                key={idx}
-                className="bg-white p-10 rounded-[2rem] shadow-[0_4px_24px_rgb(0,0,0,0.03)] border border-slate-100 flex flex-col"
-              >
-                <Quote size={40} className="text-[#F4B41A]/30 mb-8" />
-                <p className="text-slate-600 text-lg leading-relaxed mb-10 flex-grow font-medium">
-                  "{test.quote}"
-                </p>
-                <div className="flex text-[#F4B41A] mb-6 gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={18} fill="currentColor" />
-                  ))}
+          <p className="sm:hidden text-xs font-bold text-[#E66A1F] mb-4">
+            اسحب لآراء العملاء ←
+          </p>
+          <div className="sm:grid sm:grid-cols-2 md:grid-cols-3 sm:gap-6">
+            <div className="h-scroll h-scroll-wide">
+              {testimonials.map((test, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white p-7 sm:p-10 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0_8px_30px_rgba(10,24,45,0.08)] border border-slate-100 flex flex-col"
+                >
+                  <Quote size={36} className="text-[#F4B41A]/30 mb-6" />
+                  <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-8 flex-grow font-medium">
+                    "{test.quote}"
+                  </p>
+                  <div className="flex text-[#F4B41A] mb-5 gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={16} fill="currentColor" />
+                    ))}
+                  </div>
+                  <div>
+                    <h5 className="font-bold text-[#0A182D] text-lg">
+                      {test.author}
+                    </h5>
+                    <div className="text-sm text-slate-500 mt-1">{test.role}</div>
+                  </div>
                 </div>
-                <div>
-                  <h5 className="font-bold text-[#0A182D] text-lg">
-                    {test.author}
-                  </h5>
-                  <div className="text-sm text-slate-500 mt-1">{test.role}</div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
