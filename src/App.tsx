@@ -33,7 +33,13 @@ function scrollToSection(id: string) {
   const header = document.querySelector("nav");
   const offset = header instanceof HTMLElement ? header.offsetHeight + 8 : 96;
   const top = el.getBoundingClientRect().top + window.scrollY - offset;
-  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  const instant =
+    window.matchMedia("(max-width: 767px)").matches ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({
+    top: Math.max(0, top),
+    behavior: instant ? "auto" : "smooth",
+  });
   history.replaceState(null, "", `#${id}`);
 }
 
@@ -67,11 +73,9 @@ function HScroll({
       }
     }
     const next = items[Math.min(current + 1, items.length - 1)];
-    next.scrollIntoView({
-      behavior: "smooth",
-      inline: "start",
-      block: "nearest",
-    });
+    const delta =
+      next.getBoundingClientRect().left - el.getBoundingClientRect().left;
+    el.scrollBy({ left: delta, behavior: "smooth" });
   };
 
   return (
@@ -102,7 +106,7 @@ function HScroll({
 const stats = [
   { value: "10+", label: "سنوات في توريد الدواجن والأغذية" },
   { value: "500+", label: "عميل راضٍ في أنحاء المملكة" },
-  { value: "100%", label: "منتجات معتمدة وعالية الجودة" },
+  { value: "100%", label: "منتجات حلال ومعتمدة" },
   { value: "24/7", label: "سلاسل إمداد مبردة ولوجستيات" },
 ];
 
@@ -391,86 +395,97 @@ export default function App() {
         </div>
       </nav>
 
-      {/* ═══ Hero — centered, dark overlay ═══ */}
+      {/* ═══ Hero — Shengda-style video background ═══ */}
       <section
         id="home"
-        className="relative min-h-[85vh] md:min-h-[92vh] bg-[#0F2442] flex flex-col justify-center pb-20 md:pb-36"
+        className="relative min-h-[100svh] md:min-h-[92vh] bg-[#0A182D] flex flex-col justify-center pb-16 sm:pb-24 md:pb-28 overflow-hidden"
       >
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=70"
-            srcSet="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=65 800w, https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=70 1200w, https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=75 2000w"
-            sizes="100vw"
-            alt="توريدات ولوجستيات الجملة"
-            fetchPriority="high"
-            decoding="async"
-            className="w-full h-full object-cover opacity-35 md:mix-blend-luminosity"
-          />
-          <div className="absolute inset-0 bg-[#0A182D]/60 md:bg-[#0A182D]/55" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A182D]/85 via-transparent to-[#0A182D]/45" />
+        {/* Video layer — pointer-events-none so touch scroll never freezes */}
+        <div className="hero-video-bg absolute inset-0 pointer-events-none" aria-hidden="true">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=60"
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/hero-factory.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-[#0A182D]/55 sm:bg-[#0A182D]/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A182D]/70 via-transparent to-[#0A182D]/85" />
         </div>
 
-        <div className="relative z-10 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-12 mt-6 md:mt-10 text-center">
+        <div className="relative z-10 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-12 mt-4 md:mt-8 text-center">
           <motion.div
             initial={motionOff ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: motionOff ? 0 : 0.55, ease: "easeOut" }}
           >
-            <div className="flex items-center justify-center gap-1.5 sm:gap-2 text-[#F4B41A] font-bold text-[10px] sm:text-xs tracking-widest uppercase mb-5 sm:mb-8 flex-wrap px-1">
-              <span className="w-5 h-5 rounded-full border border-[#F4B41A] flex items-center justify-center text-[8px] leading-none shrink-0">
-                SA
+            {/* Badge — Shengda style gold dots */}
+            <div className="flex items-center justify-center gap-2 sm:gap-3 text-[#F4B41A] font-bold text-[10px] sm:text-xs tracking-[0.12em] uppercase mb-5 sm:mb-8 flex-wrap px-1">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#F4B41A]" />
+                توريد دواجن حلال
               </span>
-              <span>• توريد غذائي معتمد</span>
-              <span>• جودة عالية</span>
-              <span>• منذ 2014</span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#F4B41A]" />
+                أغذية سعودية
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#F4B41A]" />
+                منذ 2014
+              </span>
             </div>
 
-            <h1 className="text-[1.85rem] leading-[1.25] sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black text-white tracking-tight mb-5 sm:mb-8 max-w-4xl mx-auto">
+            <h1 className="text-[1.9rem] leading-[1.22] sm:text-5xl md:text-6xl lg:text-[4.25rem] font-black text-white tracking-tight mb-5 sm:mb-8 max-w-4xl mx-auto">
               توريدات جملة فاخرة
-              <br />
+              <br className="sm:hidden" />{" "}
               للمطاعم والأسواق المركزية
             </h1>
 
-            <p className="text-white/80 text-[0.95rem] sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-12 leading-relaxed font-light px-1">
+            <p className="text-white/85 text-[0.95rem] sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed font-light px-1">
               نورد الدواجن المبردة والفريش، البطاطس المجمدة، والبيض الطازج —
               بجودة مضمونة وأسعار جملة تنافسية وتوصيل مبرد إلى جميع أنحاء المملكة.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 max-w-md sm:max-w-none mx-auto">
+            {/* CTAs — stacked full-width on mobile like Shengda */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-14 max-w-sm sm:max-w-none mx-auto">
               <a
                 href={`${WHATSAPP_URL}?text=${encodeURIComponent("السلام عليكم، أرغب في طلب عرض سعر للجملة")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#16A34A] active:bg-[#15803D] hover:bg-[#15803D] text-white px-8 py-3.5 sm:py-4 rounded-md font-bold transition-colors text-base sm:text-lg shadow-[0_6px_20px_rgba(22,163,74,0.35)] touch-manipulation"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#15803D] active:bg-[#166534] hover:bg-[#166534] text-white px-8 py-3.5 sm:py-4 rounded-md font-bold transition-colors text-base sm:text-lg touch-manipulation"
               >
-                طلب عرض سعر واتساب
+                طلب عرض سعر
                 <ArrowLeft size={18} className="sm:w-5 sm:h-5" />
               </a>
               <a
-                href="#contact"
+                href="#products"
                 onClick={(e) => {
                   e.preventDefault();
-                  scrollToSection("contact");
+                  scrollToSection("products");
                 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center bg-white/10 active:bg-white/20 hover:bg-white/20 text-white border border-white/25 px-8 py-3.5 sm:py-4 rounded-md font-bold transition-colors text-base sm:text-lg touch-manipulation"
+                className="w-full sm:w-auto inline-flex items-center justify-center bg-transparent active:bg-white/10 hover:bg-white/10 text-white border border-white/40 px-8 py-3.5 sm:py-4 rounded-md font-bold transition-colors text-base sm:text-lg touch-manipulation"
               >
-                نموذج التوريد
+                عرض المنتجات
               </a>
             </div>
 
-            {/* Glass cards — stats + why choose us */}
-            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto text-start">
-              <div className="glass-card bg-white/10 md:backdrop-blur-md border border-white/20 rounded-2xl p-5 sm:p-8 shadow-xl">
-                <div className="grid grid-cols-2 gap-y-6 sm:gap-y-8 gap-x-4 sm:gap-x-6">
+            {/* Stats + Why — Shengda mobile: vertical stats card, then why card */}
+            <div className="flex flex-col md:grid md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto text-start">
+              <div className="glass-card bg-black/25 md:bg-white/10 md:backdrop-blur-md border border-white/25 rounded-2xl p-6 sm:p-8 shadow-xl">
+                <div className="flex flex-col gap-6 sm:grid sm:grid-cols-2 sm:gap-y-8 sm:gap-x-6">
                   {stats.map((stat, idx) => (
-                    <div key={idx}>
+                    <div key={idx} className="text-center sm:text-start">
                       <div
-                        className="text-2xl sm:text-3xl font-black text-[#F4B41A] mb-1.5 sm:mb-2"
+                        className="text-3xl sm:text-3xl font-black text-[#F4B41A] mb-1.5 sm:mb-2"
                         dir="ltr"
                       >
                         {stat.value}
                       </div>
-                      <div className="text-[11px] sm:text-xs font-bold text-white/90 leading-relaxed">
+                      <div className="text-xs sm:text-xs font-bold text-white/90 leading-relaxed">
                         {stat.label}
                       </div>
                     </div>
@@ -478,11 +493,11 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="glass-card bg-white/10 md:backdrop-blur-md border border-white/20 rounded-2xl p-5 sm:p-8 shadow-xl flex flex-col justify-center">
-                <h3 className="text-[#F4B41A] font-bold text-lg sm:text-xl mb-3 sm:mb-4">
+              <div className="glass-card bg-black/25 md:bg-white/10 md:backdrop-blur-md border border-white/25 rounded-2xl p-6 sm:p-8 shadow-xl flex flex-col justify-center">
+                <h3 className="text-[#F4B41A] font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-center sm:text-start">
                   لماذا تختارنا؟
                 </h3>
-                <p className="text-white text-[0.95rem] sm:text-lg leading-relaxed font-medium">
+                <p className="text-white text-[0.95rem] sm:text-lg leading-relaxed font-medium text-center sm:text-start">
                   نحن رواد السوق في توريد الدواجن والأغذية، موثوقون من قبل
                   الموزعين وشركات الخدمات الغذائية في جميع أنحاء المملكة.
                 </p>
