@@ -159,37 +159,37 @@ const miniCards = [
 
 const products = [
   {
-    img: "/products/chilled-poultry.jpg",
+    img: "/products/chilled-poultry.jpg?v=3",
     title: "دواجن مبردة",
     formValue: "دواجن مبردة",
     desc: "كميات تبدأ من 10 كرتون. منتجات معتمدة ومذبوحة وفق الشريعة الإسلامية، مطابقة لمواصفات هيئة الغذاء والدواء.",
   },
   {
-    img: "/products/fresh-poultry.jpg",
+    img: "/products/fresh-poultry.jpg?v=3",
     title: "دواجن فريش",
     formValue: "دواجن فريش",
     desc: "كميات تبدأ من 10 كرتون. طازجة يومياً لتلبية احتياجات المطاعم والأسواق المركزية.",
   },
   {
-    img: "/products/fries.jpg",
+    img: "/products/fries.jpg?v=3",
     title: "بطاطس شرائح (مجمدة)",
     formValue: "بطاطس شرائح مجمدة",
     desc: "كميات تبدأ من 20 كيس. بطاطس شرائح جاهزة للقلي تلبي احتياجات قطاع المطاعم.",
   },
   {
-    img: "/products/eggs.jpg",
+    img: "/products/eggs.jpg?v=3",
     title: "بيض طازج (مزارع)",
     formValue: "بيض طازج",
     desc: "كميات تبدأ من 50 كرتونة. بيض مائدة طازج عالي الجودة من مزارع معتمدة.",
   },
   {
-    img: "/products/chicken-legs.jpg",
+    img: "/products/chicken-legs.jpg?v=3",
     title: "أفخاذ دجاج كاملة",
     formValue: "دواجن مبردة",
     desc: "بالعظم والجلد؛ يسعر بالوزن. منتجات معتمدة ومطابقة لأعلى معايير الجودة.",
   },
   {
-    img: "/products/chicken-breast.jpg",
+    img: "/products/chicken-breast.jpg?v=3",
     title: "صدور دجاج بدون عظم",
     formValue: "دواجن مبردة",
     desc: "بدون عظم وجلد؛ يسعر بالوزن. منتجة في منشآت تلبي أعلى معايير السلامة الغذائية.",
