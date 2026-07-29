@@ -1275,6 +1275,12 @@ export default function HomePage() {
             <p>
               جميع الحقوق محفوظة © 2026 - مؤسسة تسامي الوطنية للتوريدات
             </p>
+            <a
+              href="/admin/login"
+              className="text-white/25 hover:text-white/50 transition-colors text-xs"
+            >
+              دخول الفريق
+            </a>
           </div>
         </div>
       </footer>
