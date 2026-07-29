@@ -1,14 +1,22 @@
 import { FormEvent, useState, type ReactNode } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Lock, Mail, UserRound } from "lucide-react";
-import { translateAuthError, useAuth } from "@/src/hooks/useAuth";
+import { translateAuthError, useAuth, type UserRole } from "@/src/hooks/useAuth";
 
 type Mode = "login" | "register";
+type Audience = "customer" | "team";
 
-export default function AuthPage({ mode }: { mode: Mode }) {
-  const { user, loading, signIn, signUp, configured } = useAuth();
+export default function AuthPage({
+  mode,
+  audience = "customer",
+}: {
+  mode: Mode;
+  audience?: Audience;
+}) {
+  const { user, loading, signIn, signUp, configured, isTeam } = useAuth();
   const navigate = useNavigate();
   const isLogin = mode === "login";
+  const isCustomerAudience = audience === "customer";
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,8 +27,15 @@ export default function AuthPage({ mode }: { mode: Mode }) {
   const [info, setInfo] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
+  const homeAfterAuth = isCustomerAudience ? "/account" : "/admin";
+  const loginPath = isCustomerAudience ? "/login" : "/admin/login";
+  const registerPath = isCustomerAudience ? "/register" : "/admin/register";
+
   if (!loading && user) {
-    return <Navigate to="/admin" replace />;
+    if (isTeam) {
+      return <Navigate to="/admin" replace />;
+    }
+    return <Navigate to="/account" replace />;
   }
 
   async function onSubmit(e: FormEvent) {
@@ -37,23 +52,26 @@ export default function AuthPage({ mode }: { mode: Mode }) {
         if (password.length < 6) {
           throw new Error("كلمة المرور يجب أن تكون 6 أحرف على الأقل");
         }
+        const role: UserRole = isCustomerAudience ? "customer" : "staff";
         const result = await signUp({
           email: email.trim(),
           password,
           fullName: fullName.trim(),
+          role,
         });
         if (result === "confirm_email") {
           setInfo(
-            "تم إنشاء الحساب. إذا كان تأكيد البريد مفعّلاً، راجع بريدك ثم سجّل الدخول.",
+            "تم إنشاء الحساب بنجاح. سجّل الدخول الآن للوصول إلى حسابك.",
           );
           return;
         }
-        navigate("/admin", { replace: true });
+        navigate(homeAfterAuth, { replace: true });
         return;
       }
 
       await signIn(email.trim(), password);
-      navigate("/admin", { replace: true });
+      // profile may lag one tick; route by audience default then layout guards refine
+      navigate(homeAfterAuth, { replace: true });
     } catch (err) {
       const raw = err instanceof Error ? err.message : "حدث خطأ غير متوقع";
       setError(translateAuthError(raw));
@@ -64,7 +82,6 @@ export default function AuthPage({ mode }: { mode: Mode }) {
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2" dir="rtl">
-      {/* Brand panel */}
       <aside className="relative hidden lg:flex flex-col justify-between overflow-hidden bg-[#0A182D] text-white p-12">
         <div
           className="absolute inset-0 opacity-40"
@@ -74,39 +91,30 @@ export default function AuthPage({ mode }: { mode: Mode }) {
           }}
         />
         <div className="relative z-10">
-          <div className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3">
             <img src="/logo-mark.png" alt="" className="h-12 w-auto" />
             <div>
               <div className="font-brand text-xl font-black">
                 تسامي <span className="text-[#2A7A42]">الوطنية</span>
               </div>
-              <div className="text-xs font-bold text-[#E66A1F]">لوحة الإدارة</div>
+              <div className="text-xs font-bold text-[#E66A1F]">
+                {isCustomerAudience ? "حساب العملاء" : "لوحة الإدارة"}
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
 
         <div className="relative z-10 max-w-md space-y-4">
           <h1 className="text-4xl font-black leading-tight">
-            إدارة الطلبات والمحتوى من مكان واحد
+            {isCustomerAudience
+              ? "أنشئ حسابك وتابع طلبات التسعير بسهولة"
+              : "إدارة الطلبات والمحتوى من مكان واحد"}
           </h1>
           <p className="text-white/70 leading-relaxed">
-            تابع طلبات التسعير، حدّث المنتجات، وأدر محتوى الموقع بسهولة وأمان عبر
-            Supabase.
+            {isCustomerAudience
+              ? "سجّل كعميل جملة لترسل طلبات التوريد وتتابع حالتها من لوحة حسابك الخاصة."
+              : "تابع طلبات التسعير، حدّث المنتجات، وأدر محتوى الموقع بسهولة وأمان عبر Supabase."}
           </p>
-          <ul className="space-y-2 text-sm text-white/80">
-            <li className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#F4B41A]" />
-              لوحة مؤشرات لحظية للطلبات
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#F4B41A]" />
-              إدارة المنتجات والآراء والأسئلة
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#F4B41A]" />
-              حسابات فريق محمية بـ Auth
-            </li>
-          </ul>
         </div>
 
         <p className="relative z-10 text-xs text-white/40">
@@ -114,7 +122,6 @@ export default function AuthPage({ mode }: { mode: Mode }) {
         </p>
       </aside>
 
-      {/* Form panel */}
       <main className="flex items-center justify-center bg-[#F7F8FA] px-4 py-10">
         <div className="w-full max-w-md">
           <div className="lg:hidden text-center mb-8">
@@ -130,15 +137,19 @@ export default function AuthPage({ mode }: { mode: Mode }) {
                 {isLogin ? "تسجيل الدخول" : "إنشاء حساب جديد"}
               </h2>
               <p className="text-sm text-slate-500 mt-2">
-                {isLogin
-                  ? "ادخل إلى لوحة تحكم تسامي الوطنية"
-                  : "أنشئ حساب فريق للوصول إلى لوحة الإدارة"}
+                {isCustomerAudience
+                  ? isLogin
+                    ? "ادخل إلى حسابك لمتابعة طلبات التوريد"
+                    : "أنشئ حساب عميل جملة في دقائق"
+                  : isLogin
+                    ? "ادخل إلى لوحة تحكم تسامي الوطنية"
+                    : "إنشاء حساب لفريق الإدارة"}
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-1 p-1 rounded-xl bg-slate-100 mb-6">
               <Link
-                to="/admin/login"
+                to={loginPath}
                 className={`text-center text-sm font-bold py-2.5 rounded-lg transition-colors ${
                   isLogin ? "bg-white text-[#0A182D] shadow-sm" : "text-slate-500"
                 }`}
@@ -146,7 +157,7 @@ export default function AuthPage({ mode }: { mode: Mode }) {
                 دخول
               </Link>
               <Link
-                to="/admin/register"
+                to={registerPath}
                 className={`text-center text-sm font-bold py-2.5 rounded-lg transition-colors ${
                   !isLogin ? "bg-white text-[#0A182D] shadow-sm" : "text-slate-500"
                 }`}
@@ -172,7 +183,9 @@ export default function AuthPage({ mode }: { mode: Mode }) {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       className="field-input pr-10"
-                      placeholder="مثال: أسامة خليل"
+                      placeholder={
+                        isCustomerAudience ? "مثال: أحمد المطاعم" : "مثال: أسامة خليل"
+                      }
                     />
                   </div>
                 </Field>
@@ -260,7 +273,7 @@ export default function AuthPage({ mode }: { mode: Mode }) {
                     ? "جاري الدخول..."
                     : "جاري إنشاء الحساب..."
                   : isLogin
-                    ? "دخول إلى اللوحة"
+                    ? "تسجيل الدخول"
                     : "إنشاء الحساب"}
               </button>
             </form>

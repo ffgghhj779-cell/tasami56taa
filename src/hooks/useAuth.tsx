@@ -10,10 +10,12 @@ import {
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase, supabaseConfigured } from "@/src/lib/supabase";
 
+export type UserRole = "admin" | "staff" | "customer";
+
 export type Profile = {
   id: string;
   full_name: string;
-  role: "admin" | "staff";
+  role: UserRole;
   created_at: string;
   updated_at: string;
 };
@@ -24,11 +26,14 @@ type AuthContextValue = {
   profile: Profile | null;
   loading: boolean;
   configured: boolean;
+  isTeam: boolean;
+  isCustomer: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (input: {
     email: string;
     password: string;
     fullName: string;
+    role?: UserRole;
   }) => Promise<"session" | "confirm_email">;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
@@ -86,13 +91,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(next);
       setUser(next?.user ?? null);
       if (next?.user) {
+        setLoading(true);
         void fetchProfile(next.user.id).then((p) => {
-          if (mounted) setProfile(p);
+          if (mounted) {
+            setProfile(p);
+            setLoading(false);
+          }
         });
       } else {
         setProfile(null);
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return () => {
@@ -110,14 +119,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signUp = useCallback(
-    async (input: { email: string; password: string; fullName: string }) => {
+    async (input: {
+      email: string;
+      password: string;
+      fullName: string;
+      role?: UserRole;
+    }) => {
+      const role = input.role === "staff" ? "staff" : "customer";
       const { data, error } = await supabase.auth.signUp({
         email: input.email,
         password: input.password,
         options: {
           data: {
             full_name: input.fullName,
-            role: "staff",
+            role,
           },
         },
       });
@@ -132,6 +147,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (error) throw error;
   }, []);
 
+  const isTeam = profile?.role === "admin" || profile?.role === "staff";
+  const isCustomer = profile?.role === "customer";
+
   const value = useMemo(
     () => ({
       session,
@@ -139,6 +157,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       profile,
       loading,
       configured: supabaseConfigured,
+      isTeam,
+      isCustomer,
       signIn,
       signUp,
       signOut,
@@ -149,6 +169,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       user,
       profile,
       loading,
+      isTeam,
+      isCustomer,
       signIn,
       signUp,
       signOut,

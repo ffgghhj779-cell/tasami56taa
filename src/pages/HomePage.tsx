@@ -5,6 +5,7 @@ import {
   useRef,
   type ReactNode,
 } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   ChevronDown,
@@ -28,6 +29,7 @@ import {
 import { submitQuoteRequest } from "@/src/services/leads";
 import { fetchSiteContent } from "@/src/services/content";
 import type { FaqCard, ProductCard, TestimonialCard } from "@/src/types/database";
+import { useAuth } from "@/src/hooks/useAuth";
 
 const WHATSAPP_URL = "https://wa.me/966550266838";
 
@@ -223,6 +225,7 @@ const navLinks = [
 ───────────────────────────────────────────── */
 
 export default function HomePage() {
+  const { user, isTeam, signOut } = useAuth();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const reduceMotion = useReducedMotion();
@@ -270,6 +273,7 @@ export default function HomePage() {
         city: String(data.get("city") || "").trim(),
         product: String(data.get("product") || "").trim(),
         quantity: String(data.get("quantity") || "").trim(),
+        user_id: user?.id ?? null,
       });
       setFormStatus("success");
       form.reset();
@@ -323,6 +327,35 @@ export default function HomePage() {
                 {link.label}
               </a>
             ))}
+            {user ? (
+              <>
+                <Link
+                  to={isTeam ? "/admin" : "/account"}
+                  className="transition-colors hover:text-[#F4B41A] text-[#F4B41A]"
+                >
+                  {isTeam ? "لوحة التحكم" : "حسابي"}
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => void signOut()}
+                  className="transition-colors hover:text-[#F4B41A] text-white/80"
+                >
+                  خروج
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="transition-colors hover:text-[#F4B41A]">
+                  دخول
+                </Link>
+                <Link
+                  to="/register"
+                  className="rounded-lg bg-[#16A34A] hover:bg-[#15803D] px-3 py-1.5 text-white"
+                >
+                  إنشاء حساب
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>

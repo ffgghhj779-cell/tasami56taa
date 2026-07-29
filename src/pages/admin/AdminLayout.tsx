@@ -21,7 +21,7 @@ const links = [
 ];
 
 export default function AdminLayout() {
-  const { user, profile, loading, signOut } = useAuth();
+  const { user, profile, loading, signOut, isTeam } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -38,6 +38,10 @@ export default function AdminLayout() {
 
   if (!user) {
     return <Navigate to="/admin/login" replace />;
+  }
+
+  if (!isTeam && !loading) {
+    return <Navigate to="/account" replace />;
   }
 
   async function onSignOut() {

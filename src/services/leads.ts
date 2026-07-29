@@ -26,6 +26,17 @@ export async function listQuoteRequests() {
   return data ?? [];
 }
 
+export async function listMyQuoteRequests(userId: string) {
+  const { data, error } = await supabase
+    .from("quote_requests")
+    .select("*")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+  return data ?? [];
+}
+
 export async function updateQuoteStatus(id: string, status: QuoteStatus) {
   const { error } = await supabase
     .from("quote_requests")

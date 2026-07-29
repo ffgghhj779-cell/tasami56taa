@@ -9,6 +9,7 @@ export type QuoteRequest = {
   quantity: string;
   status: QuoteStatus;
   notes: string | null;
+  user_id: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -19,6 +20,7 @@ export type QuoteRequestInsert = {
   city: string;
   product: string;
   quantity: string;
+  user_id?: string | null;
 };
 
 export type Product = {
@@ -57,7 +59,7 @@ export type Faq = {
 export type Profile = {
   id: string;
   full_name: string;
-  role: "admin" | "staff";
+  role: "admin" | "staff" | "customer";
   created_at: string;
   updated_at: string;
 };
@@ -70,7 +72,7 @@ export type Database = {
         Insert: {
           id: string;
           full_name?: string;
-          role?: "admin" | "staff";
+          role?: "admin" | "staff" | "customer";
           created_at?: string;
           updated_at?: string;
         };
