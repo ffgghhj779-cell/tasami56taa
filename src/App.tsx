@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "@/src/hooks/useAuth";
 import HomePage from "@/src/pages/HomePage";
 import AccountPage from "@/src/pages/AccountPage";
+import RequestPage from "@/src/pages/RequestPage";
 import AdminLayout from "@/src/pages/admin/AdminLayout";
 import AuthPage from "@/src/pages/admin/AuthPage";
 import DashboardPage from "@/src/pages/admin/DashboardPage";
@@ -16,6 +17,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/request" element={<RequestPage />} />
           <Route path="/login" element={<AuthPage mode="login" audience="customer" />} />
           <Route path="/register" element={<AuthPage mode="register" audience="customer" />} />
           <Route path="/account" element={<AccountPage />} />

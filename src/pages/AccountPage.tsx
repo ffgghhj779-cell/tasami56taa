@@ -79,7 +79,7 @@ export default function AccountPage() {
           </Link>
           <div className="flex items-center gap-2">
             <Link
-              to="/#contact"
+              to="/request"
               className="rounded-xl bg-[#16A34A] hover:bg-[#15803D] px-4 py-2 text-sm font-extrabold inline-flex items-center gap-1.5"
             >
               <Plus className="h-4 w-4" />
@@ -123,7 +123,7 @@ export default function AccountPage() {
             <div className="p-8 text-center space-y-3">
               <p className="text-slate-500 text-sm">لا توجد طلبات بعد.</p>
               <Link
-                to="/#contact"
+                to="/request"
                 className="inline-flex rounded-xl bg-[#0E2A47] text-white px-4 py-2.5 text-sm font-bold"
               >
                 أرسل أول طلب توريد

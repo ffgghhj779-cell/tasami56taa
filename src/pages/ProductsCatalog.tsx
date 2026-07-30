@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Search, X, ZoomIn } from "lucide-react";
 import {
   catalogCategories,
@@ -15,22 +16,16 @@ function quoteWhatsApp(productTitle: string) {
   )}`;
 }
 
-function scrollToContact(formValue: string) {
-  const select = document.getElementById("product") as HTMLSelectElement | null;
-  if (select) select.value = formValue;
-  const el = document.getElementById("contact");
-  if (!el) return;
-  const header = document.querySelector("nav");
-  const offset = header instanceof HTMLElement ? header.offsetHeight + 8 : 96;
-  const top = el.getBoundingClientRect().top + window.scrollY - offset;
-  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
-  history.replaceState(null, "", "#contact");
-}
-
 export default function ProductsCatalog() {
+  const navigate = useNavigate();
   const [active, setActive] = useState<CatalogCategoryId | "all">("all");
   const [query, setQuery] = useState("");
   const [preview, setPreview] = useState<CatalogProduct | null>(null);
+
+  function openRequestForm(formValue: string) {
+    setPreview(null);
+    navigate(`/request?product=${encodeURIComponent(formValue)}`);
+  }
 
   const counts = useMemo(() => {
     const map = Object.fromEntries(
@@ -136,6 +131,7 @@ export default function ProductsCatalog() {
                   subtitle={cat.subtitle}
                   items={items}
                   onPreview={setPreview}
+                  onRequestForm={openRequestForm}
                 />
               );
             })}
@@ -154,6 +150,7 @@ export default function ProductsCatalog() {
             }
             items={filtered}
             onPreview={setPreview}
+            onRequestForm={openRequestForm}
           />
         )}
       </div>
@@ -204,10 +201,7 @@ export default function ProductsCatalog() {
                   </a>
                   <button
                     type="button"
-                    onClick={() => {
-                      scrollToContact(preview.formValue);
-                      setPreview(null);
-                    }}
+                    onClick={() => openRequestForm(preview.formValue)}
                     className="inline-flex items-center justify-center w-full px-4 py-3 border border-[#F4B41A] text-[#0A182D] rounded-xl font-extrabold hover:bg-[#F4B41A]"
                   >
                     طلب عبر النموذج
@@ -251,11 +245,13 @@ function CategoryBlock({
   subtitle,
   items,
   onPreview,
+  onRequestForm,
 }: {
   title: string;
   subtitle: string;
   items: CatalogProduct[];
   onPreview: (p: CatalogProduct) => void;
+  onRequestForm: (formValue: string) => void;
 }) {
   return (
     <div>
@@ -319,7 +315,7 @@ function CategoryBlock({
                 </a>
                 <button
                   type="button"
-                  onClick={() => scrollToContact(product.formValue)}
+                  onClick={() => onRequestForm(product.formValue)}
                   className="inline-flex items-center justify-center w-full px-4 py-2.5 border border-[#F4B41A]/80 text-[#0A182D] rounded-xl font-bold text-sm hover:bg-[#F4B41A]"
                 >
                   طلب عبر النموذج
