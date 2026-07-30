@@ -1,0 +1,2112 @@
+{
+  "processed": 117,
+  "cropped": 22,
+  "items": [
+    {
+      "file": "img-001.jpg",
+      "before": [
+        1400,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1400
+      ],
+      "final": [
+        1400,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-002.jpg",
+      "before": [
+        960,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        960,
+        1280
+      ],
+      "final": [
+        960,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-003.jpg",
+      "before": [
+        576,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        576,
+        1280
+      ],
+      "final": [
+        576,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-004.jpg",
+      "before": [
+        1086,
+        1448
+      ],
+      "box": [
+        0,
+        0,
+        1086,
+        1448
+      ],
+      "final": [
+        1086,
+        1448
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-005.jpg",
+      "before": [
+        1024,
+        1536
+      ],
+      "box": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "final": [
+        1024,
+        1536
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-006.jpg",
+      "before": [
+        1086,
+        1448
+      ],
+      "box": [
+        0,
+        0,
+        1086,
+        1448
+      ],
+      "final": [
+        1086,
+        1448
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-007.jpg",
+      "before": [
+        844,
+        1324
+      ],
+      "box": [
+        0,
+        0,
+        844,
+        1324
+      ],
+      "final": [
+        844,
+        1324
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-009.jpg",
+      "before": [
+        720,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1280
+      ],
+      "final": [
+        720,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-010.jpg",
+      "before": [
+        720,
+        1080
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1080
+      ],
+      "final": [
+        933,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-012.jpg",
+      "before": [
+        752,
+        1392
+      ],
+      "box": [
+        0,
+        0,
+        752,
+        1392
+      ],
+      "final": [
+        752,
+        1392
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-013.jpg",
+      "before": [
+        1440,
+        816
+      ],
+      "box": [
+        0,
+        0,
+        1440,
+        816
+      ],
+      "final": [
+        1440,
+        816
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-014.jpg",
+      "before": [
+        900,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        900,
+        1600
+      ],
+      "final": [
+        900,
+        1600
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-015.jpg",
+      "before": [
+        900,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        900,
+        1600
+      ],
+      "final": [
+        900,
+        1600
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-016.jpg",
+      "before": [
+        1600,
+        1200
+      ],
+      "box": [
+        0,
+        0,
+        1600,
+        1200
+      ],
+      "final": [
+        1600,
+        1200
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-017.jpg",
+      "before": [
+        1280,
+        960
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        960
+      ],
+      "final": [
+        1280,
+        960
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-018.jpg",
+      "before": [
+        960,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        960,
+        1280
+      ],
+      "final": [
+        960,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-021.jpg",
+      "before": [
+        1513,
+        1445
+      ],
+      "box": [
+        0,
+        0,
+        1513,
+        1445
+      ],
+      "final": [
+        1513,
+        1445
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-024.jpg",
+      "before": [
+        900,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        900,
+        1600
+      ],
+      "final": [
+        900,
+        1600
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-026.jpg",
+      "before": [
+        1206,
+        1470
+      ],
+      "box": [
+        0,
+        0,
+        1206,
+        1470
+      ],
+      "final": [
+        1206,
+        1470
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-027.jpg",
+      "before": [
+        1206,
+        1489
+      ],
+      "box": [
+        0,
+        0,
+        1206,
+        1489
+      ],
+      "final": [
+        1206,
+        1489
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-028.jpg",
+      "before": [
+        1206,
+        1483
+      ],
+      "box": [
+        0,
+        0,
+        1206,
+        1483
+      ],
+      "final": [
+        1206,
+        1483
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-029.jpg",
+      "before": [
+        1400,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1400
+      ],
+      "final": [
+        1400,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-030.jpg",
+      "before": [
+        1000,
+        1000
+      ],
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "final": [
+        1400,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-034.jpg",
+      "before": [
+        540,
+        1082
+      ],
+      "box": [
+        0,
+        0,
+        540,
+        1082
+      ],
+      "final": [
+        698,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-035.jpg",
+      "before": [
+        720,
+        1176
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1176
+      ],
+      "final": [
+        720,
+        1176
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-039.jpg",
+      "before": [
+        900,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        900,
+        1600
+      ],
+      "final": [
+        900,
+        1600
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-042.jpg",
+      "before": [
+        832,
+        1248
+      ],
+      "box": [
+        0,
+        0,
+        832,
+        1248
+      ],
+      "final": [
+        832,
+        1248
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-043.jpg",
+      "before": [
+        832,
+        1248
+      ],
+      "box": [
+        0,
+        0,
+        832,
+        1248
+      ],
+      "final": [
+        832,
+        1248
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-044.jpg",
+      "before": [
+        804,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        804,
+        1400
+      ],
+      "final": [
+        804,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-045.jpg",
+      "before": [
+        989,
+        1141
+      ],
+      "box": [
+        0,
+        0,
+        989,
+        1141
+      ],
+      "final": [
+        989,
+        1141
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-048.jpg",
+      "before": [
+        576,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        576,
+        1280
+      ],
+      "final": [
+        576,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-049.jpg",
+      "before": [
+        960,
+        1072
+      ],
+      "box": [
+        0,
+        0,
+        960,
+        1072
+      ],
+      "final": [
+        1253,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-050.jpg",
+      "before": [
+        1086,
+        1448
+      ],
+      "box": [
+        0,
+        0,
+        1086,
+        1448
+      ],
+      "final": [
+        1086,
+        1448
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-051.jpg",
+      "before": [
+        1143,
+        1376
+      ],
+      "box": [
+        0,
+        0,
+        1143,
+        1376
+      ],
+      "final": [
+        1143,
+        1376
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-052.jpg",
+      "before": [
+        1254,
+        1254
+      ],
+      "box": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "final": [
+        1254,
+        1254
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-054.jpg",
+      "before": [
+        1402,
+        1122
+      ],
+      "box": [
+        0,
+        0,
+        1402,
+        1122
+      ],
+      "final": [
+        1402,
+        1122
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-055.jpg",
+      "before": [
+        1148,
+        1370
+      ],
+      "box": [
+        0,
+        0,
+        1148,
+        1370
+      ],
+      "final": [
+        1148,
+        1370
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-056.jpg",
+      "before": [
+        1122,
+        1402
+      ],
+      "box": [
+        0,
+        0,
+        1122,
+        1402
+      ],
+      "final": [
+        1122,
+        1402
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-057.jpg",
+      "before": [
+        1379,
+        1141
+      ],
+      "box": [
+        0,
+        0,
+        1379,
+        1141
+      ],
+      "final": [
+        1379,
+        1141
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-060.jpg",
+      "before": [
+        787,
+        1384
+      ],
+      "box": [
+        0,
+        0,
+        787,
+        1384
+      ],
+      "final": [
+        787,
+        1384
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-061.jpg",
+      "before": [
+        1197,
+        1314
+      ],
+      "box": [
+        0,
+        0,
+        1197,
+        1314
+      ],
+      "final": [
+        1197,
+        1314
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-062.jpg",
+      "before": [
+        1400,
+        1057
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1057
+      ],
+      "final": [
+        1400,
+        1057
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-063.jpg",
+      "before": [
+        1393,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1393,
+        1400
+      ],
+      "final": [
+        1393,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-064.jpg",
+      "before": [
+        575,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        575,
+        1280
+      ],
+      "final": [
+        575,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-065.jpg",
+      "before": [
+        575,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        575,
+        1280
+      ],
+      "final": [
+        575,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-066.jpg",
+      "before": [
+        575,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        575,
+        1280
+      ],
+      "final": [
+        575,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-067.jpg",
+      "before": [
+        575,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        575,
+        1280
+      ],
+      "final": [
+        575,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-068.jpg",
+      "before": [
+        720,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1280
+      ],
+      "final": [
+        720,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-071.jpg",
+      "before": [
+        1062,
+        1480
+      ],
+      "box": [
+        0,
+        0,
+        1062,
+        1480
+      ],
+      "final": [
+        1062,
+        1480
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-072.jpg",
+      "before": [
+        900,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        900,
+        1600
+      ],
+      "final": [
+        900,
+        1600
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-075.jpg",
+      "before": [
+        780,
+        1040
+      ],
+      "box": [
+        0,
+        0,
+        780,
+        1040
+      ],
+      "final": [
+        1050,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-076.jpg",
+      "before": [
+        739,
+        1282
+      ],
+      "box": [
+        0,
+        0,
+        739,
+        1282
+      ],
+      "final": [
+        739,
+        1282
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-077.jpg",
+      "before": [
+        1280,
+        963
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        963
+      ],
+      "final": [
+        1280,
+        963
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-079.jpg",
+      "before": [
+        1280,
+        960
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        960
+      ],
+      "final": [
+        1280,
+        960
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-080.jpg",
+      "before": [
+        1200,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        1200,
+        1600
+      ],
+      "final": [
+        1200,
+        1600
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-082.jpg",
+      "before": [
+        899,
+        1599
+      ],
+      "box": [
+        0,
+        0,
+        899,
+        1599
+      ],
+      "final": [
+        899,
+        1599
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-083.jpg",
+      "before": [
+        1200,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        1200,
+        1600
+      ],
+      "final": [
+        1200,
+        1600
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-084.jpg",
+      "before": [
+        720,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1280
+      ],
+      "final": [
+        720,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-085.jpg",
+      "before": [
+        899,
+        1599
+      ],
+      "box": [
+        0,
+        0,
+        899,
+        1599
+      ],
+      "final": [
+        899,
+        1599
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-086.jpg",
+      "before": [
+        1280,
+        560
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        560
+      ],
+      "final": [
+        1280,
+        560
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-087.jpg",
+      "before": [
+        720,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1280
+      ],
+      "final": [
+        720,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-088.jpg",
+      "before": [
+        942,
+        1247
+      ],
+      "box": [
+        0,
+        0,
+        942,
+        1247
+      ],
+      "final": [
+        942,
+        1247
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-089.jpg",
+      "before": [
+        737,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        737,
+        1600
+      ],
+      "final": [
+        737,
+        1600
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-090.jpg",
+      "before": [
+        1200,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        1200,
+        1600
+      ],
+      "final": [
+        1200,
+        1600
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-093.jpg",
+      "before": [
+        1112,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        1112,
+        1600
+      ],
+      "final": [
+        1112,
+        1600
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-094.jpg",
+      "before": [
+        1040,
+        694
+      ],
+      "box": [
+        0,
+        0,
+        1040,
+        694
+      ],
+      "final": [
+        1400,
+        934
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-095.jpg",
+      "before": [
+        1040,
+        694
+      ],
+      "box": [
+        0,
+        0,
+        1040,
+        694
+      ],
+      "final": [
+        1400,
+        934
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-098.jpg",
+      "before": [
+        1040,
+        694
+      ],
+      "box": [
+        0,
+        0,
+        1040,
+        694
+      ],
+      "final": [
+        1400,
+        934
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-102.jpg",
+      "before": [
+        1393,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1393,
+        1400
+      ],
+      "final": [
+        1393,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-103.jpg",
+      "before": [
+        1080,
+        1075
+      ],
+      "box": [
+        0,
+        0,
+        1080,
+        1075
+      ],
+      "final": [
+        1400,
+        1393
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-105.jpg",
+      "before": [
+        915,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        915,
+        922
+      ],
+      "final": [
+        1389,
+        1400
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-106.jpg",
+      "before": [
+        1393,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1393,
+        1400
+      ],
+      "final": [
+        1393,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-107.jpg",
+      "before": [
+        853,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        853,
+        1280
+      ],
+      "final": [
+        853,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-108.jpg",
+      "before": [
+        1280,
+        853
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        853
+      ],
+      "final": [
+        1280,
+        853
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-109.jpg",
+      "before": [
+        1280,
+        853
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        853
+      ],
+      "final": [
+        1280,
+        853
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-110.jpg",
+      "before": [
+        1400,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1400
+      ],
+      "final": [
+        1400,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-111.jpg",
+      "before": [
+        1400,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1400
+      ],
+      "final": [
+        1400,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-112.jpg",
+      "before": [
+        1280,
+        853
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        853
+      ],
+      "final": [
+        1280,
+        853
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-114.jpg",
+      "before": [
+        1280,
+        853
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        853
+      ],
+      "final": [
+        1280,
+        853
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-115.jpg",
+      "before": [
+        1400,
+        1120
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1120
+      ],
+      "final": [
+        1400,
+        1120
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-118.jpg",
+      "before": [
+        1400,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1400
+      ],
+      "final": [
+        1400,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-120.jpg",
+      "before": [
+        1044,
+        1400
+      ],
+      "box": [
+        0,
+        1,
+        1044,
+        1399
+      ],
+      "final": [
+        1044,
+        1398
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-121.jpg",
+      "before": [
+        956,
+        1400
+      ],
+      "box": [
+        0,
+        1,
+        956,
+        1400
+      ],
+      "final": [
+        956,
+        1399
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-123.jpg",
+      "before": [
+        1280,
+        853
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        853
+      ],
+      "final": [
+        1280,
+        853
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-124.jpg",
+      "before": [
+        1184,
+        864
+      ],
+      "box": [
+        0,
+        0,
+        1184,
+        864
+      ],
+      "final": [
+        1184,
+        864
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-125.jpg",
+      "before": [
+        1066,
+        1596
+      ],
+      "box": [
+        0,
+        0,
+        1066,
+        1596
+      ],
+      "final": [
+        1066,
+        1596
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-127.jpg",
+      "before": [
+        720,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1280
+      ],
+      "final": [
+        720,
+        1280
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-128.jpg",
+      "before": [
+        1400,
+        1104
+      ],
+      "box": [
+        0,
+        3,
+        1400,
+        1101
+      ],
+      "final": [
+        1400,
+        1098
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-131.jpg",
+      "before": [
+        877,
+        1400
+      ],
+      "box": [
+        0,
+        2,
+        877,
+        1400
+      ],
+      "final": [
+        877,
+        1398
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-132.jpg",
+      "before": [
+        877,
+        1400
+      ],
+      "box": [
+        0,
+        1,
+        877,
+        1400
+      ],
+      "final": [
+        877,
+        1399
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-133.jpg",
+      "before": [
+        877,
+        1400
+      ],
+      "box": [
+        0,
+        1,
+        877,
+        1400
+      ],
+      "final": [
+        877,
+        1399
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-134.jpg",
+      "before": [
+        877,
+        1400
+      ],
+      "box": [
+        0,
+        1,
+        877,
+        1400
+      ],
+      "final": [
+        877,
+        1399
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-135.jpg",
+      "before": [
+        720,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1600
+      ],
+      "final": [
+        720,
+        1600
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-136.jpg",
+      "before": [
+        877,
+        1400
+      ],
+      "box": [
+        0,
+        1,
+        877,
+        1400
+      ],
+      "final": [
+        877,
+        1399
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-137.jpg",
+      "before": [
+        1152,
+        1400
+      ],
+      "box": [
+        0,
+        2,
+        1152,
+        1398
+      ],
+      "final": [
+        1152,
+        1396
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-138.jpg",
+      "before": [
+        744,
+        1201
+      ],
+      "box": [
+        0,
+        0,
+        744,
+        1201
+      ],
+      "final": [
+        744,
+        1201
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-139.jpg",
+      "before": [
+        1400,
+        1322
+      ],
+      "box": [
+        0,
+        3,
+        1400,
+        1319
+      ],
+      "final": [
+        1400,
+        1316
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-141.jpg",
+      "before": [
+        893,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        893,
+        1399
+      ],
+      "final": [
+        893,
+        1399
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-142.jpg",
+      "before": [
+        893,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        893,
+        1399
+      ],
+      "final": [
+        893,
+        1399
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-143.jpg",
+      "before": [
+        1045,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1045,
+        1400
+      ],
+      "final": [
+        1045,
+        1400
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-145.jpg",
+      "before": [
+        1400,
+        1311
+      ],
+      "box": [
+        0,
+        2,
+        1400,
+        1309
+      ],
+      "final": [
+        1400,
+        1307
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-146.jpg",
+      "before": [
+        540,
+        1190
+      ],
+      "box": [
+        0,
+        0,
+        540,
+        1190
+      ],
+      "final": [
+        540,
+        1190
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-147.jpg",
+      "before": [
+        540,
+        1190
+      ],
+      "box": [
+        0,
+        0,
+        540,
+        1190
+      ],
+      "final": [
+        540,
+        1190
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-148.jpg",
+      "before": [
+        540,
+        1190
+      ],
+      "box": [
+        0,
+        0,
+        540,
+        1190
+      ],
+      "final": [
+        540,
+        1190
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-149.jpg",
+      "before": [
+        540,
+        1190
+      ],
+      "box": [
+        0,
+        0,
+        540,
+        1190
+      ],
+      "final": [
+        540,
+        1190
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-151.jpg",
+      "before": [
+        540,
+        1190
+      ],
+      "box": [
+        0,
+        0,
+        540,
+        1190
+      ],
+      "final": [
+        540,
+        1190
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-154.jpg",
+      "before": [
+        1200,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        1200,
+        1600
+      ],
+      "final": [
+        1200,
+        1600
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-157.jpg",
+      "before": [
+        1400,
+        1213
+      ],
+      "box": [
+        0,
+        1,
+        1400,
+        1212
+      ],
+      "final": [
+        1400,
+        1211
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-158.jpg",
+      "before": [
+        540,
+        1190
+      ],
+      "box": [
+        0,
+        0,
+        540,
+        1190
+      ],
+      "final": [
+        540,
+        1190
+      ],
+      "changed": false
+    },
+    {
+      "file": "img-159.jpg",
+      "before": [
+        1358,
+        1400
+      ],
+      "box": [
+        0,
+        1,
+        1358,
+        1398
+      ],
+      "final": [
+        1358,
+        1397
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-160.jpg",
+      "before": [
+        1400,
+        1131
+      ],
+      "box": [
+        0,
+        1,
+        1400,
+        1130
+      ],
+      "final": [
+        1400,
+        1129
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-161.jpg",
+      "before": [
+        1400,
+        1186
+      ],
+      "box": [
+        0,
+        2,
+        1400,
+        1185
+      ],
+      "final": [
+        1400,
+        1183
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-162.jpg",
+      "before": [
+        1400,
+        989
+      ],
+      "box": [
+        0,
+        2,
+        1400,
+        987
+      ],
+      "final": [
+        1400,
+        985
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-163.jpg",
+      "before": [
+        1400,
+        1400
+      ],
+      "box": [
+        0,
+        1,
+        1400,
+        1399
+      ],
+      "final": [
+        1400,
+        1398
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-164.jpg",
+      "before": [
+        1400,
+        1215
+      ],
+      "box": [
+        0,
+        3,
+        1400,
+        1213
+      ],
+      "final": [
+        1400,
+        1210
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-167.jpg",
+      "before": [
+        1400,
+        1318
+      ],
+      "box": [
+        0,
+        1,
+        1400,
+        1317
+      ],
+      "final": [
+        1400,
+        1316
+      ],
+      "changed": true
+    },
+    {
+      "file": "img-169.jpg",
+      "before": [
+        1050,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1050,
+        1400
+      ],
+      "final": [
+        1050,
+        1400
+      ],
+      "changed": false
+    }
+  ]
+}

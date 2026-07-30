@@ -1,0 +1,2201 @@
+{
+  "processed": 115,
+  "cropped": 29,
+  "items": [
+    {
+      "file": "img-001.jpg",
+      "before": [
+        550,
+        550
+      ],
+      "box": [
+        0,
+        0,
+        550,
+        550
+      ],
+      "final": [
+        1400,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-002.jpg",
+      "before": [
+        960,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        960,
+        1280
+      ],
+      "final": [
+        960,
+        1280
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-003.jpg",
+      "before": [
+        576,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        576,
+        1280
+      ],
+      "final": [
+        576,
+        1280
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-004.jpg",
+      "before": [
+        1086,
+        1448
+      ],
+      "box": [
+        0,
+        0,
+        1086,
+        1281
+      ],
+      "final": [
+        1086,
+        1281
+      ],
+      "changed": true,
+      "area_ratio": 0.885
+    },
+    {
+      "file": "img-005.jpg",
+      "before": [
+        1024,
+        1536
+      ],
+      "box": [
+        0,
+        0,
+        1024,
+        1436
+      ],
+      "final": [
+        1024,
+        1436
+      ],
+      "changed": true,
+      "area_ratio": 0.935
+    },
+    {
+      "file": "img-006.jpg",
+      "before": [
+        1086,
+        1448
+      ],
+      "box": [
+        0,
+        0,
+        1086,
+        1448
+      ],
+      "final": [
+        1086,
+        1448
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-007.jpg",
+      "before": [
+        844,
+        1324
+      ],
+      "box": [
+        0,
+        0,
+        844,
+        1321
+      ],
+      "final": [
+        844,
+        1324
+      ],
+      "changed": false,
+      "area_ratio": 0.998
+    },
+    {
+      "file": "img-009.jpg",
+      "before": [
+        720,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1280
+      ],
+      "final": [
+        720,
+        1280
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-010.jpg",
+      "before": [
+        720,
+        1080
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1080
+      ],
+      "final": [
+        933,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-012.jpg",
+      "before": [
+        752,
+        1392
+      ],
+      "box": [
+        0,
+        0,
+        752,
+        1392
+      ],
+      "final": [
+        752,
+        1392
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-013.jpg",
+      "before": [
+        1440,
+        816
+      ],
+      "box": [
+        0,
+        0,
+        1440,
+        816
+      ],
+      "final": [
+        1440,
+        816
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-014.jpg",
+      "before": [
+        900,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        900,
+        1600
+      ],
+      "final": [
+        900,
+        1600
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-015.jpg",
+      "before": [
+        900,
+        1600
+      ],
+      "box": [
+        0,
+        265,
+        900,
+        1600
+      ],
+      "final": [
+        900,
+        1335
+      ],
+      "changed": true,
+      "area_ratio": 0.834
+    },
+    {
+      "file": "img-016.jpg",
+      "before": [
+        1600,
+        1200
+      ],
+      "box": [
+        0,
+        0,
+        1600,
+        1200
+      ],
+      "final": [
+        1600,
+        1200
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-017.jpg",
+      "before": [
+        1280,
+        960
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        960
+      ],
+      "final": [
+        1280,
+        960
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-018.jpg",
+      "before": [
+        960,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        960,
+        1280
+      ],
+      "final": [
+        960,
+        1280
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-021.jpg",
+      "before": [
+        1513,
+        1445
+      ],
+      "box": [
+        0,
+        0,
+        1513,
+        1445
+      ],
+      "final": [
+        1513,
+        1445
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-024.jpg",
+      "before": [
+        900,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        900,
+        1600
+      ],
+      "final": [
+        900,
+        1600
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-026.jpg",
+      "before": [
+        1206,
+        1470
+      ],
+      "box": [
+        0,
+        0,
+        1206,
+        1470
+      ],
+      "final": [
+        1206,
+        1470
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-027.jpg",
+      "before": [
+        1206,
+        1489
+      ],
+      "box": [
+        0,
+        0,
+        1206,
+        1489
+      ],
+      "final": [
+        1206,
+        1489
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-028.jpg",
+      "before": [
+        1206,
+        1483
+      ],
+      "box": [
+        0,
+        0,
+        1206,
+        1483
+      ],
+      "final": [
+        1206,
+        1483
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-029.jpg",
+      "before": [
+        1400,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1400
+      ],
+      "final": [
+        1400,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-030.jpg",
+      "before": [
+        1400,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1400
+      ],
+      "final": [
+        1400,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-034.jpg",
+      "before": [
+        790,
+        1400
+      ],
+      "box": [
+        0,
+        2,
+        790,
+        1400
+      ],
+      "final": [
+        790,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 0.999
+    },
+    {
+      "file": "img-035.jpg",
+      "before": [
+        1041,
+        1400
+      ],
+      "box": [
+        0,
+        2,
+        1041,
+        1398
+      ],
+      "final": [
+        1041,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 0.997
+    },
+    {
+      "file": "img-039.jpg",
+      "before": [
+        900,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        900,
+        1596
+      ],
+      "final": [
+        900,
+        1600
+      ],
+      "changed": false,
+      "area_ratio": 0.998
+    },
+    {
+      "file": "img-042.jpg",
+      "before": [
+        832,
+        1131
+      ],
+      "box": [
+        0,
+        23,
+        832,
+        1130
+      ],
+      "final": [
+        832,
+        1131
+      ],
+      "changed": false,
+      "area_ratio": 0.979
+    },
+    {
+      "file": "img-043.jpg",
+      "before": [
+        832,
+        1248
+      ],
+      "box": [
+        0,
+        0,
+        832,
+        1248
+      ],
+      "final": [
+        832,
+        1248
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-044.jpg",
+      "before": [
+        1086,
+        1400
+      ],
+      "box": [
+        0,
+        4,
+        1086,
+        1396
+      ],
+      "final": [
+        1086,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 0.994
+    },
+    {
+      "file": "img-045.jpg",
+      "before": [
+        1181,
+        1400
+      ],
+      "box": [
+        5,
+        5,
+        1181,
+        1395
+      ],
+      "final": [
+        1181,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 0.989
+    },
+    {
+      "file": "img-048.jpg",
+      "before": [
+        576,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        546,
+        844
+      ],
+      "final": [
+        905,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.625
+    },
+    {
+      "file": "img-049.jpg",
+      "before": [
+        1253,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1253,
+        1400
+      ],
+      "final": [
+        1253,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-050.jpg",
+      "before": [
+        1086,
+        1448
+      ],
+      "box": [
+        0,
+        0,
+        1086,
+        1356
+      ],
+      "final": [
+        1086,
+        1356
+      ],
+      "changed": true,
+      "area_ratio": 0.936
+    },
+    {
+      "file": "img-051.jpg",
+      "before": [
+        1143,
+        1376
+      ],
+      "box": [
+        0,
+        0,
+        1143,
+        1376
+      ],
+      "final": [
+        1143,
+        1376
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-052.jpg",
+      "before": [
+        1254,
+        1254
+      ],
+      "box": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "final": [
+        1254,
+        1254
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-054.jpg",
+      "before": [
+        1402,
+        1122
+      ],
+      "box": [
+        0,
+        63,
+        1402,
+        1071
+      ],
+      "final": [
+        1402,
+        1008
+      ],
+      "changed": true,
+      "area_ratio": 0.898
+    },
+    {
+      "file": "img-055.jpg",
+      "before": [
+        1148,
+        1370
+      ],
+      "box": [
+        0,
+        0,
+        1148,
+        1370
+      ],
+      "final": [
+        1148,
+        1370
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-056.jpg",
+      "before": [
+        1122,
+        1402
+      ],
+      "box": [
+        0,
+        0,
+        1122,
+        1402
+      ],
+      "final": [
+        1122,
+        1402
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-057.jpg",
+      "before": [
+        1379,
+        1141
+      ],
+      "box": [
+        0,
+        0,
+        1379,
+        1070
+      ],
+      "final": [
+        1379,
+        1070
+      ],
+      "changed": true,
+      "area_ratio": 0.938
+    },
+    {
+      "file": "img-060.jpg",
+      "before": [
+        787,
+        1600
+      ],
+      "box": [
+        0,
+        231,
+        787,
+        1377
+      ],
+      "final": [
+        787,
+        1146
+      ],
+      "changed": true,
+      "area_ratio": 0.716
+    },
+    {
+      "file": "img-061.jpg",
+      "before": [
+        1197,
+        1314
+      ],
+      "box": [
+        0,
+        0,
+        1197,
+        1314
+      ],
+      "final": [
+        1197,
+        1314
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-062.jpg",
+      "before": [
+        1400,
+        1057
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1057
+      ],
+      "final": [
+        1400,
+        1057
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-063.jpg",
+      "before": [
+        1393,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1393,
+        1400
+      ],
+      "final": [
+        1393,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-064.jpg",
+      "before": [
+        575,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        575,
+        1280
+      ],
+      "final": [
+        575,
+        1280
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-065.jpg",
+      "before": [
+        575,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        575,
+        1280
+      ],
+      "final": [
+        575,
+        1280
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-066.jpg",
+      "before": [
+        575,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        575,
+        1280
+      ],
+      "final": [
+        575,
+        1280
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-067.jpg",
+      "before": [
+        575,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        575,
+        1280
+      ],
+      "final": [
+        575,
+        1280
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-068.jpg",
+      "before": [
+        720,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1280
+      ],
+      "final": [
+        720,
+        1280
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-072.jpg",
+      "before": [
+        900,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        900,
+        1439
+      ],
+      "final": [
+        900,
+        1439
+      ],
+      "changed": true,
+      "area_ratio": 0.899
+    },
+    {
+      "file": "img-075.jpg",
+      "before": [
+        1050,
+        1295
+      ],
+      "box": [
+        0,
+        0,
+        1050,
+        1295
+      ],
+      "final": [
+        1050,
+        1295
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-076.jpg",
+      "before": [
+        1072,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1072,
+        1374
+      ],
+      "final": [
+        1072,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 0.981
+    },
+    {
+      "file": "img-077.jpg",
+      "before": [
+        1280,
+        963
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        963
+      ],
+      "final": [
+        1280,
+        963
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-079.jpg",
+      "before": [
+        1280,
+        960
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        960
+      ],
+      "final": [
+        1280,
+        960
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-080.jpg",
+      "before": [
+        1200,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        1200,
+        1552
+      ],
+      "final": [
+        1200,
+        1600
+      ],
+      "changed": false,
+      "area_ratio": 0.97
+    },
+    {
+      "file": "img-082.jpg",
+      "before": [
+        899,
+        1599
+      ],
+      "box": [
+        0,
+        0,
+        899,
+        1599
+      ],
+      "final": [
+        899,
+        1599
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-083.jpg",
+      "before": [
+        1200,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        1200,
+        1600
+      ],
+      "final": [
+        1200,
+        1600
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-084.jpg",
+      "before": [
+        720,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1280
+      ],
+      "final": [
+        720,
+        1280
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-085.jpg",
+      "before": [
+        899,
+        1127
+      ],
+      "box": [
+        0,
+        4,
+        899,
+        1127
+      ],
+      "final": [
+        899,
+        1127
+      ],
+      "changed": false,
+      "area_ratio": 0.996
+    },
+    {
+      "file": "img-086.jpg",
+      "before": [
+        1280,
+        560
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        546
+      ],
+      "final": [
+        1280,
+        560
+      ],
+      "changed": false,
+      "area_ratio": 0.975
+    },
+    {
+      "file": "img-087.jpg",
+      "before": [
+        720,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1280
+      ],
+      "final": [
+        720,
+        1280
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-088.jpg",
+      "before": [
+        901,
+        1400
+      ],
+      "box": [
+        0,
+        967,
+        833,
+        1400
+      ],
+      "final": [
+        1400,
+        727
+      ],
+      "changed": true,
+      "area_ratio": 0.286
+    },
+    {
+      "file": "img-089.jpg",
+      "before": [
+        737,
+        1347
+      ],
+      "box": [
+        0,
+        1,
+        737,
+        1347
+      ],
+      "final": [
+        737,
+        1347
+      ],
+      "changed": false,
+      "area_ratio": 0.999
+    },
+    {
+      "file": "img-090.jpg",
+      "before": [
+        1200,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        1200,
+        1600
+      ],
+      "final": [
+        1200,
+        1600
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-093.jpg",
+      "before": [
+        1112,
+        1065
+      ],
+      "box": [
+        0,
+        2,
+        1112,
+        1065
+      ],
+      "final": [
+        1112,
+        1065
+      ],
+      "changed": false,
+      "area_ratio": 0.998
+    },
+    {
+      "file": "img-094.jpg",
+      "before": [
+        1400,
+        934
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        934
+      ],
+      "final": [
+        1400,
+        934
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-095.jpg",
+      "before": [
+        1400,
+        934
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        934
+      ],
+      "final": [
+        1400,
+        934
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-098.jpg",
+      "before": [
+        1400,
+        934
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        934
+      ],
+      "final": [
+        1400,
+        934
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-102.jpg",
+      "before": [
+        1393,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1393,
+        1400
+      ],
+      "final": [
+        1393,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-103.jpg",
+      "before": [
+        1400,
+        1393
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1393
+      ],
+      "final": [
+        1400,
+        1393
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-105.jpg",
+      "before": [
+        1389,
+        1400
+      ],
+      "box": [
+        0,
+        1,
+        1389,
+        1399
+      ],
+      "final": [
+        1389,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 0.999
+    },
+    {
+      "file": "img-106.jpg",
+      "before": [
+        1393,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1393,
+        1400
+      ],
+      "final": [
+        1393,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-107.jpg",
+      "before": [
+        853,
+        1280
+      ],
+      "box": [
+        0,
+        0,
+        853,
+        1280
+      ],
+      "final": [
+        853,
+        1280
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-108.jpg",
+      "before": [
+        1280,
+        853
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        853
+      ],
+      "final": [
+        1280,
+        853
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-109.jpg",
+      "before": [
+        1280,
+        853
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        853
+      ],
+      "final": [
+        1280,
+        853
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-110.jpg",
+      "before": [
+        1400,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1400
+      ],
+      "final": [
+        1400,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-111.jpg",
+      "before": [
+        1400,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1400
+      ],
+      "final": [
+        1400,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-112.jpg",
+      "before": [
+        1280,
+        853
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        853
+      ],
+      "final": [
+        1280,
+        853
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-114.jpg",
+      "before": [
+        1280,
+        853
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        853
+      ],
+      "final": [
+        1280,
+        853
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-115.jpg",
+      "before": [
+        1400,
+        1120
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1120
+      ],
+      "final": [
+        1400,
+        1120
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-118.jpg",
+      "before": [
+        1400,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1400
+      ],
+      "final": [
+        1400,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-120.jpg",
+      "before": [
+        1044,
+        1398
+      ],
+      "box": [
+        0,
+        0,
+        1044,
+        1398
+      ],
+      "final": [
+        1044,
+        1398
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-123.jpg",
+      "before": [
+        1280,
+        853
+      ],
+      "box": [
+        0,
+        0,
+        1280,
+        853
+      ],
+      "final": [
+        1280,
+        853
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-124.jpg",
+      "before": [
+        1184,
+        864
+      ],
+      "box": [
+        0,
+        0,
+        1184,
+        864
+      ],
+      "final": [
+        1184,
+        864
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-125.jpg",
+      "before": [
+        1066,
+        1596
+      ],
+      "box": [
+        0,
+        0,
+        1066,
+        1477
+      ],
+      "final": [
+        1066,
+        1477
+      ],
+      "changed": true,
+      "area_ratio": 0.925
+    },
+    {
+      "file": "img-127.jpg",
+      "before": [
+        720,
+        1280
+      ],
+      "box": [
+        96,
+        239,
+        702,
+        996
+      ],
+      "final": [
+        1120,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.498
+    },
+    {
+      "file": "img-128.jpg",
+      "before": [
+        1400,
+        1098
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1098
+      ],
+      "final": [
+        1400,
+        1098
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-131.jpg",
+      "before": [
+        877,
+        1398
+      ],
+      "box": [
+        0,
+        514,
+        877,
+        1398
+      ],
+      "final": [
+        1388,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.632
+    },
+    {
+      "file": "img-132.jpg",
+      "before": [
+        877,
+        1399
+      ],
+      "box": [
+        0,
+        515,
+        877,
+        1399
+      ],
+      "final": [
+        1388,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.632
+    },
+    {
+      "file": "img-133.jpg",
+      "before": [
+        877,
+        1399
+      ],
+      "box": [
+        0,
+        515,
+        877,
+        1399
+      ],
+      "final": [
+        1388,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.632
+    },
+    {
+      "file": "img-134.jpg",
+      "before": [
+        877,
+        1399
+      ],
+      "box": [
+        0,
+        515,
+        877,
+        1399
+      ],
+      "final": [
+        1388,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.632
+    },
+    {
+      "file": "img-135.jpg",
+      "before": [
+        720,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        720,
+        1600
+      ],
+      "final": [
+        720,
+        1600
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-136.jpg",
+      "before": [
+        877,
+        1399
+      ],
+      "box": [
+        0,
+        515,
+        877,
+        1399
+      ],
+      "final": [
+        1388,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.632
+    },
+    {
+      "file": "img-137.jpg",
+      "before": [
+        1152,
+        1396
+      ],
+      "box": [
+        0,
+        0,
+        1152,
+        1396
+      ],
+      "final": [
+        1152,
+        1396
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-138.jpg",
+      "before": [
+        744,
+        1201
+      ],
+      "box": [
+        0,
+        0,
+        744,
+        1201
+      ],
+      "final": [
+        744,
+        1201
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-139.jpg",
+      "before": [
+        1400,
+        1316
+      ],
+      "box": [
+        0,
+        5,
+        1400,
+        1308
+      ],
+      "final": [
+        1400,
+        1316
+      ],
+      "changed": false,
+      "area_ratio": 0.99
+    },
+    {
+      "file": "img-141.jpg",
+      "before": [
+        893,
+        1399
+      ],
+      "box": [
+        0,
+        499,
+        893,
+        1399
+      ],
+      "final": [
+        1389,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.643
+    },
+    {
+      "file": "img-142.jpg",
+      "before": [
+        893,
+        1399
+      ],
+      "box": [
+        0,
+        499,
+        893,
+        1399
+      ],
+      "final": [
+        1389,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.643
+    },
+    {
+      "file": "img-143.jpg",
+      "before": [
+        1045,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1045,
+        1400
+      ],
+      "final": [
+        1045,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-145.jpg",
+      "before": [
+        1400,
+        1307
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1307
+      ],
+      "final": [
+        1400,
+        1307
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-146.jpg",
+      "before": [
+        540,
+        1190
+      ],
+      "box": [
+        0,
+        368,
+        540,
+        781
+      ],
+      "final": [
+        1400,
+        1070
+      ],
+      "changed": true,
+      "area_ratio": 0.347
+    },
+    {
+      "file": "img-147.jpg",
+      "before": [
+        540,
+        1190
+      ],
+      "box": [
+        0,
+        368,
+        540,
+        781
+      ],
+      "final": [
+        1400,
+        1070
+      ],
+      "changed": true,
+      "area_ratio": 0.347
+    },
+    {
+      "file": "img-148.jpg",
+      "before": [
+        540,
+        1190
+      ],
+      "box": [
+        0,
+        211,
+        540,
+        938
+      ],
+      "final": [
+        1039,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.611
+    },
+    {
+      "file": "img-149.jpg",
+      "before": [
+        540,
+        1190
+      ],
+      "box": [
+        0,
+        91,
+        540,
+        1058
+      ],
+      "final": [
+        781,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.813
+    },
+    {
+      "file": "img-151.jpg",
+      "before": [
+        540,
+        1190
+      ],
+      "box": [
+        0,
+        206,
+        540,
+        944
+      ],
+      "final": [
+        1024,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.62
+    },
+    {
+      "file": "img-154.jpg",
+      "before": [
+        1200,
+        1600
+      ],
+      "box": [
+        0,
+        0,
+        1200,
+        1600
+      ],
+      "final": [
+        1200,
+        1600
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-157.jpg",
+      "before": [
+        1400,
+        1211
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1211
+      ],
+      "final": [
+        1400,
+        1211
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-158.jpg",
+      "before": [
+        540,
+        1190
+      ],
+      "box": [
+        0,
+        91,
+        540,
+        1058
+      ],
+      "final": [
+        781,
+        1400
+      ],
+      "changed": true,
+      "area_ratio": 0.813
+    },
+    {
+      "file": "img-159.jpg",
+      "before": [
+        1358,
+        1397
+      ],
+      "box": [
+        0,
+        0,
+        1358,
+        1397
+      ],
+      "final": [
+        1358,
+        1397
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-160.jpg",
+      "before": [
+        1400,
+        1129
+      ],
+      "box": [
+        0,
+        164,
+        1400,
+        1129
+      ],
+      "final": [
+        1400,
+        965
+      ],
+      "changed": true,
+      "area_ratio": 0.855
+    },
+    {
+      "file": "img-161.jpg",
+      "before": [
+        1400,
+        1183
+      ],
+      "box": [
+        0,
+        126,
+        1400,
+        1183
+      ],
+      "final": [
+        1400,
+        1057
+      ],
+      "changed": true,
+      "area_ratio": 0.893
+    },
+    {
+      "file": "img-162.jpg",
+      "before": [
+        1400,
+        985
+      ],
+      "box": [
+        0,
+        62,
+        1400,
+        985
+      ],
+      "final": [
+        1400,
+        923
+      ],
+      "changed": true,
+      "area_ratio": 0.937
+    },
+    {
+      "file": "img-163.jpg",
+      "before": [
+        1400,
+        1398
+      ],
+      "box": [
+        0,
+        0,
+        1400,
+        1398
+      ],
+      "final": [
+        1400,
+        1398
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    },
+    {
+      "file": "img-164.jpg",
+      "before": [
+        1400,
+        1210
+      ],
+      "box": [
+        0,
+        22,
+        1400,
+        1210
+      ],
+      "final": [
+        1400,
+        1210
+      ],
+      "changed": false,
+      "area_ratio": 0.982
+    },
+    {
+      "file": "img-167.jpg",
+      "before": [
+        1400,
+        1316
+      ],
+      "box": [
+        0,
+        0,
+        593,
+        1316
+      ],
+      "final": [
+        593,
+        1316
+      ],
+      "changed": true,
+      "area_ratio": 0.424
+    },
+    {
+      "file": "img-169.jpg",
+      "before": [
+        1050,
+        1400
+      ],
+      "box": [
+        0,
+        0,
+        1050,
+        1400
+      ],
+      "final": [
+        1050,
+        1400
+      ],
+      "changed": false,
+      "area_ratio": 1.0
+    }
+  ],
+  "failed": [
+    {
+      "file": "img-071.jpg",
+      "error": "[WinError 5] Access is denied: 'C:\\\\Users\\\\lenovo\\\\Downloads\\\\tasami56taa-main\\\\tasami56taa-main\\\\public\\\\catalog\\\\img-071.fix3.jpg' -> 'C:\\\\Users\\\\lenovo\\\\Downloads\\\\tasami56taa-main\\\\tasami56taa-main\\\\public\\\\catalog\\\\img-071.jpg'"
+    },
+    {
+      "file": "img-121.jpg",
+      "error": "[WinError 5] Access is denied: 'C:\\\\Users\\\\lenovo\\\\Downloads\\\\tasami56taa-main\\\\tasami56taa-main\\\\public\\\\catalog\\\\img-121.fix3.jpg' -> 'C:\\\\Users\\\\lenovo\\\\Downloads\\\\tasami56taa-main\\\\tasami56taa-main\\\\public\\\\catalog\\\\img-121.jpg'"
+    }
+  ]
+}

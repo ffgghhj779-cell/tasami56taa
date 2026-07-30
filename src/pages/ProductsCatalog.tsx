@@ -276,7 +276,7 @@ function CategoryBlock({
             <button
               type="button"
               onClick={() => onPreview(product)}
-              className="relative aspect-[5/4] overflow-hidden bg-[radial-gradient(circle_at_50%_35%,#ffffff_0%,#eef2f7_75%)] focus:outline-none"
+              className="relative aspect-[4/3] overflow-hidden bg-[#F3F5F8] focus:outline-none"
               aria-label={`عرض ${product.title}`}
             >
               <img
@@ -284,8 +284,9 @@ function CategoryBlock({
                 alt={product.title}
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 m-auto max-h-full max-w-full w-auto h-auto object-contain p-4 sm:p-5 catalog-img"
+                className="absolute inset-0 h-full w-full object-cover catalog-img transition-transform duration-500 group-hover:scale-[1.03]"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A182D]/25 via-transparent to-transparent pointer-events-none" />
               <span className="absolute top-3 right-3 bg-[#F4B41A] text-[#0A182D] text-[10px] font-extrabold px-2.5 py-1 rounded-md shadow-sm">
                 جملة
               </span>
