@@ -6,14 +6,12 @@ export async function submitQuoteRequest(payload: QuoteRequestInsert) {
     throw new Error("Supabase is not configured");
   }
 
-  const { data, error } = await supabase
-    .from("quote_requests")
-    .insert(payload)
-    .select("id")
-    .single();
+  // Insert only — do not .select() after insert.
+  // Guests (anon) can INSERT but have no SELECT policy, so
+  // .insert().select().single() always fails with RLS.
+  const { error } = await supabase.from("quote_requests").insert(payload);
 
   if (error) throw error;
-  return data;
 }
 
 export async function listQuoteRequests() {

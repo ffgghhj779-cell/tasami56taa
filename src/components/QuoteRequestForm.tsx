@@ -38,7 +38,8 @@ export default function QuoteRequestForm({
       });
       setFormStatus("success");
       form.reset();
-    } catch {
+    } catch (err) {
+      console.error("[quote form]", err);
       setFormStatus("error");
     }
   }
