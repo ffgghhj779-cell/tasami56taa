@@ -160,7 +160,7 @@ export const catalogProducts: CatalogProduct[] = [
     img: "/catalog/img-076.jpg",
     title: "دجاج الناصرية الدولية مبرد",
     brand: "الناصرية الدولية للدواجن",
-    specs: "دجاج كامل مبرد، وزن تقريبي 950–1000 جم.",
+    specs: "دجاج كامل مبرد، وزن تقريبي 800 جم (±50).",
     formValue: "دجاج الناصرية مبرد",
     category: "poultry",
   },
@@ -185,10 +185,10 @@ export const catalogProducts: CatalogProduct[] = [
   {
     id: "p-shorouq",
     img: "/catalog/img-105.jpg",
-    title: "دجاج الشروق مبرد",
-    brand: "الشروق",
-    specs: "دجاج مبرد، وزن صافي 700 جم.",
-    formValue: "دجاج الشروق مبرد 700 جم",
+    title: "دجاج الثروات مبرد",
+    brand: "الثروات",
+    specs: "دجاج مبرد طازج حلال، وزن صافي 700 جم (±20).",
+    formValue: "دجاج الثروات مبرد 700 جم",
     category: "poultry",
   },
   {
