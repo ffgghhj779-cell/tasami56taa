@@ -48,9 +48,9 @@ export default function QuoteRequestForm({
     <form
       id="quote-form"
       onSubmit={handleSubmit}
-      className="bg-white rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-8 md:p-10 shadow-2xl space-y-4 sm:space-y-5 text-start"
+      className="bg-white rounded-[1.25rem] sm:rounded-[2rem] p-4 sm:p-8 md:p-10 shadow-2xl space-y-3.5 sm:space-y-5 text-start"
     >
-      <h3 className="text-2xl font-black text-[#0A182D] mb-2 text-center">
+      <h3 className="text-xl sm:text-2xl font-black text-[#0A182D] mb-1 sm:mb-2 text-center">
         📝 قدم طلب توريد الآن
       </h3>
 

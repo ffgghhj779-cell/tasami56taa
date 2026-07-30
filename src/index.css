@@ -52,7 +52,7 @@
 
   @media (max-width: 639px) {
     html {
-      scroll-padding-top: 8rem;
+      scroll-padding-top: 4.5rem;
     }
 
     /* Blur is costly on mobile scroll — keep solid glass look */
@@ -109,7 +109,36 @@
 
   @media (max-width: 767px) {
     html {
-      scroll-padding-top: 8rem;
+      scroll-padding-top: 4.5rem;
+    }
+  }
+
+  .catalog-chip-scroll {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    touch-action: manipulation;
+  }
+
+  .catalog-chip-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .catalog-chip-scroll {
+      mask-image: linear-gradient(
+        to left,
+        transparent 0,
+        #000 18px,
+        #000 calc(100% - 18px),
+        transparent 100%
+      );
+      -webkit-mask-image: linear-gradient(
+        to left,
+        transparent 0,
+        #000 18px,
+        #000 calc(100% - 18px),
+        transparent 100%
+      );
     }
   }
 

@@ -17,6 +17,8 @@ import {
   Globe,
   Quote,
   Star,
+  Menu,
+  X,
 } from "lucide-react";
 import {
   defaultFaqs,
@@ -223,6 +225,7 @@ const navLinks = [
 export default function HomePage() {
   const { user, isTeam, signOut } = useAuth();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const reduceMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
   const [testimonials, setTestimonials] =
@@ -253,13 +256,14 @@ export default function HomePage() {
 
   return (
     <div className="font-sans text-slate-800 bg-white selection:bg-[#F4B41A] selection:text-white">
-      {/* ═══ Navbar — Shengda mobile: centered brand + links under ═══ */}
+      {/* ═══ Navbar — compact mobile + full desktop ═══ */}
       <nav className="bg-[#0E2A47] w-full z-50 sticky top-0">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 py-3 md:py-0 md:h-24 flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-6">
+        <div className="max-w-[1400px] mx-auto px-3.5 sm:px-6 lg:px-12 h-14 md:h-24 flex items-center justify-between gap-3">
           <a
             href="#home"
-            className="flex items-center justify-center md:justify-start gap-2.5 sm:gap-3 shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F4B41A]/60 rounded-lg"
+            className="flex items-center gap-2 sm:gap-3 shrink-0 min-w-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F4B41A]/60 rounded-lg"
             aria-label="تسامي الوطنية — الصفحة الرئيسية"
+            onClick={() => setMobileNavOpen(false)}
           >
             <img
               src="/logo-mark.png"
@@ -268,19 +272,19 @@ export default function HomePage() {
               width={56}
               height={56}
               decoding="async"
-              className="h-10 sm:h-12 md:h-14 w-auto object-contain"
+              className="h-9 sm:h-12 md:h-14 w-auto object-contain"
             />
-            <span className="flex flex-col justify-center md:border-r border-white/15 md:pr-3 min-w-0 text-center md:text-start">
-              <span className="font-brand text-[15px] sm:text-xl md:text-2xl font-black leading-tight tracking-tight text-white">
+            <span className="flex flex-col justify-center md:border-r border-white/15 md:pr-3 min-w-0 text-start">
+              <span className="font-brand text-[14px] sm:text-xl md:text-2xl font-black leading-tight tracking-tight text-white">
                 تسامي <span className="text-[#2A7A42]">الوطنية</span>
               </span>
-              <span className="font-brand mt-0.5 text-[9px] sm:text-xs md:text-[13px] font-bold leading-snug text-[#E66A1F]">
+              <span className="font-brand mt-0.5 text-[9px] sm:text-xs md:text-[13px] font-bold leading-snug text-[#E66A1F] hidden sm:block">
                 توريدات الجملة للمطاعم والأسواق
               </span>
             </span>
           </a>
 
-          <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-4 gap-y-2 sm:gap-x-6 md:gap-8 lg:gap-10 font-bold text-white text-[12px] sm:text-sm pb-1 md:pb-0">
+          <div className="hidden md:flex flex-wrap items-center justify-end gap-x-6 lg:gap-10 font-bold text-white text-sm">
             {navLinks.map((link, i) => (
               <a
                 key={link.href}
@@ -289,7 +293,7 @@ export default function HomePage() {
                   e.preventDefault();
                   scrollToSection(link.href.slice(1));
                 }}
-                className={`transition-colors active:opacity-80 touch-manipulation hover:text-[#F4B41A] ${
+                className={`transition-colors hover:text-[#F4B41A] ${
                   i === 0 ? "text-[#F4B41A]" : ""
                 }`}
               >
@@ -326,7 +330,78 @@ export default function HomePage() {
               </>
             )}
           </div>
+
+          <button
+            type="button"
+            className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 text-white touch-manipulation active:bg-white/15"
+            aria-expanded={mobileNavOpen}
+            aria-label={mobileNavOpen ? "إغلاق القائمة" : "فتح القائمة"}
+            onClick={() => setMobileNavOpen((v) => !v)}
+          >
+            {mobileNavOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
+
+        {mobileNavOpen && (
+          <div className="md:hidden border-t border-white/10 bg-[#0E2A47] px-3.5 pb-4 pt-2 shadow-xl">
+            <div className="flex flex-col gap-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileNavOpen(false);
+                    scrollToSection(link.href.slice(1));
+                  }}
+                  className="rounded-xl px-3 py-3 text-sm font-bold text-white/90 active:bg-white/10 touch-manipulation"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+            <div className="mt-2 pt-2 border-t border-white/10 flex items-center gap-2">
+              {user ? (
+                <>
+                  <Link
+                    to={isTeam ? "/admin" : "/account"}
+                    onClick={() => setMobileNavOpen(false)}
+                    className="flex-1 text-center rounded-xl bg-[#F4B41A] text-[#0A182D] px-3 py-3 text-sm font-extrabold touch-manipulation"
+                  >
+                    {isTeam ? "لوحة التحكم" : "حسابي"}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileNavOpen(false);
+                      void signOut();
+                    }}
+                    className="rounded-xl bg-white/10 px-4 py-3 text-sm font-bold text-white touch-manipulation"
+                  >
+                    خروج
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileNavOpen(false)}
+                    className="flex-1 text-center rounded-xl bg-white/10 px-3 py-3 text-sm font-bold text-white touch-manipulation"
+                  >
+                    دخول
+                  </Link>
+                  <Link
+                    to="/register"
+                    onClick={() => setMobileNavOpen(false)}
+                    className="flex-1 text-center rounded-xl bg-[#16A34A] px-3 py-3 text-sm font-extrabold text-white touch-manipulation"
+                  >
+                    إنشاء حساب
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* ═══ Hero — Shengda-style video background ═══ */}
