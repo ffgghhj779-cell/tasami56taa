@@ -127,11 +127,3 @@
     }
   }
 }
-
-/* Product catalog photos — full frame, crisp rendering */
-.catalog-img {
-  image-rendering: auto;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
