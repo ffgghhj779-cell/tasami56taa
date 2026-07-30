@@ -21,23 +21,16 @@ import {
 } from "lucide-react";
 import {
   defaultFaqs,
-  defaultProductOptions,
-  defaultProducts,
-  defaultStats,
   defaultTestimonials,
 } from "@/src/data/defaults";
+import { catalogFormOptions } from "@/src/data/catalog";
 import { submitQuoteRequest } from "@/src/services/leads";
 import { fetchSiteContent } from "@/src/services/content";
-import type { FaqCard, ProductCard, TestimonialCard } from "@/src/types/database";
+import type { FaqCard, TestimonialCard } from "@/src/types/database";
 import { useAuth } from "@/src/hooks/useAuth";
+import ProductsCatalog from "@/src/pages/ProductsCatalog";
 
 const WHATSAPP_URL = "https://wa.me/966550266838";
-
-function quoteWhatsApp(productTitle: string) {
-  return `${WHATSAPP_URL}?text=${encodeURIComponent(
-    `السلام عليكم، أرغب في طلب تسعيرة لمنتج: ${productTitle}`,
-  )}`;
-}
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
@@ -115,7 +108,12 @@ function HScroll({
    Static marketing blocks (CMS-managed: products / FAQ / testimonials)
 ───────────────────────────────────────────── */
 
-const stats = defaultStats;
+const stats = [
+  { value: "10+", label: "سنوات في توريد الدواجن والأغذية" },
+  { value: "500+", label: "عميل راضٍ في أنحاء المملكة" },
+  { value: "100%", label: "منتجات حلال ومعتمدة" },
+  { value: "24/7", label: "سلاسل إمداد مبردة ولوجستيات" },
+];
 
 const certifications = [
   {
@@ -230,12 +228,10 @@ export default function HomePage() {
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const reduceMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
-  const [products, setProducts] = useState<ProductCard[]>(defaultProducts);
   const [testimonials, setTestimonials] =
     useState<TestimonialCard[]>(defaultTestimonials);
   const [faqData, setFaqData] = useState<FaqCard[]>(defaultFaqs);
-  const [productOptions, setProductOptions] =
-    useState<string[]>(defaultProductOptions);
+  const [productOptions] = useState<string[]>(catalogFormOptions);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -249,10 +245,8 @@ export default function HomePage() {
     let cancelled = false;
     void fetchSiteContent().then((content) => {
       if (cancelled) return;
-      setProducts(content.products);
       setTestimonials(content.testimonials);
       setFaqData(content.faqs);
-      setProductOptions(content.productOptions);
     });
     return () => {
       cancelled = true;
@@ -592,98 +586,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ Featured Products ═══ */}
-      <section id="products" className="py-14 sm:py-20 md:py-24 bg-white border-t border-slate-100">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
-          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-3 sm:mb-4">
-            • المنتجات المميزة
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-[#0A182D] max-w-3xl leading-[1.1] tracking-tight mb-4 sm:mb-6">
-            لمحة عن كتالوج التوريد الخاص بنا
-          </h2>
-          <p className="text-slate-500 text-base sm:text-lg mb-10 sm:mb-16">
-            استكشف المنتجات والأصناف الأكثر طلباً من قبل شركائنا في قطاع
-            المطاعم والأسواق المركزية.
-          </p>
-
-          <div className="flex justify-between items-center mb-4 sm:mb-8 border-b border-slate-100 pb-4">
-            <h3 className="text-xl sm:text-2xl font-bold text-[#0A182D]">
-              أفضل المنتجات مبيعاً
-            </h3>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("contact");
-              }}
-              className="text-sm font-bold text-[#0A182D] hover:text-[#F4B41A] transition-colors inline-flex items-center gap-1 touch-manipulation"
-            >
-              عرض الكل <ArrowLeft size={16} />
-            </a>
-          </div>
-
-          <div className="sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
-            <HScroll wide hint="اسحب لاستعراض المنتجات ←">
-              {products.map((product, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={motionOff ? false : { opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{ delay: motionOff ? 0 : idx * 0.04, duration: motionOff ? 0 : 0.35 }}
-                  className="bg-white rounded-[1.5rem] sm:rounded-[2rem] shadow-[0_8px_30px_rgba(10,24,45,0.08)] border border-slate-100 p-4 sm:p-8 flex flex-col group overflow-hidden"
-                >
-                  <div className="relative rounded-2xl mb-4 sm:mb-6 overflow-hidden h-48 sm:h-56 bg-slate-100">
-                    <img
-                      src={product.img}
-                      alt={product.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover md:group-hover:scale-105 md:transition-transform md:duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A182D]/35 via-transparent to-transparent" />
-                    <span className="absolute top-3 right-3 bg-[#F4B41A] text-[#0A182D] text-[10px] font-extrabold px-2.5 py-1 rounded-md">
-                      جملة
-                    </span>
-                  </div>
-                  <h4 className="text-lg sm:text-xl font-bold text-[#0A182D] mb-2 sm:mb-3">
-                    {product.title}
-                  </h4>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-5 sm:mb-8 flex-grow">
-                    {product.desc}
-                  </p>
-                  <div className="flex flex-col gap-2 mt-auto">
-                    <a
-                      href={quoteWhatsApp(product.title)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center w-full px-6 py-3 bg-[#16A34A] hover:bg-[#15803D] text-white rounded-md font-bold transition-colors text-sm touch-manipulation"
-                    >
-                      طلب تسعيرة واتساب
-                      <ArrowLeft size={16} className="mr-2" />
-                    </a>
-                    <a
-                      href="#contact"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const select = document.getElementById(
-                          "product",
-                        ) as HTMLSelectElement | null;
-                        if (select) select.value = product.formValue;
-                        scrollToSection("contact");
-                      }}
-                      className="inline-flex items-center justify-center w-full px-6 py-3 border border-[#F4B41A] text-[#0A182D] rounded-md font-bold transition-colors text-sm hover:bg-[#F4B41A] touch-manipulation"
-                    >
-                      طلب عبر النموذج
-                    </a>
-                  </div>
-                </motion.div>
-              ))}
-            </HScroll>
-          </div>
-        </div>
-      </section>
+      <ProductsCatalog />
 
       {/* ═══ Supply Process — dark ═══ */}
       <section className="py-16 sm:py-24 md:py-32 bg-[#0F2442]">
