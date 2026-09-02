@@ -6,6 +6,7 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  MessageCircle,
   MessageSquareQuote,
   Package,
   X,
@@ -15,6 +16,7 @@ import { useAuth } from "@/src/hooks/useAuth";
 const links = [
   { to: "/admin", end: true, label: "لوحة المعلومات", icon: LayoutDashboard },
   { to: "/admin/leads", end: false, label: "الطلبات", icon: ClipboardList },
+  { to: "/admin/whatsapp", end: false, label: "واتساب البوت", icon: MessageCircle },
   { to: "/admin/products", end: false, label: "المنتجات", icon: Package },
   { to: "/admin/testimonials", end: false, label: "آراء العملاء", icon: MessageSquareQuote },
   { to: "/admin/faqs", end: false, label: "الأسئلة الشائعة", icon: HelpCircle },

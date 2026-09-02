@@ -10,6 +10,7 @@ import LeadsPage from "@/src/pages/admin/LeadsPage";
 import ProductsPage from "@/src/pages/admin/ProductsPage";
 import TestimonialsPage from "@/src/pages/admin/TestimonialsPage";
 import FaqsPage from "@/src/pages/admin/FaqsPage";
+import WhatsAppPage from "@/src/pages/admin/WhatsAppPage";
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
             <Route path="products" element={<ProductsPage />} />
             <Route path="testimonials" element={<TestimonialsPage />} />
             <Route path="faqs" element={<FaqsPage />} />
+            <Route path="whatsapp" element={<WhatsAppPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

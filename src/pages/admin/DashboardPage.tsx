@@ -4,6 +4,7 @@ import {
   ArrowLeft,
   ClipboardList,
   HelpCircle,
+  MessageCircle,
   MessageSquareQuote,
   Package,
   Plus,
@@ -11,6 +12,7 @@ import {
 } from "lucide-react";
 import { listQuoteRequests } from "@/src/services/leads";
 import { listFaqsAdmin, listProductsAdmin, listTestimonialsAdmin } from "@/src/services/content";
+import { fetchWhatsAppStats } from "@/src/services/whatsapp";
 import type { QuoteRequest } from "@/src/types/database";
 import { useAuth } from "@/src/hooks/useAuth";
 
@@ -22,6 +24,7 @@ type Stats = {
   products: number;
   faqs: number;
   testimonials: number;
+  waOrdersToday: number;
 };
 
 const emptyStats: Stats = {
@@ -32,6 +35,7 @@ const emptyStats: Stats = {
   products: 0,
   faqs: 0,
   testimonials: 0,
+  waOrdersToday: 0,
 };
 
 export default function DashboardPage() {
@@ -47,11 +51,12 @@ export default function DashboardPage() {
       setLoading(true);
       setError(null);
       try {
-        const [leads, products, faqs, testimonials] = await Promise.all([
+        const [leads, products, faqs, testimonials, waStats] = await Promise.all([
           listQuoteRequests(),
           listProductsAdmin(),
           listFaqsAdmin(),
           listTestimonialsAdmin(),
+          fetchWhatsAppStats().catch(() => ({ ok: false, ordersToday: 0, ordersWeek: 0, ordersTotal: 0, botPaused: 0 })),
         ]);
         if (cancelled) return;
         setStats({
@@ -62,6 +67,7 @@ export default function DashboardPage() {
           products: products.length,
           faqs: faqs.length,
           testimonials: testimonials.length,
+          waOrdersToday: waStats.ordersToday,
         });
         setRecent(leads.slice(0, 6));
       } catch (err) {
@@ -107,6 +113,34 @@ export default function DashboardPage() {
           متابعة الطلبات
         </Link>
       </div>
+
+      <Link
+        to="/admin/whatsapp"
+        className="block relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#075E54] via-[#128C7E] to-[#2A7A42] p-5 sm:p-6 text-white shadow-lg hover:shadow-xl transition-shadow"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <span className="grid h-12 w-12 place-items-center rounded-xl bg-white/15">
+              <MessageCircle className="h-6 w-6" />
+            </span>
+            <div>
+              <h2 className="font-black text-lg">بوت واتساب تسامي</h2>
+              <p className="text-sm text-white/80 mt-0.5">
+                طلبات العملاء · إرسال رسائل · متابعة البوت
+              </p>
+              {stats.waOrdersToday > 0 && (
+                <p className="text-xs text-white/70 mt-1">
+                  {stats.waOrdersToday} طلب واتساب اليوم
+                </p>
+              )}
+            </div>
+          </div>
+          <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/20 px-4 py-2 text-sm font-extrabold">
+            فتح اللوحة
+            <ArrowLeft className="h-4 w-4" />
+          </span>
+        </div>
+      </Link>
 
       {error && (
         <div className="rounded-xl bg-red-50 border border-red-200 text-red-700 px-4 py-3 text-sm">
@@ -206,6 +240,12 @@ export default function DashboardPage() {
             icon={<MessageSquareQuote className="h-4 w-4" />}
             title="آراء العملاء"
             desc="إضافة أو تعديل الشهادات"
+          />
+          <QuickLink
+            to="/admin/whatsapp"
+            icon={<MessageCircle className="h-4 w-4" />}
+            title="واتساب البوت"
+            desc="طلبات سارة وإرسال رسائل للعملاء"
           />
           <QuickLink
             to="/admin/faqs"
