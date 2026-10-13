@@ -31,82 +31,116 @@ export type CatalogProduct = {
 
 export type CatalogCategory = {
   id: CatalogCategoryId;
+  slug: string;
   title: string;
+  heading: string;
   subtitle: string;
 };
 
 export const catalogCategories: CatalogCategory[] = [
   {
     id: "poultry",
+    slug: "poultry",
     title: "الدواجن المبردة والمجمدة",
-    subtitle: "دجاج كامل وصدور ومنتجات مجمدة بجودة حلال معتمدة",
+    heading: "توريد دجاج بالجملة",
+    subtitle: "دجاج كامل وصدور ومنتجات مجمدة",
   },
   {
     id: "fresh_produce",
+    slug: "fresh-produce",
     title: "الخضار والفواكه الطازجة",
-    subtitle: "توريد يومي للمطاعم والأسواق المركزية",
+    heading: "توريد خضار وفواكه بالجملة",
+    subtitle: "خضار وفواكه طازجة للمطاعم والأسواق",
   },
   {
     id: "frozen_veg_fruit",
+    slug: "frozen-vegetables",
     title: "خضار وفاكهة مجمدة",
-    subtitle: "مجمدات سريعة الحفظ للاستخدام المباشر في المطابخ",
+    heading: "خضار مجمدة بالجملة",
+    subtitle: "مجمدات للاستخدام في المطابخ",
   },
   {
     id: "frozen_fries",
+    slug: "frozen-fries",
     title: "البطاطس المجمدة",
-    subtitle: "أصابع بطاطس نصف مقلية بأحجام جملة للمطاعم",
+    heading: "بطاطس مجمدة بالجملة",
+    subtitle: "أصابع بطاطس بأحجام جملة للمطاعم",
   },
   {
     id: "oils_sauces_tuna",
+    slug: "oils-sauces",
     title: "الزيوت والصلصات والتونة",
+    heading: "توريد زيوت وصلصات بالجملة",
     subtitle: "زيوت طهي، معاجين، كاتشب، وتونة معلبة",
   },
   {
     id: "fresh_juices",
+    slug: "juices",
     title: "العصائر الطازجة ولب الفاكهة",
-    subtitle: "عصائر جاهزة ولب مانجو للاستخدام الصناعي والضيافة",
+    heading: "توريد عصائر ولب فاكهة بالجملة",
+    subtitle: "عصائر جاهزة ولب مانجو",
   },
   {
     id: "rice_pulses",
+    slug: "rice",
     title: "الأرز والبقوليات والمكرونة",
-    subtitle: "أرز بسمتي ومصري وبقوليات معلبة بكميات جملة",
+    heading: "توريد أرز بالجملة",
+    subtitle: "أرز وبقوليات ومكرونة بكميات جملة",
   },
   {
     id: "eggs",
+    slug: "eggs",
     title: "البيض الطازج",
-    subtitle: "بيض مائدة من مزارع معتمدة بكميات توريد",
+    heading: "توريد بيض طازج بالجملة",
+    subtitle: "بيض مائدة بكميات توريد",
   },
   {
     id: "frozen_meat",
+    slug: "meat",
     title: "اللحوم المجمدة",
-    subtitle: "لحوم جاموس هندي حلال وذبائح حسب الطلب",
+    heading: "توريد لحوم مجمدة بالجملة",
+    subtitle: "لحوم مجمدة حسب المتوفر في الكتالوج",
   },
   {
     id: "dates",
+    slug: "dates",
     title: "التمور الفاخرة",
-    subtitle: "عجوة المدينة وتمر خلاص للضيافة والجملة",
+    heading: "توريد تمور بالجملة",
+    subtitle: "تمور للضيافة والجملة",
   },
   {
     id: "dairy",
+    slug: "dairy",
     title: "الألبان والأجبان والسمن",
-    subtitle: "سمن بلدي وأجبان بيضاء للاستخدام اليومي",
+    heading: "توريد ألبان وأجبان بالجملة",
+    subtitle: "سمن وأجبان حسب المتوفر في الكتالوج",
   },
   {
     id: "beverages",
-    title: "المشروبات ومشروبات الطاقة",
-    subtitle: "ريد بول، موسي، سن توب، ونسكافيه جاهز",
+    slug: "beverages",
+    title: "المشروبات",
+    heading: "توريد مشروبات بالجملة",
+    subtitle: "مشروبات جاهزة حسب المتوفر في الكتالوج",
   },
   {
     id: "water",
+    slug: "water",
     title: "مياه الشرب",
-    subtitle: "مياه معبأة بأحجام متعددة للفنادق والمطاعم",
+    heading: "توريد مياه شرب بالجملة",
+    subtitle: "مياه معبأة للفنادق والمطاعم",
   },
   {
     id: "ready_frozen",
+    slug: "ready-frozen",
     title: "منتجات جاهزة مجمدة",
-    subtitle: "بانيه، برجر، كروكيت، وأصابع جبن للمطاعم",
+    heading: "منتجات جاهزة مجمدة بالجملة",
+    subtitle: "بانيه، برجر، وأصابع جبن للمطاعم",
   },
 ];
+
+export function categoryBySlug(slug: string | undefined) {
+  return catalogCategories.find((category) => category.slug === slug);
+}
 
 export const catalogProducts: CatalogProduct[] = [
   // ── Poultry ──

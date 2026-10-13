@@ -9,19 +9,20 @@ import {
   MessageCircle,
   MessageSquareQuote,
   Package,
+  ShoppingBag,
   X,
 } from "lucide-react";
 import { useAuth } from "@/src/hooks/useAuth";
 
 const links = [
   { to: "/admin", end: true, label: "لوحة المعلومات", icon: LayoutDashboard },
-  { to: "/admin/leads", end: false, label: "الطلبات", icon: ClipboardList },
+  { to: "/admin/orders", end: false, label: "طلبات الشراء", icon: ShoppingBag },
+  { to: "/admin/leads", end: false, label: "طلبات التسعير", icon: ClipboardList },
   { to: "/admin/whatsapp", end: false, label: "واتساب البوت", icon: MessageCircle },
   { to: "/admin/products", end: false, label: "المنتجات", icon: Package },
   { to: "/admin/testimonials", end: false, label: "آراء العملاء", icon: MessageSquareQuote },
   { to: "/admin/faqs", end: false, label: "الأسئلة الشائعة", icon: HelpCircle },
 ];
-
 export default function AdminLayout() {
   const { user, profile, loading, signOut, isTeam } = useAuth();
   const navigate = useNavigate();

@@ -12,6 +12,31 @@ export async function submitQuoteRequest(payload: QuoteRequestInsert) {
   const { error } = await supabase.from("quote_requests").insert(payload);
 
   if (error) throw error;
+  notifyQuoteRequest(payload);
+}
+
+const DEFAULT_QUOTE_NOTIFY_URL =
+  "https://n8n.esteemmediaa.com/webhook/tasami-website-quote";
+
+function notifyQuoteRequest(payload: QuoteRequestInsert) {
+  const url =
+    (import.meta.env.VITE_QUOTE_NOTIFY_URL as string | undefined)?.trim() ||
+    DEFAULT_QUOTE_NOTIFY_URL;
+  void fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      source: "website-quote",
+      business: payload.business,
+      phone: payload.phone,
+      city: payload.city,
+      product: payload.product,
+      quantity: payload.quantity,
+    }),
+    keepalive: true,
+  }).catch((err) => {
+    console.warn("[quote notify]", err);
+  });
 }
 
 export async function listQuoteRequests() {

@@ -14,10 +14,10 @@ import {
   FileText,
   Snowflake,
   Scale,
-  Globe,
   Quote,
   Star,
   Menu,
+  ShoppingCart,
   X,
 } from "lucide-react";
 import {
@@ -27,6 +27,7 @@ import {
 import { fetchSiteContent } from "@/src/services/content";
 import type { FaqCard, TestimonialCard } from "@/src/types/database";
 import { useAuth } from "@/src/hooks/useAuth";
+import { useCart } from "@/src/hooks/useCart";
 import ProductsCatalog from "@/src/pages/ProductsCatalog";
 import QuoteRequestForm from "@/src/components/QuoteRequestForm";
 
@@ -146,15 +147,15 @@ const certifications = [
 const miniCards = [
   {
     title: "المهمة",
-    desc: "تقديم منتجات غذائية فاخرة بجودة لا تقبل المساومة.",
+    desc: "توريد منتجات غذائية بالجملة للمطاعم والأسواق.",
   },
   {
     title: "التركيز الإقليمي",
-    desc: "تغطية شاملة لأكثر من 13 منطقة في المملكة العربية السعودية.",
+    desc: "توريد للمطاعم والأسواق داخل المملكة العربية السعودية.",
   },
   {
     title: "الجودة",
-    desc: "ضمان الجودة من المصدر إلى المستودع وحتى العميل النهائي.",
+    desc: "نراجع الشهادات والوثائق المصاحبة للتوريد.",
   },
   {
     title: "اللوجستيات",
@@ -171,7 +172,7 @@ const processSteps = [
   {
     num: "02",
     title: "استلام التسعيرة",
-    desc: "أسعار تنافسية للجملة خلال ساعة.",
+    desc: "نراجع الطلب ونرسل عرض السعر للجملة.",
   },
   {
     num: "03",
@@ -191,8 +192,8 @@ const processSteps = [
 ];
 
 const reasons = [
-  "منتجات عالية الجودة من أفضل المصادر العالمية والمحلية",
-  "أسعار جملة تنافسية تضمن أفضل هوامش الربح",
+  "منتجات غذائية بالجملة للمطاعم والأسواق",
+  "عرض سعر للجملة بعد مراجعة الكمية والمدينة",
   "لوجستيات توريد موثوقة ومجدولة بدقة",
   "تغليف مرن وتعبئة مخصصة حسب الطلب",
   "الامتثال الصارم لمعايير الغذاء والدواء (SFDA)",
@@ -201,22 +202,51 @@ const reasons = [
   "أسطول مبرد متكامل لتوصيل آمن وسريع",
 ];
 
-const regions = [
-  "الرياض والمنطقة الوسطى",
-  "جدة ومكة المكرمة",
-  "الدمام والمنطقة الشرقية",
-  "تبوك والمنطقة الشمالية",
-  "أبها والمنطقة الجنوبية",
-  "القصيم وحائل",
+const navLinks = [
+  { label: "الرئيسية", href: "/#home" },
+  { label: "المنتجات", href: "/#products" },
+  { label: "المطاعم", href: "/restaurants" },
+  { label: "الأسواق", href: "/markets" },
+  { label: "التوصيل", href: "/delivery" },
+  { label: "الأسئلة", href: "/#faq" },
+  { label: "تواصل", href: "/#contact" },
 ];
 
-const navLinks = [
-  { label: "الرئيسية", href: "#home" },
-  { label: "من نحن", href: "#about" },
-  { label: "المنتجات", href: "#products" },
-  { label: "الأسئلة الشائعة", href: "#faq" },
-  { label: "اتصل بنا", href: "#contact" },
-];
+function HomeNavLink({
+  href,
+  label,
+  className,
+  onDone,
+}: {
+  href: string;
+  label: string;
+  className?: string;
+  onDone?: () => void;
+}) {
+  if (href.startsWith("/#")) {
+    const id = href.slice(2);
+    return (
+      <a
+        href={`#${id}`}
+        className={className}
+        onClick={(e) => {
+          onDone?.();
+          if (window.location.pathname === "/") {
+            e.preventDefault();
+            scrollToSection(id);
+          }
+        }}
+      >
+        {label}
+      </a>
+    );
+  }
+  return (
+    <Link to={href} className={className} onClick={onDone}>
+      {label}
+    </Link>
+  );
+}
 
 /* ─────────────────────────────────────────────
    App
@@ -224,6 +254,7 @@ const navLinks = [
 
 export default function HomePage() {
   const { user, isTeam, signOut } = useAuth();
+  const { count: cartCount } = useCart();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -231,6 +262,13 @@ export default function HomePage() {
   const [testimonials, setTestimonials] =
     useState<TestimonialCard[]>(defaultTestimonials);
   const [faqData, setFaqData] = useState<FaqCard[]>(defaultFaqs);
+
+  useEffect(() => {
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    const timer = window.setTimeout(() => scrollToSection(id), 80);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -286,20 +324,28 @@ export default function HomePage() {
 
           <div className="hidden md:flex flex-wrap items-center justify-end gap-x-6 lg:gap-10 font-bold text-white text-sm">
             {navLinks.map((link, i) => (
-              <a
+              <HomeNavLink
                 key={link.href}
                 href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(link.href.slice(1));
-                }}
+                label={link.label}
                 className={`transition-colors hover:text-[#F4B41A] ${
                   i === 0 ? "text-[#F4B41A]" : ""
                 }`}
-              >
-                {link.label}
-              </a>
+              />
             ))}
+            <Link
+              to="/cart"
+              className="relative inline-flex items-center gap-1.5 transition-colors hover:text-[#F4B41A]"
+              aria-label="سلة المشتريات"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              السلة
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -left-3 min-w-5 h-5 px-1 rounded-full bg-[#F4B41A] text-[#0A182D] text-[10px] font-extrabold grid place-items-center">
+                  {cartCount > 99 ? "99+" : cartCount}
+                </span>
+              )}
+            </Link>
             {user ? (
               <>
                 <Link
@@ -331,33 +377,42 @@ export default function HomePage() {
             )}
           </div>
 
-          <button
-            type="button"
-            className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 text-white touch-manipulation active:bg-white/15"
-            aria-expanded={mobileNavOpen}
-            aria-label={mobileNavOpen ? "إغلاق القائمة" : "فتح القائمة"}
-            onClick={() => setMobileNavOpen((v) => !v)}
-          >
-            {mobileNavOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          <div className="md:hidden flex items-center gap-1.5">
+            <Link
+              to="/cart"
+              className="relative inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 text-white touch-manipulation"
+              aria-label="سلة المشتريات"
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -left-1 min-w-4 h-4 px-1 rounded-full bg-[#F4B41A] text-[#0A182D] text-[9px] font-extrabold grid place-items-center">
+                  {cartCount > 99 ? "99+" : cartCount}
+                </span>
+              )}
+            </Link>
+            <button
+              type="button"
+              className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 text-white touch-manipulation active:bg-white/15"
+              aria-expanded={mobileNavOpen}
+              aria-label={mobileNavOpen ? "إغلاق القائمة" : "فتح القائمة"}
+              onClick={() => setMobileNavOpen((v) => !v)}
+            >
+              {mobileNavOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
 
         {mobileNavOpen && (
           <div className="md:hidden border-t border-white/10 bg-[#0E2A47] px-3.5 pb-4 pt-2 shadow-xl">
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
-                <a
+                <HomeNavLink
                   key={link.href}
                   href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setMobileNavOpen(false);
-                    scrollToSection(link.href.slice(1));
-                  }}
+                  label={link.label}
+                  onDone={() => setMobileNavOpen(false)}
                   className="rounded-xl px-3 py-3 text-sm font-bold text-white/90 active:bg-white/10 touch-manipulation"
-                >
-                  {link.label}
-                </a>
+                />
               ))}
             </div>
             <div className="mt-2 pt-2 border-t border-white/10 flex items-center gap-2">
@@ -444,19 +499,19 @@ export default function HomePage() {
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#F4B41A]" />
-                منذ 2014
+                سجل تجاري 7051037930
               </span>
             </div>
 
             <h1 className="text-[1.9rem] leading-[1.22] sm:text-5xl md:text-6xl lg:text-[4.25rem] font-black text-white tracking-tight mb-5 sm:mb-8 max-w-4xl mx-auto">
-              توريدات جملة فاخرة
+              منتجات غذائية بالجملة
               <br className="sm:hidden" />{" "}
-              للمطاعم والأسواق المركزية
+              للمطاعم والأسواق
             </h1>
 
             <p className="text-white/85 text-[0.95rem] sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed font-light px-1">
-              نورد الدواجن المبردة والفريش، البطاطس المجمدة، والبيض الطازج —
-              بجودة مضمونة وأسعار جملة تنافسية وتوصيل مبرد إلى جميع أنحاء المملكة.
+              نورد الدواجن المبردة، البطاطس المجمدة، والبيض الطازج للمطاعم
+              والأسواق، مع توصيل مبرد. اطلب عرض السعر الآن.
             </p>
 
             {/* CTAs — stacked full-width on mobile like Shengda */}
@@ -507,14 +562,65 @@ export default function HomePage() {
                   لماذا تختارنا؟
                 </h3>
                 <p className="text-white text-[0.95rem] sm:text-lg leading-relaxed font-medium text-center sm:text-start">
-                  نحن رواد السوق في توريد الدواجن والأغذية، موثوقون من قبل
-                  الموزعين وشركات الخدمات الغذائية في جميع أنحاء المملكة.
+                  نورد الدواجن والبطاطس والبيض وباقي أقسام الكتالوج للمطاعم والأسواق.
+                  عرض السعر يُرسل بعد تحديد الكمية والمدينة.
                 </p>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
+
+      <section className="bg-white border-b border-slate-100">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 py-6 grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+          <div>
+            <div className="text-[11px] font-bold text-slate-400">السجل التجاري</div>
+            <div className="font-black text-[#0A182D]">7051037930</div>
+          </div>
+          <div>
+            <div className="text-[11px] font-bold text-slate-400">الرقم الضريبي</div>
+            <div className="font-black text-[#0A182D]">314091043600003</div>
+          </div>
+          <div>
+            <div className="text-[11px] font-bold text-slate-400">عنوان المنشأة</div>
+            <div className="font-black text-[#0A182D]">ينبع · YADB2452</div>
+          </div>
+          <div>
+            <div className="text-[11px] font-bold text-slate-400">التوصيل</div>
+            <Link to="/delivery" className="font-black text-[#15803D]">
+              مبرد، حسب المدينة
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 sm:py-20 bg-slate-50">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
+          <h2 className="text-3xl sm:text-4xl font-black text-[#0A182D] mb-3">لمن نورّد</h2>
+          <p className="text-slate-500 mb-8 max-w-2xl">
+            اختر نوع نشاطك. الأقسام المعروضة هي الموجودة في الكتالوج فقط.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              ["مطاعم", "/restaurants"],
+              ["كافيهات ومخابز", "/restaurants"],
+              ["فنادق وتموين", "/restaurants"],
+              ["أسواق وبقالات", "/markets"],
+            ].map(([label, href]) => (
+              <Link
+                key={label}
+                to={href}
+                className="rounded-2xl bg-white border border-slate-200 p-6 font-black text-[#0A182D] hover:border-[#F4B41A]"
+              >
+                {label}
+                <span className="block mt-2 text-sm font-bold text-[#15803D]">اعرض الصفحة</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <ProductsCatalog />
 
       {/* ═══ Certifications ═══ */}
       <section id="certifications" className="py-14 sm:py-20 md:py-24 bg-white">
@@ -577,26 +683,13 @@ export default function HomePage() {
                   decoding="async"
                   className="rounded-[2rem] h-[28rem] object-cover w-full shadow-lg"
                 />
-                <div className="absolute -bottom-8 -left-8 bg-[#0A182D] text-white p-8 rounded-3xl shadow-xl w-56 flex flex-col justify-center items-center text-center">
-                  <div
-                    className="text-[3.5rem] font-black text-[#F4B41A] leading-none mb-2"
-                    dir="ltr"
-                  >
-                    13+
-                  </div>
-                  <div className="text-xs font-bold tracking-[0.1em] uppercase text-white/80">
-                    منطقة مخدومة
-                  </div>
-                </div>
               </div>
             </div>
 
             <div className="lg:pt-4 min-w-0">
               <p className="text-slate-500 text-base sm:text-lg leading-relaxed mb-10 break-words">
-                مؤسسة تسامي الوطنية هي مورد سعودي موثوق يقدم منتجات الدواجن
-                والأغذية المجمدة عالية الجودة للمشترين التجاريين في جميع أنحاء
-                المملكة العربية السعودية. يمكننا تخصيص المنتجات بمواصفات مختلفة
-                لتناسب احتياجات المطاعم والأسواق المركزية.
+                مؤسسة تسامي الوطنية تورد منتجات الكتالوج للمطاعم والأسواق.
+                عرض السعر يُرسل بعد تحديد الصنف والكمية والمدينة.
               </p>
 
               <div className="sm:grid sm:grid-cols-2 sm:gap-6 mb-10 sm:mb-12">
@@ -636,8 +729,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <ProductsCatalog />
-
       {/* ═══ Supply Process — dark ═══ */}
       <section className="py-16 sm:py-24 md:py-32 bg-[#0F2442]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
@@ -645,7 +736,7 @@ export default function HomePage() {
             • عملية التوريد
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-white mb-4 sm:mb-6 leading-[1.1] tracking-tight">
-            من الاستفسار إلى وجهتك النهائية
+            كيف تطلب
           </h2>
           <p className="text-white/60 text-base sm:text-lg max-w-2xl mb-6 sm:mb-20">
             عملية مبسطة من خمس خطوات مصممة للمشترين الذين يقدرون السرعة،
@@ -736,67 +827,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ Coverage / Markets ═══ */}
-      <section className="py-16 sm:py-24 md:py-32 bg-[#0F2442]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 text-center mb-10 sm:mb-20">
-          <div className="text-[#F4B41A] text-xs font-bold tracking-[0.2em] uppercase mb-3 sm:mb-4 flex justify-center">
-            • التغطية المحلية
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-black text-white mb-4 sm:mb-6 tracking-tight">
-            الشحن لجميع المناطق
-          </h2>
-          <p className="text-white/60 text-lg max-w-2xl mx-auto">
-            موثوقون من قبل المستوردين والموزعين وسلاسل السوبر ماركت في الأسواق
-            الأكثر تطلباً في المملكة.
+      <section id="delivery" className="py-16 sm:py-24 bg-[#0F2442]">
+        <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-12">
+          <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">التوصيل المبرد</h2>
+          <p className="text-white/70 text-lg leading-relaxed mb-6">
+            المنتجات التي تحتاج تبريدًا تُنقل بتوصيل مبرد. المدينة وموعد الوصول
+            يُؤكدان مع فريق المبيعات حسب الكمية، لذلك لا نعرض قائمة مدن قبل تأكيدها.
           </p>
-        </div>
-
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div className="bg-[#172A46] rounded-[2rem] border border-white/5 h-[280px] sm:h-[480px] flex items-center justify-center relative overflow-hidden">
-              <Globe
-                size={280}
-                className="text-white/[0.03] absolute -right-16 -bottom-16 sm:hidden"
-              />
-              <Globe
-                size={400}
-                className="text-white/[0.03] absolute -right-20 -bottom-20 hidden sm:block"
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-[#F4B41A] rounded-full blur-[80px] opacity-20" />
-                  <div className="w-4 h-4 bg-[#F4B41A] rounded-full relative z-10 shadow-[0_0_20px_rgba(244,180,26,1)]" />
-                </div>
-              </div>
-              <div className="relative z-10 text-center px-8">
-                <div
-                  className="text-5xl font-black text-[#F4B41A] mb-2"
-                  dir="ltr"
-                >
-                  13+
-                </div>
-                <div className="text-white/70 font-bold text-sm tracking-widest uppercase">
-                  منطقة مخدومة
-                </div>
-              </div>
-            </div>
-
-            <div className="grid sm:grid-cols-2 sm:gap-4">
-              <HScroll hint="اسحب للمناطق ←">
-              {regions.map((region, idx) => (
-                <div
-                  key={idx}
-                  className="bg-[#172A46] border border-white/10 p-6 sm:p-8 rounded-[1.5rem]"
-                >
-                  <div className="text-[10px] font-bold text-[#F4B41A] uppercase tracking-[0.2em] mb-3">
-                    المنطقة
-                  </div>
-                  <h4 className="text-lg sm:text-xl font-bold text-white">{region}</h4>
-                </div>
-              ))}
-              </HScroll>
-            </div>
-          </div>
+          <Link
+            to="/delivery"
+            className="inline-flex items-center bg-[#F4B41A] text-[#0A182D] px-6 py-3 rounded-md font-bold"
+          >
+            تفاصيل التوصيل
+          </Link>
         </div>
       </section>
 
@@ -927,8 +970,8 @@ export default function HomePage() {
             <br /> غذائية فاخرة؟
           </h2>
           <p className="text-white/70 text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-            هل تدير مطعم، سوق مركزي، أو سلسلة تجارية؟ املأ النموذج وسيصلك عرض
-            السعر الجملة وأوقات التوصيل خلال ساعة.
+            هل تدير مطعمًا أو سوقًا أو سلسلة تجارية؟ املأ النموذج ونراجع طلبك
+            ثم نرسل عرض السعر للجملة.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
             <a
@@ -987,8 +1030,8 @@ export default function HomePage() {
                 </span>
               </a>
               <p className="text-sm leading-relaxed text-white/60">
-                المورد الموثوق لقطاع المطاعم والأسواق المركزية في المملكة
-                العربية السعودية. جودة مضمونة وسلاسل إمداد مبردة.
+                مؤسسة تسامي الوطنية لتوريد الأغذية بالجملة للمطاعم والأسواق،
+                مع توصيل مبرد.
               </p>
             </div>
 
@@ -1008,6 +1051,21 @@ export default function HomePage() {
                   >
                     الرئيسية
                   </a>
+                </li>
+                <li>
+                  <Link to="/restaurants" className="hover:text-white transition-colors">
+                    المطاعم
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/markets" className="hover:text-white transition-colors">
+                    الأسواق
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/delivery" className="hover:text-white transition-colors">
+                    التوصيل
+                  </Link>
                 </li>
                 <li>
                   <a
@@ -1110,9 +1168,19 @@ export default function HomePage() {
               </h4>
               <ul className="space-y-4 text-sm font-medium">
                 <li>
-                  <span className="text-white/60">
-                    المملكة العربية السعودية
+                  <span className="text-white/80 block">مؤسسة تسامي الوطنية</span>
+                  <span className="text-white/60 block mt-1">
+                    ينبع، حي الحدائق، شارع الملك عبدالعزيز ابن عبدالرحمن سعود، مبنى 2452
                   </span>
+                  <span className="text-white/60 block mt-1">
+                    الرمز البريدي 46429 · العنوان المختصر YADB2452
+                  </span>
+                </li>
+                <li>
+                  <span className="text-white/60">السجل التجاري 7051037930</span>
+                </li>
+                <li>
+                  <span className="text-white/60">الرقم الضريبي 314091043600003</span>
                 </li>
                 <li dir="ltr" className="text-right">
                   <a
@@ -1136,7 +1204,7 @@ export default function HomePage() {
 
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/40 font-medium">
             <p>
-              جميع الحقوق محفوظة © 2026 - مؤسسة تسامي الوطنية للتوريدات
+              جميع الحقوق محفوظة © 2026 - مؤسسة تسامي الوطنية
             </p>
             <a
               href="/admin/login"

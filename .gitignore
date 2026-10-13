@@ -6,4 +6,8 @@ coverage/
 *.log
 .env*
 !.env.example
+.n8n-study/
 products/WhatsApp*
+
+.vercel
+.env*
