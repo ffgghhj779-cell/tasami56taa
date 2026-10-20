@@ -7,7 +7,14 @@ const replacements: Array<[RegExp, string]> = [
   [/ئ/g, "ي"],
 ];
 
-const synonyms = ["دجاج فراخ فروج دواجن", "مبرد فريش طازج", "بطاطس بطاطا", "ارز رز"];
+const synonyms = [
+  "دجاج فراخ فروج دواجن",
+  "مبرد فريش طازج",
+  "بطاطس بطاطا",
+  "ارز رز",
+  "سلام سلاّم sallam",
+  "كالروز calrose",
+];
 
 export function normalizeArabic(value: string) {
   let text = value.toLowerCase();

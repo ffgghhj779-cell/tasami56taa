@@ -37,7 +37,13 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
   const [active, setActive] = useState<CatalogCategoryId | "all">(lockedCategory ?? "all");
   const [query, setQuery] = useState("");
   const [preview, setPreview] = useState<PurchasableProduct | null>(null);
+  const [previewImg, setPreviewImg] = useState<string | null>(null);
   const [addedId, setAddedId] = useState<string | null>(null);
+
+  function openPreview(product: PurchasableProduct) {
+    setPreview(product);
+    setPreviewImg(product.img);
+  }
 
   function openRequestForm(formValue: string) {
     setPreview(null);
@@ -74,6 +80,7 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
 
   useEffect(() => {
     if (!preview) return;
+    setPreviewImg(preview.img);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setPreview(null);
     };
@@ -84,6 +91,10 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
       document.body.style.overflow = "";
     };
   }, [preview]);
+
+  const showSallamFeature =
+    !query.trim() &&
+    (lockedCategory === "rice_pulses" || active === "all" || active === "rice_pulses");
 
   return (
     <section
@@ -144,6 +155,8 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
           </div>
         </div>
 
+        {showSallamFeature && <SallamFeatureBanner />}
+
         {filtered.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-slate-200 bg-white p-10 sm:p-12 text-center">
             <p className="text-slate-500 text-sm mb-4">لا توجد نتائج مطابقة. جرّب قسمًا قريبًا أو اسأل فريق المبيعات.</p>
@@ -171,7 +184,7 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
                   subtitle={cat.subtitle}
                   items={items}
                   addedId={addedId}
-                  onPreview={setPreview}
+                  onPreview={openPreview}
                   onAdd={handleAdd}
                   onRequestForm={openRequestForm}
                 />
@@ -192,7 +205,7 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
             }
             items={filtered.map(withPrice)}
             addedId={addedId}
-            onPreview={setPreview}
+            onPreview={openPreview}
             onAdd={handleAdd}
             onRequestForm={openRequestForm}
           />
@@ -220,17 +233,43 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
               <X className="h-5 w-5" />
             </button>
             <div className="grid md:grid-cols-[1.15fr_0.85fr]">
-              <div className="bg-[radial-gradient(circle_at_30%_20%,#fff,#eef2f7_70%)] min-h-[240px] sm:min-h-[280px] md:min-h-[520px] flex items-center justify-center p-4 sm:p-6">
+              <div className="bg-[radial-gradient(circle_at_30%_20%,#fff,#eef2f7_70%)] min-h-[240px] sm:min-h-[280px] md:min-h-[520px] flex flex-col items-center justify-center gap-3 p-4 sm:p-6">
                 <img
-                  src={preview.img}
+                  src={previewImg || preview.img}
                   alt={preview.title}
-                  className="max-h-[42svh] sm:max-h-[70vh] w-full object-contain"
+                  className="max-h-[36svh] sm:max-h-[58vh] w-full object-contain"
                 />
+                {(preview.gallery?.length ?? 0) > 1 && (
+                  <div className="flex flex-wrap justify-center gap-2 w-full">
+                    {preview.gallery!.map((src) => (
+                      <button
+                        key={src}
+                        type="button"
+                        onClick={() => setPreviewImg(src)}
+                        className={`h-14 w-14 sm:h-16 sm:w-16 rounded-xl overflow-hidden border-2 touch-manipulation ${
+                          (previewImg || preview.img) === src
+                            ? "border-[#F4B41A]"
+                            : "border-white/80 opacity-80"
+                        }`}
+                        aria-label="صورة أخرى للمنتج"
+                      >
+                        <img src={src} alt="" className="h-full w-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="p-5 sm:p-8 flex flex-col pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-                {preview.brand && (
-                  <div className="text-xs font-bold text-[#E66A1F] mb-2">{preview.brand}</div>
-                )}
+                <div className="flex flex-wrap items-center gap-2 mb-2">
+                  {preview.brand && (
+                    <div className="text-xs font-bold text-[#E66A1F]">{preview.brand}</div>
+                  )}
+                  {preview.badge && (
+                    <span className="rounded-full bg-[#0E2A47] text-white text-[10px] font-extrabold px-2.5 py-0.5">
+                      {preview.badge}
+                    </span>
+                  )}
+                </div>
                 <h3 className="text-xl sm:text-2xl font-black text-[#0A182D] mb-2 sm:mb-3">
                   {preview.title}
                 </h3>
@@ -284,6 +323,68 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
         </div>
       )}
     </section>
+  );
+}
+
+function SallamFeatureBanner() {
+  return (
+    <div className="mb-8 sm:mb-12 overflow-hidden rounded-[1.35rem] sm:rounded-[1.75rem] border border-[#0E2A47]/15 bg-[#0A182D] shadow-[0_24px_60px_-36px_rgba(10,24,45,0.8)]">
+      <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="relative min-h-[220px] sm:min-h-[280px] lg:min-h-[320px]">
+          <img
+            src="/catalog/sallam-feature-egypt.jpg"
+            alt="أرز سلام المصري — من أرض مصر لسفرتك"
+            className="absolute inset-0 h-full w-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A182D]/75 via-[#0A182D]/15 to-transparent lg:bg-gradient-to-l lg:from-[#0A182D]/80 lg:via-transparent" />
+        </div>
+        <div className="relative flex flex-col justify-center gap-4 p-5 sm:p-8 text-white">
+          <p className="text-[#F4B41A] text-[10px] sm:text-xs font-extrabold tracking-[0.18em] uppercase">
+            وكالة حصرية · تسامي الوطنية
+          </p>
+          <h3 className="font-brand text-2xl sm:text-3xl font-black leading-tight">
+            أرز سلام المصري
+          </h3>
+          <p className="text-white/80 text-sm sm:text-base leading-relaxed max-w-md">
+            أبيض وكالروز بعبوات 5 و25 كجم للجملة. تسامي الوطنية الوكيل الحصري في السعودية.
+          </p>
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {[
+              ["/catalog/sallam-egyptian-5kg.jpg", "5 كجم"],
+              ["/catalog/sallam-egyptian-25kg.jpg", "25 كجم"],
+              ["/catalog/sallam-calrose.jpg", "كالروز"],
+              ["/catalog/sallam-sizes.jpg", "كل الأحجام"],
+            ].map(([src, label]) => (
+              <div
+                key={src}
+                className="shrink-0 w-[72px] sm:w-20 rounded-xl overflow-hidden border border-white/15 bg-white/5"
+              >
+                <img src={src} alt={label} className="h-16 sm:h-[4.5rem] w-full object-cover" />
+                <div className="px-1.5 py-1 text-center text-[9px] font-bold text-white/75">
+                  {label}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
+            <Link
+              to="/products/rice"
+              className="inline-flex items-center justify-center min-h-11 px-5 rounded-xl bg-[#F4B41A] text-[#0A182D] font-extrabold text-sm touch-manipulation"
+            >
+              اعرض في قسم الأرز
+            </Link>
+            <a
+              href={quoteWhatsApp("أرز سلام المصري — وكالة حصرية")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center min-h-11 px-5 rounded-xl bg-[#16A34A] text-white font-extrabold text-sm touch-manipulation"
+            >
+              اطلب تسعيرة سلام
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -372,7 +473,7 @@ function CategoryBlock({
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <span className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-[#F4B41A] text-[#0A182D] text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md shadow-sm">
-                جملة
+                {product.badge || "جملة"}
               </span>
               {product.brand && (
                 <span className="absolute top-2 left-2 sm:top-3 sm:left-3 max-w-[48%] truncate bg-white/95 text-[#0A182D] text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md border border-slate-100">

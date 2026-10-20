@@ -27,6 +27,10 @@ export type CatalogProduct = {
   specs: string;
   formValue: string;
   category: CatalogCategoryId;
+  /** Optional gallery for preview (pack shot first via `img`). */
+  gallery?: string[];
+  /** Small card badge, e.g. exclusive agency. */
+  badge?: string;
 };
 
 export type CatalogCategory = {
@@ -85,7 +89,7 @@ export const catalogCategories: CatalogCategory[] = [
     slug: "rice",
     title: "الأرز والبقوليات والمكرونة",
     heading: "توريد أرز بالجملة",
-    subtitle: "أرز وبقوليات ومكرونة بكميات جملة",
+    subtitle: "يشمل أرز سلام الوكالة الحصرية، مع بسمتي وبقوليات ومكرونة",
   },
   {
     id: "eggs",
@@ -706,6 +710,57 @@ export const catalogProducts: CatalogProduct[] = [
   },
 
   // ── Rice / pulses ──
+  // سلام — وكالة حصرية لتسامي الوطنية (صور المنتج أولاً، ثم المعرض)
+  {
+    id: "r-sallam-egyptian-5",
+    img: "/catalog/sallam-egyptian-5kg.jpg",
+    title: "أرز سلام المصري الأبيض 5 كجم",
+    brand: "سلام",
+    specs:
+      "أرز أبيض مصري فاخر، كيس 5 كجم. تسامي الوطنية الوكيل الحصري في السعودية.",
+    formValue: "أرز سلام المصري 5 كجم",
+    category: "rice_pulses",
+    badge: "وكيل حصري",
+    gallery: [
+      "/catalog/sallam-egyptian-5kg.jpg",
+      "/catalog/sallam-feature-egypt.jpg",
+      "/catalog/sallam-feature-grain.jpg",
+      "/catalog/sallam-family.jpg",
+    ],
+  },
+  {
+    id: "r-sallam-egyptian-25",
+    img: "/catalog/sallam-egyptian-25kg.jpg",
+    title: "أرز سلام المصري الأبيض 25 كجم",
+    brand: "سلام",
+    specs:
+      "أرز أبيض مصري فاخر، كيس جملة 25 كجم للمطاعم والأسواق. وكالة حصرية لتسامي الوطنية.",
+    formValue: "أرز سلام المصري 25 كجم",
+    category: "rice_pulses",
+    badge: "وكيل حصري",
+    gallery: [
+      "/catalog/sallam-egyptian-25kg.jpg",
+      "/catalog/sallam-sizes.jpg",
+      "/catalog/sallam-family.jpg",
+      "/catalog/sallam-feature-friday.jpg",
+    ],
+  },
+  {
+    id: "r-sallam-calrose",
+    img: "/catalog/sallam-calrose.jpg",
+    title: "أرز سلام كالروز",
+    brand: "سلام",
+    specs:
+      "أرز كالروز مصري، عبوات منزلية وجملة. مناسب للمطاعم والمنازل. وكالة حصرية لتسامي الوطنية.",
+    formValue: "أرز سلام كالروز",
+    category: "rice_pulses",
+    badge: "وكيل حصري",
+    gallery: [
+      "/catalog/sallam-calrose.jpg",
+      "/catalog/sallam-sizes.jpg",
+      "/catalog/sallam-family.jpg",
+    ],
+  },
   {
     id: "r-mazza-40",
     img: "/catalog/img-007.jpg",
