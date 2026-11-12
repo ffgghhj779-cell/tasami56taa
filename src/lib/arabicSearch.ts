@@ -14,6 +14,11 @@ const synonyms = [
   "ارز رز",
   "سلام سلاّم sallam",
   "كالروز calrose",
+  "كرنب ملفوف كرمب",
+  "قرنبيط كرنبيط",
+  "بسلة بازلاء",
+  "ليمون اضاليا أضاليا",
+  "رمان حب",
 ];
 
 export function normalizeArabic(value: string) {

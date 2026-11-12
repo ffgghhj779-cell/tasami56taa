@@ -96,6 +96,19 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
     !query.trim() &&
     (lockedCategory === "rice_pulses" || active === "all" || active === "rice_pulses");
 
+  const showFreshFeature =
+    !query.trim() &&
+    (lockedCategory === "fresh_produce" ||
+      active === "all" ||
+      active === "fresh_produce");
+
+  const showFrozenFeature =
+    !query.trim() &&
+    (lockedCategory === "frozen_veg_fruit" ||
+      active === "all" ||
+      active === "frozen_veg_fruit" ||
+      active === "frozen_fries");
+
   return (
     <section
       id="products"
@@ -156,6 +169,34 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
         </div>
 
         {showSallamFeature && <SallamFeatureBanner />}
+        {showFreshFeature && (
+          <ProduceFeatureBanner
+            eyebrow="طازج · تصوير احترافي"
+            title="المنتجات الطازجة"
+            subtitle="صور الثمار فقط بجودة عالية — برتقال، رمان، ليمون أضاليا، طماطم، بصل، بطاطس، ثوم، تمور، بروكلي، قرنبيط، وكرنب."
+            href="/products/fresh-produce"
+            items={FRESH_SHOWCASE}
+            quoteLabel="اطلب تسعيرة الطازج"
+            onPreview={(id) => {
+              const product = catalogProducts.find((p) => p.id === id);
+              if (product) openPreview(withPrice(product));
+            }}
+          />
+        )}
+        {showFrozenFeature && (
+          <ProduceFeatureBanner
+            eyebrow="مجمد · جودة بريميوم"
+            title="المنتجات المجمدة"
+            subtitle="بطاطس نصف مقلية، خضار مشكل، فاصوليا، بسلة سكري، بامية إكسترا، بروكلي، ذرة، ملوخية، فول فص، سبانخ، فراولة، مانجو، رمان حب، جوافة، وبرتقال مجمد."
+            href="/products/frozen-vegetables"
+            items={FROZEN_SHOWCASE}
+            quoteLabel="اطلب تسعيرة المجمد"
+            onPreview={(id) => {
+              const product = catalogProducts.find((p) => p.id === id);
+              if (product) openPreview(withPrice(product));
+            }}
+          />
+        )}
 
         {filtered.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-slate-200 bg-white p-10 sm:p-12 text-center">
@@ -233,11 +274,11 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
               <X className="h-5 w-5" />
             </button>
             <div className="grid md:grid-cols-[1.15fr_0.85fr]">
-              <div className="bg-[radial-gradient(circle_at_30%_20%,#fff,#eef2f7_70%)] min-h-[240px] sm:min-h-[280px] md:min-h-[520px] flex flex-col items-center justify-center gap-3 p-4 sm:p-6">
+              <div className="bg-[radial-gradient(circle_at_30%_20%,#ffffff,#eef2f7_55%,#d9e2ec_100%)] min-h-[240px] sm:min-h-[280px] md:min-h-[520px] flex flex-col items-center justify-center gap-3 p-4 sm:p-6">
                 <img
                   src={previewImg || preview.img}
                   alt={preview.title}
-                  className="max-h-[36svh] sm:max-h-[58vh] w-full object-contain"
+                  className="max-h-[36svh] sm:max-h-[58vh] w-full object-contain drop-shadow-[0_18px_40px_rgba(10,24,45,0.18)]"
                 />
                 {(preview.gallery?.length ?? 0) > 1 && (
                   <div className="flex flex-wrap justify-center gap-2 w-full">
@@ -326,6 +367,38 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
   );
 }
 
+const FRESH_SHOWCASE = [
+  { id: "f-oranges", img: "/catalog/premium/fresh-orange.jpg", label: "برتقال" },
+  { id: "f-pomegranate", img: "/catalog/premium/fresh-pomegranate.jpg", label: "رمان" },
+  { id: "f-lemon", img: "/catalog/premium/fresh-lemon-adalia.jpg", label: "ليمون أضاليا" },
+  { id: "f-tomato", img: "/catalog/premium/fresh-tomato.jpg", label: "طماطم" },
+  { id: "f-onion", img: "/catalog/premium/fresh-onion.jpg", label: "بصل" },
+  { id: "f-potato", img: "/catalog/premium/fresh-potato.jpg", label: "بطاطس" },
+  { id: "f-garlic", img: "/catalog/premium/fresh-garlic.jpg", label: "ثوم" },
+  { id: "f-dates-showcase", img: "/catalog/premium/fresh-dates.jpg", label: "تمور" },
+  { id: "f-broccoli", img: "/catalog/premium/fresh-broccoli.jpg", label: "بروكلي" },
+  { id: "f-cauliflower", img: "/catalog/premium/fresh-cauliflower.jpg", label: "قرنبيط" },
+  { id: "f-cabbage", img: "/catalog/premium/fresh-cabbage.jpg", label: "كرنب" },
+] as const;
+
+const FROZEN_SHOWCASE = [
+  { id: "fv-fries-half", img: "/catalog/premium/frozen-fries.jpg", label: "بطاطس نصف مقلية" },
+  { id: "fv-mixed", img: "/catalog/premium/frozen-mixed-veg.jpg", label: "خضار مشكل" },
+  { id: "fv-beans-lebda", img: "/catalog/premium/frozen-green-beans.jpg", label: "فاصوليا" },
+  { id: "fv-peas-sol", img: "/catalog/premium/frozen-sweet-peas.jpg", label: "بسلة سكري" },
+  { id: "fv-okra-sol", img: "/catalog/premium/frozen-okra.jpg", label: "بامية إكسترا" },
+  { id: "fv-broccoli", img: "/catalog/premium/frozen-broccoli.jpg", label: "بروكلي" },
+  { id: "fv-corn", img: "/catalog/premium/frozen-corn.jpg", label: "ذرة صفراء" },
+  { id: "fv-molokhia-lebda", img: "/catalog/premium/frozen-molokhia.jpg", label: "ملوخية" },
+  { id: "fv-fava", img: "/catalog/premium/frozen-fava.jpg", label: "فول فص" },
+  { id: "fv-spinach", img: "/catalog/premium/frozen-spinach.jpg", label: "سبانخ" },
+  { id: "fv-strawberry-ff", img: "/catalog/premium/frozen-strawberry.jpg", label: "فراولة" },
+  { id: "fv-mango-lebda", img: "/catalog/premium/frozen-mango.jpg", label: "مانجو" },
+  { id: "fv-pomegranate-arils", img: "/catalog/premium/frozen-pomegranate-arils.jpg", label: "رمان حب" },
+  { id: "fv-guava", img: "/catalog/premium/frozen-guava.jpg", label: "جوافة" },
+  { id: "fv-orange", img: "/catalog/premium/frozen-orange.jpg", label: "برتقال مجمد" },
+] as const;
+
 function SallamFeatureBanner() {
   return (
     <div className="mb-8 sm:mb-12 overflow-hidden rounded-[1.35rem] sm:rounded-[1.75rem] border border-[#0E2A47]/15 bg-[#0A182D] shadow-[0_24px_60px_-36px_rgba(10,24,45,0.8)]">
@@ -380,6 +453,93 @@ function SallamFeatureBanner() {
               className="inline-flex items-center justify-center min-h-11 px-5 rounded-xl bg-[#16A34A] text-white font-extrabold text-sm touch-manipulation"
             >
               اطلب تسعيرة سلام
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProduceFeatureBanner({
+  eyebrow,
+  title,
+  subtitle,
+  href,
+  items,
+  quoteLabel,
+  onPreview,
+}: {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  href: string;
+  items: ReadonlyArray<{ id: string; img: string; label: string }>;
+  quoteLabel: string;
+  onPreview: (id: string) => void;
+}) {
+  const hero = items[0];
+  return (
+    <div className="mb-8 sm:mb-12 overflow-hidden rounded-[1.35rem] sm:rounded-[1.75rem] border border-[#0E2A47]/12 bg-[linear-gradient(145deg,#0A182D_0%,#123049_55%,#0E2A47_100%)] shadow-[0_24px_60px_-36px_rgba(10,24,45,0.75)]">
+      <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
+        <button
+          type="button"
+          onClick={() => onPreview(hero.id)}
+          className="relative min-h-[220px] sm:min-h-[280px] lg:min-h-[340px] overflow-hidden bg-[radial-gradient(circle_at_40%_30%,#fff,#dbe4ee_75%)] focus:outline-none touch-manipulation"
+          aria-label={`عرض ${hero.label}`}
+        >
+          <img
+            src={hero.img}
+            alt={hero.label}
+            className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 hover:scale-[1.03]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A182D]/55 via-transparent to-transparent lg:bg-gradient-to-l lg:from-[#0A182D]/45 lg:via-transparent" />
+        </button>
+        <div className="relative flex flex-col justify-center gap-3.5 sm:gap-4 p-5 sm:p-8 text-white">
+          <p className="text-[#F4B41A] text-[10px] sm:text-xs font-extrabold tracking-[0.18em] uppercase">
+            {eyebrow}
+          </p>
+          <h3 className="font-brand text-2xl sm:text-3xl font-black leading-tight">
+            {title}
+          </h3>
+          <p className="text-white/80 text-sm sm:text-base leading-relaxed max-w-xl">
+            {subtitle}
+          </p>
+          <div className="catalog-chip-scroll flex gap-2 overflow-x-auto overscroll-x-contain pb-1 snap-x snap-mandatory">
+            {items.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => onPreview(item.id)}
+                className="shrink-0 snap-start w-[76px] sm:w-[88px] rounded-xl overflow-hidden border border-white/15 bg-white/5 text-right touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#F4B41A]/50"
+                aria-label={`عرض ${item.label}`}
+              >
+                <img
+                  src={item.img}
+                  alt={item.label}
+                  className="h-[4.25rem] sm:h-[5rem] w-full object-cover"
+                  loading="lazy"
+                />
+                <div className="px-1.5 py-1.5 text-center text-[9px] sm:text-[10px] font-bold text-white/80 leading-tight line-clamp-2">
+                  {item.label}
+                </div>
+              </button>
+            ))}
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
+            <Link
+              to={href}
+              className="inline-flex items-center justify-center min-h-11 px-5 rounded-xl bg-[#F4B41A] text-[#0A182D] font-extrabold text-sm touch-manipulation"
+            >
+              اعرض القسم كامل
+            </Link>
+            <a
+              href={quoteWhatsApp(title)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center min-h-11 px-5 rounded-xl bg-[#16A34A] text-white font-extrabold text-sm touch-manipulation"
+            >
+              {quoteLabel}
             </a>
           </div>
         </div>
@@ -462,7 +622,7 @@ function CategoryBlock({
             <button
               type="button"
               onClick={() => onPreview(product)}
-              className="relative aspect-square sm:aspect-[4/3] overflow-hidden bg-[#EEF1F5] focus:outline-none touch-manipulation"
+              className="relative aspect-square sm:aspect-[4/3] overflow-hidden bg-[radial-gradient(circle_at_40%_30%,#ffffff,#e8eef4_70%)] focus:outline-none touch-manipulation"
               aria-label={`عرض ${product.title}`}
             >
               <img
@@ -470,7 +630,11 @@ function CategoryBlock({
                 alt={product.title}
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 h-full w-full object-cover"
+                className={`absolute inset-0 h-full w-full transition-transform duration-500 sm:group-hover:scale-[1.03] ${
+                  product.img.includes("/premium/")
+                    ? "object-cover object-center"
+                    : "object-cover"
+                }`}
               />
               <span className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-[#F4B41A] text-[#0A182D] text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md shadow-sm">
                 {product.badge || "جملة"}
