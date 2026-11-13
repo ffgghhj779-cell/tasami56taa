@@ -102,6 +102,14 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
       active === "all" ||
       active === "fresh_produce");
 
+  const showPoultryFeature =
+    !query.trim() &&
+    (lockedCategory === "poultry" || active === "all" || active === "poultry");
+
+  const showMeatFeature =
+    !query.trim() &&
+    (lockedCategory === "frozen_meat" || active === "all" || active === "frozen_meat");
+
   const showFrozenFeature =
     !query.trim() &&
     (lockedCategory === "frozen_veg_fruit" ||
@@ -169,6 +177,34 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
         </div>
 
         {showSallamFeature && <SallamFeatureBanner />}
+        {showPoultryFeature && (
+          <ProduceFeatureBanner
+            eyebrow="مبرد · طازج يومي"
+            title="الدجاج المبرد والمجمد"
+            subtitle="دجاج كامل مبرد، صدور بدون جلد أو عظم، ودجاج مجمد — من ماركات سعودية متعددة بالجملة."
+            href="/products/poultry"
+            items={POULTRY_SHOWCASE}
+            quoteLabel="اطلب تسعيرة الدجاج"
+            onPreview={(id) => {
+              const product = catalogProducts.find((p) => p.id === id);
+              if (product) openPreview(withPrice(product));
+            }}
+          />
+        )}
+        {showMeatFeature && (
+          <ProduceFeatureBanner
+            eyebrow="لحوم · مبرد ومجمد"
+            title="اللحوم المبردة والمجمدة"
+            subtitle="خروف مبرد، وقطعيات لحم حمراء بدون عظم: سيلفرسايد، كنكلز، ثيك فلانك، وقطع الرجل."
+            href="/products/meat"
+            items={MEAT_SHOWCASE}
+            quoteLabel="اطلب تسعيرة اللحوم"
+            onPreview={(id) => {
+              const product = catalogProducts.find((p) => p.id === id);
+              if (product) openPreview(withPrice(product));
+            }}
+          />
+        )}
         {showFreshFeature && (
           <ProduceFeatureBanner
             eyebrow="طازج · تصوير احترافي"
@@ -367,6 +403,19 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
   );
 }
 
+const POULTRY_SHOWCASE = [
+  { id: "p-breast-rahan", img: "/catalog/premium/chicken-breast.jpg", label: "صدور دجاج مبردة" },
+  { id: "p-breast-rahan", img: "/catalog/premium/chicken-breast-slate.jpg", label: "صدور بدون جلد أو عظم" },
+] as const;
+
+const MEAT_SHOWCASE = [
+  { id: "m-lamb", img: "/catalog/premium/lamb-chilled.jpg", label: "خروف مبرد" },
+  { id: "m-silverside", img: "/catalog/premium/meat-silverside.jpg", label: "سيلفرسايد" },
+  { id: "m-knuckles", img: "/catalog/premium/meat-knuckle.jpg", label: "كنكلز" },
+  { id: "m-thick-flank", img: "/catalog/premium/meat-thick-flank.jpg", label: "ثيك فلانك" },
+  { id: "m-topmeat-leg", img: "/catalog/premium/meat-leg.jpg", label: "قطع الرجل" },
+] as const;
+
 const FRESH_SHOWCASE = [
   { id: "f-oranges", img: "/catalog/premium/fresh-orange.jpg", label: "برتقال" },
   { id: "f-pomegranate", img: "/catalog/premium/fresh-pomegranate.jpg", label: "رمان" },
@@ -508,7 +557,7 @@ function ProduceFeatureBanner({
           <div className="catalog-chip-scroll flex gap-2 overflow-x-auto overscroll-x-contain pb-1 snap-x snap-mandatory">
             {items.map((item) => (
               <button
-                key={item.id}
+                key={item.img}
                 type="button"
                 onClick={() => onPreview(item.id)}
                 className="shrink-0 snap-start w-[76px] sm:w-[88px] rounded-xl overflow-hidden border border-white/15 bg-white/5 text-right touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#F4B41A]/50"
