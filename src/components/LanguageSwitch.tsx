@@ -1,14 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown, Languages } from "lucide-react";
-import { LOCALE_LABELS, LOCALES } from "@/src/lib/i18n/config";
+import { LOCALE_LABELS, LOCALE_MARKETS, LOCALES } from "@/src/lib/i18n/config";
 import { useLocale } from "@/src/hooks/useLocale";
-
-const LOCALE_MARKETS: Record<(typeof LOCALES)[number], string> = {
-  ar: "السعودية / الخليج",
-  ur: "پاکستان",
-  hi: "भारत",
-};
 
 export default function LanguageSwitch({ className = "" }: { className?: string }) {
   const { locale, switchLocalePath } = useLocale();
@@ -24,15 +18,22 @@ export default function LanguageSwitch({ className = "" }: { className?: string 
     return () => document.removeEventListener("mousedown", onDoc);
   }, [open]);
 
+  const ariaLabel =
+    locale === "en"
+      ? "Choose language"
+      : locale === "ur"
+        ? "زبان منتخب کریں"
+        : locale === "hi"
+          ? "भाषा चुनें"
+          : "اختر اللغة";
+
   return (
     <div ref={rootRef} className={`relative ${className}`}>
       <button
         type="button"
         aria-haspopup="listbox"
         aria-expanded={open}
-        aria-label={
-          locale === "ur" ? "زبان منتخب کریں" : locale === "hi" ? "भाषा चुनें" : "اختر اللغة"
-        }
+        aria-label={ariaLabel}
         className="inline-flex items-center gap-1.5 rounded-xl border border-white/20 bg-white/10 px-2.5 py-2 text-xs sm:text-sm font-bold text-white hover:bg-white/15 touch-manipulation"
         onClick={() => setOpen((v) => !v)}
       >

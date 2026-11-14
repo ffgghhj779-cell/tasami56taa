@@ -35,6 +35,14 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  body.locale-en {
+    font-family: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  }
+
+  body.locale-en .font-brand {
+    font-family: "Cairo", "Segoe UI", system-ui, sans-serif;
+  }
+
   body.locale-hi {
     font-family: "Noto Sans Devanagari", "Tajawal", sans-serif;
   }

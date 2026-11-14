@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-/** Marketing / customer paths that get `/ur`, `/hi`, `/ar` mirrors. */
+/** Marketing / customer paths that get `/en`, `/ur`, `/hi`, `/ar` mirrors. */
 export const PUBLIC_PATH_SEGMENTS = [
   "",
   "about",
@@ -19,7 +19,7 @@ export const PUBLIC_PATH_SEGMENTS = [
   "account",
 ] as const;
 
-const LOCALE_SEGMENTS = ["ur", "hi", "ar"] as const;
+const LOCALE_SEGMENTS = ["en", "ur", "hi", "ar"] as const;
 
 /** Expand one segment ("" = home) into react-router `path` strings. */
 export function pathsForSegment(segment: string): string[] {

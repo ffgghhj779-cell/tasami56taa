@@ -9,7 +9,7 @@ export function tx(locale: Locale): Messages {
   return getMessages(locale);
 }
 
-const LOCALE_PREFIX = /^\/(ur|hi|ar)(?=\/|$)/;
+const LOCALE_PREFIX = /^\/(en|ur|hi|ar)(?=\/|$)/;
 
 export function parseLocalePath(pathname: string): { locale: Locale; pathname: string } {
   const match = pathname.match(LOCALE_PREFIX);

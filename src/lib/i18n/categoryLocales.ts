@@ -222,7 +222,80 @@ const hi: Record<CatalogCategoryId, CatFields> = {
   },
 };
 
-const byLocale = { ar, ur, hi } as const;
+const en: Record<CatalogCategoryId, CatFields> = {
+  poultry: {
+    title: "Chilled and frozen poultry",
+    heading: "Wholesale chicken supply",
+    subtitle: "Whole chicken, breast, and frozen lines",
+  },
+  fresh_produce: {
+    title: "Fresh vegetables and fruit",
+    heading: "Wholesale fresh produce",
+    subtitle: "Fresh produce for restaurants and markets",
+  },
+  frozen_veg_fruit: {
+    title: "Frozen vegetables and fruit",
+    heading: "Wholesale frozen vegetables",
+    subtitle: "Frozen lines for commercial kitchens",
+  },
+  frozen_fries: {
+    title: "Frozen fries",
+    heading: "Wholesale frozen fries",
+    subtitle: "French fries in restaurant wholesale sizes",
+  },
+  oils_sauces_tuna: {
+    title: "Oils, sauces, and tuna",
+    heading: "Wholesale oils and sauces",
+    subtitle: "Cooking oils, pastes, ketchup, and canned tuna",
+  },
+  fresh_juices: {
+    title: "Fresh juices and fruit pulp",
+    heading: "Wholesale juices and pulp",
+    subtitle: "Ready juices and mango pulp",
+  },
+  rice_pulses: {
+    title: "Rice, pulses, and pasta",
+    heading: "Wholesale rice",
+    subtitle: "Includes exclusive Sallam rice agency, basmati, pulses, and pasta",
+  },
+  eggs: {
+    title: "Fresh eggs",
+    heading: "Wholesale fresh eggs",
+    subtitle: "Table eggs in supply volumes",
+  },
+  frozen_meat: {
+    title: "Chilled and frozen meats",
+    heading: "Wholesale chilled and frozen meats",
+    subtitle: "Red meat and chilled lamb as listed in the catalog",
+  },
+  dates: {
+    title: "Premium dates",
+    heading: "Wholesale dates",
+    subtitle: "Dates for hospitality and wholesale",
+  },
+  dairy: {
+    title: "Dairy, cheese, and ghee",
+    heading: "Wholesale dairy",
+    subtitle: "Ghee and cheeses as available in the catalog",
+  },
+  beverages: {
+    title: "Beverages",
+    heading: "Wholesale beverages",
+    subtitle: "Ready drinks as available in the catalog",
+  },
+  water: {
+    title: "Drinking water",
+    heading: "Wholesale bottled water",
+    subtitle: "Bottled water for hotels and restaurants",
+  },
+  ready_frozen: {
+    title: "Ready frozen products",
+    heading: "Wholesale ready frozen",
+    subtitle: "Panee, burgers, and cheese sticks for restaurants",
+  },
+};
+
+const byLocale = { ar, en, ur, hi } as const;
 
 export function localizedCategory(
   locale: Locale,

@@ -63,6 +63,7 @@ export function LocaleProvider({ locale: localeProp, children }: Props) {
     document.documentElement.lang = lang;
     document.documentElement.dir = dir;
     document.body.classList.toggle("locale-hi", locale === "hi");
+    document.body.classList.toggle("locale-en", locale === "en");
     ensureHindiFont(locale === "hi");
   }, [lang, dir, locale]);
 
