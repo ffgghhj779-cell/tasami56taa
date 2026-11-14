@@ -35,6 +35,14 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  body.locale-hi {
+    font-family: "Noto Sans Devanagari", "Tajawal", sans-serif;
+  }
+
+  body.locale-hi .font-brand {
+    font-family: "Noto Sans Devanagari", "Cairo", sans-serif;
+  }
+
   ::selection {
     background-color: #E66A1F;
     color: #ffffff;

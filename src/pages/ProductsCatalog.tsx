@@ -13,14 +13,15 @@ import {
   type PurchasableProduct,
 } from "@/src/data/storePricing";
 import { useCart } from "@/src/hooks/useCart";
+import { useLocale } from "@/src/hooks/useLocale";
 import { matchesArabic } from "@/src/lib/arabicSearch";
+import { localizedCategory } from "@/src/lib/i18n/categoryLocales";
+import { localizedProductTitle } from "@/src/lib/i18n/catalogLocales";
 
 const WHATSAPP_URL = "https://wa.me/966550266838";
 
-function quoteWhatsApp(productTitle: string) {
-  return `${WHATSAPP_URL}?text=${encodeURIComponent(
-    `السلام عليكم، أرغب في طلب تسعيرة لمنتج: ${productTitle}`,
-  )}`;
+function quoteWhatsApp(productTitle: string, intro: (title: string) => string) {
+  return `${WHATSAPP_URL}?text=${encodeURIComponent(intro(productTitle))}`;
 }
 
 function withPrice(p: CatalogProduct): PurchasableProduct {
@@ -34,6 +35,14 @@ type CatalogProps = {
 export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
   const navigate = useNavigate();
   const { addProduct } = useCart();
+  const { locale, t, localizePath } = useLocale();
+  const productTitle = (p: { id: string; title: string }) =>
+    localizedProductTitle(locale, p.id, p.title);
+  const catField = (
+    id: CatalogCategoryId,
+    field: "title" | "heading" | "subtitle",
+    fallback: string,
+  ) => localizedCategory(locale, id, field, fallback);
   const [active, setActive] = useState<CatalogCategoryId | "all">(lockedCategory ?? "all");
   const [query, setQuery] = useState("");
   const [preview, setPreview] = useState<PurchasableProduct | null>(null);
@@ -47,7 +56,7 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
 
   function openRequestForm(formValue: string) {
     setPreview(null);
-    navigate(`/request?product=${encodeURIComponent(formValue)}`);
+    navigate(`${localizePath("/request")}?product=${encodeURIComponent(formValue)}`);
   }
 
   function handleAdd(product: PurchasableProduct) {
@@ -103,54 +112,64 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
   function renderFeature(categoryId: CatalogCategoryId) {
     switch (categoryId) {
       case "rice_pulses":
-        return <SallamFeatureBanner />;
+        return (
+          <SallamFeatureBanner
+            t={t}
+            localizePath={localizePath}
+            quoteIntro={t.catalog.whatsappQuoteIntro}
+          />
+        );
       case "poultry":
         return (
           <ProduceFeatureBanner
-            eyebrow="مبرد · طازج يومي"
-            title="الدجاج المبرد والمجمد"
-            subtitle="دجاج كامل مبرد، صدور بدون جلد أو عظم، ودجاج مجمد — من ماركات سعودية متعددة بالجملة."
-            href="/products/poultry"
+            eyebrow={t.catalog.poultryEyebrow}
+            title={t.catalog.poultryTitle}
+            subtitle={t.catalog.poultrySubtitle}
+            href={localizePath("/products/poultry")}
             items={POULTRY_SHOWCASE}
-            quoteLabel="اطلب تسعيرة الدجاج"
+            quoteLabel={t.catalog.poultryQuote}
             onPreview={previewById}
+            productTitle={productTitle}
           />
         );
       case "frozen_meat":
         return (
           <ProduceFeatureBanner
-            eyebrow="لحوم · مبرد ومجمد"
-            title="اللحوم المبردة والمجمدة"
-            subtitle="خروف مبرد، وقطعيات لحم حمراء بدون عظم: سيلفرسايد، كنكلز، ثيك فلانك، وقطع الرجل."
-            href="/products/meat"
+            eyebrow={t.catalog.meatEyebrow}
+            title={t.catalog.meatTitle}
+            subtitle={t.catalog.meatSubtitle}
+            href={localizePath("/products/meat")}
             items={MEAT_SHOWCASE}
-            quoteLabel="اطلب تسعيرة اللحوم"
+            quoteLabel={t.catalog.meatQuote}
             onPreview={previewById}
+            productTitle={productTitle}
           />
         );
       case "fresh_produce":
         return (
           <ProduceFeatureBanner
-            eyebrow="طازج · تصوير احترافي"
-            title="المنتجات الطازجة"
-            subtitle="برتقال، رمان، ليمون أضاليا، طماطم، بصل، بطاطس، ثوم، تمور، بروكلي، قرنبيط، وكرنب."
-            href="/products/fresh-produce"
+            eyebrow={t.catalog.freshEyebrow}
+            title={t.catalog.freshTitle}
+            subtitle={t.catalog.freshSubtitle}
+            href={localizePath("/products/fresh-produce")}
             items={FRESH_SHOWCASE}
-            quoteLabel="اطلب تسعيرة الطازج"
+            quoteLabel={t.catalog.freshQuote}
             onPreview={previewById}
+            productTitle={productTitle}
           />
         );
       case "frozen_veg_fruit":
       case "frozen_fries":
         return (
           <ProduceFeatureBanner
-            eyebrow="مجمد · جودة بريميوم"
-            title="المنتجات المجمدة"
-            subtitle="بطاطس نصف مقلية، خضار مشكل، فاصوليا، بسلة سكري، بامية إكسترا، بروكلي، ذرة، ملوخية، فول فص، سبانخ، فراولة، مانجو، رمان حب، جوافة، وبرتقال مجمد."
-            href="/products/frozen-vegetables"
+            eyebrow={t.catalog.frozenEyebrow}
+            title={t.catalog.frozenTitle}
+            subtitle={t.catalog.frozenSubtitle}
+            href={localizePath("/products/frozen-vegetables")}
             items={FROZEN_SHOWCASE}
-            quoteLabel="اطلب تسعيرة المجمد"
+            quoteLabel={t.catalog.frozenQuote}
             onPreview={previewById}
+            productTitle={productTitle}
           />
         );
       default:
@@ -167,17 +186,21 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 sm:gap-6 mb-6 sm:mb-10">
           <div className="max-w-3xl">
             <div className="text-[#E66A1F] text-[10px] sm:text-xs font-bold tracking-[0.18em] uppercase mb-2 sm:mb-3">
-              {lockedCategory ? "قسم من الكتالوج" : "كتالوج الجملة"}
+              {lockedCategory ? t.catalog.lockedEyebrow : t.catalog.sectionEyebrow}
             </div>
             <h2 className="font-brand text-[1.65rem] leading-[1.2] sm:text-4xl lg:text-[3.4rem] font-black text-[#0A182D] tracking-tight mb-2.5 sm:mb-4">
               {lockedCategory
-                ? catalogCategories.find((cat) => cat.id === lockedCategory)?.title
-                : "أقسام المنتجات بالجملة"}
+                ? catField(
+                    lockedCategory,
+                    "title",
+                    catalogCategories.find((cat) => cat.id === lockedCategory)?.title ?? "",
+                  )
+                : t.catalog.allHeading}
             </h2>
             <p className="text-slate-500 text-[13px] sm:text-lg leading-relaxed">
               {lockedCategory
-                ? `${counts[lockedCategory]} منتج في هذا القسم. أضف للسلة أو اطلب تسعيرة.`
-                : `${catalogProducts.length} صنفاً — أضف للسلة للطلب الأونلاين أو اطلب تسعيرة فورية.`}
+                ? t.catalog.lockedLead(counts[lockedCategory])
+                : t.catalog.allLead(catalogProducts.length)}
             </p>
           </div>
 
@@ -187,7 +210,7 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="ابحث باسم المنتج أو الماركة..."
+              placeholder={t.catalog.searchPlaceholder}
               className="w-full rounded-2xl border border-slate-200 bg-white pr-10 pl-4 py-3 text-sm text-[#0A182D] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#F4B41A]/35 focus:border-[#F4B41A] shadow-sm"
             />
           </div>
@@ -200,14 +223,14 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
                 <Chip
                   active={active === "all"}
                   onClick={() => setActive("all")}
-                  label={`الكل (${catalogProducts.length})`}
+                  label={t.catalog.allChip(catalogProducts.length)}
                 />
                 {catalogCategories.map((cat) => (
                   <Chip
                     key={cat.id}
                     active={active === cat.id}
                     onClick={() => setActive(cat.id)}
-                    label={`${cat.title} (${counts[cat.id]})`}
+                    label={`${catField(cat.id, "title", cat.title)} (${counts[cat.id]})`}
                   />
                 ))}
               </div>
@@ -219,14 +242,14 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
 
         {filtered.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-slate-200 bg-white p-10 sm:p-12 text-center">
-            <p className="text-slate-500 text-sm mb-4">لا توجد نتائج مطابقة. جرّب قسمًا قريبًا أو اسأل فريق المبيعات.</p>
+            <p className="text-slate-500 text-sm mb-4">{t.catalog.noResults}</p>
             <a
-              href={quoteWhatsApp(query.trim() || "منتج غير ظاهر في البحث")}
+              href={quoteWhatsApp(query.trim() || "?", t.catalog.whatsappQuoteIntro)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-[#16A34A] text-white rounded-xl px-5 py-3 font-bold"
             >
-              اسأل عن المنتج على واتساب
+              {t.catalog.askWhatsapp}
             </a>
           </div>
         ) : isAllView ? (
@@ -240,14 +263,15 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
                 <div key={cat.id}>
                   {cat.id !== "frozen_fries" && renderFeature(cat.id)}
                   <CategoryBlock
-                    title={cat.title}
-                    href={`/products/${cat.slug}`}
-                    subtitle={cat.subtitle}
+                    title={catField(cat.id, "title", cat.title)}
+                    href={localizePath(`/products/${cat.slug}`)}
+                    subtitle={catField(cat.id, "subtitle", cat.subtitle)}
                     items={items}
                     addedId={addedId}
                     onPreview={openPreview}
                     onAdd={handleAdd}
                     onRequestForm={openRequestForm}
+                    productTitle={productTitle}
                     mobileRow
                   />
                 </div>
@@ -258,19 +282,32 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
           <CategoryBlock
             title={
               active === "all" && !lockedCategory
-                ? "نتائج البحث"
-                : catalogCategories.find((c) => c.id === currentCategory)?.title || ""
+                ? t.catalog.searchResults
+                : currentCategory
+                  ? catField(
+                      currentCategory,
+                      "title",
+                      catalogCategories.find((c) => c.id === currentCategory)?.title ?? "",
+                    )
+                  : ""
             }
             subtitle={
               active === "all" && !lockedCategory
-                ? `${filtered.length} منتج`
-                : catalogCategories.find((c) => c.id === currentCategory)?.subtitle || ""
+                ? t.catalog.productCount(filtered.length)
+                : currentCategory
+                  ? catField(
+                      currentCategory,
+                      "subtitle",
+                      catalogCategories.find((c) => c.id === currentCategory)?.subtitle ?? "",
+                    )
+                  : ""
             }
             items={filtered.map(withPrice)}
             addedId={addedId}
             onPreview={openPreview}
             onAdd={handleAdd}
             onRequestForm={openRequestForm}
+            productTitle={productTitle}
             hideHeader={!!lockedCategory && !query.trim()}
           />
         )}
@@ -335,7 +372,7 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
                   )}
                 </div>
                 <h3 className="text-xl sm:text-2xl font-black text-[#0A182D] mb-2 sm:mb-3">
-                  {preview.title}
+                  {productTitle(preview)}
                 </h3>
                 <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-1">
                   {preview.specs}
@@ -355,22 +392,22 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
                     {addedId === preview.id ? (
                       <>
                         <Check className="h-4 w-4" />
-                        تمت الإضافة
+                        {t.catalog.addedLong}
                       </>
                     ) : (
                       <>
                         <ShoppingCart className="h-4 w-4" />
-                        أضف للسلة
+                        {t.catalog.addCart}
                       </>
                     )}
                   </button>
                   <a
-                    href={quoteWhatsApp(preview.title)}
+                    href={quoteWhatsApp(productTitle(preview), t.catalog.whatsappQuoteIntro)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center w-full min-h-12 px-4 py-3 bg-[#16A34A] active:bg-[#15803D] text-white rounded-xl font-extrabold touch-manipulation"
                   >
-                    طلب تسعيرة واتساب
+                    {t.catalog.quoteWhatsapp}
                     <ArrowLeft size={16} className="mr-2" />
                   </a>
                   <button
@@ -378,7 +415,7 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
                     onClick={() => openRequestForm(preview.formValue)}
                     className="inline-flex items-center justify-center w-full min-h-12 px-4 py-3 border border-[#F4B41A] text-[#0A182D] rounded-xl font-extrabold active:bg-[#F4B41A] touch-manipulation"
                   >
-                    طلب عبر النموذج
+                    {t.catalog.requestForm}
                   </button>
                 </div>
               </div>
@@ -438,7 +475,15 @@ const FROZEN_SHOWCASE = [
   { id: "fv-orange", img: "/catalog/premium/frozen-orange.jpg", label: "برتقال مجمد" },
 ] as const;
 
-function SallamFeatureBanner() {
+function SallamFeatureBanner({
+  t,
+  localizePath,
+  quoteIntro,
+}: {
+  t: ReturnType<typeof useLocale>["t"];
+  localizePath: (path: string) => string;
+  quoteIntro: (title: string) => string;
+}) {
   return (
     <div className="mb-5 sm:mb-10 overflow-hidden rounded-[1.35rem] sm:rounded-[1.75rem] border border-[#0E2A47]/15 bg-[#0A182D] shadow-[0_24px_60px_-36px_rgba(10,24,45,0.8)]">
       <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr]">
@@ -452,13 +497,13 @@ function SallamFeatureBanner() {
         </div>
         <div className="relative min-w-0 flex flex-col justify-center gap-3 sm:gap-4 p-4 sm:p-8 text-white">
           <p className="text-[#F4B41A] text-[10px] sm:text-xs font-extrabold tracking-[0.18em] uppercase">
-            وكالة حصرية · تسامي الوطنية
+            {t.catalog.sallamAgency}
           </p>
           <h3 className="font-brand text-2xl sm:text-3xl font-black leading-tight">
-            أرز سلام المصري
+            {t.catalog.sallamTitle}
           </h3>
           <p className="text-white/80 text-sm sm:text-base leading-relaxed max-w-md">
-            أبيض وكالروز بعبوات 5 و25 كجم للجملة. تسامي الوطنية الوكيل الحصري في السعودية.
+            {t.catalog.sallamBody}
           </p>
           <div className="flex gap-2 overflow-x-auto pb-1">
             {[
@@ -480,18 +525,18 @@ function SallamFeatureBanner() {
           </div>
           <div className="flex gap-2 sm:gap-2.5 pt-1">
             <Link
-              to="/products/rice"
+              to={localizePath("/products/rice")}
               className="flex-1 sm:flex-none inline-flex items-center justify-center min-h-11 px-3 sm:px-5 rounded-xl bg-[#F4B41A] text-[#0A182D] font-extrabold text-[13px] sm:text-sm text-center leading-tight touch-manipulation"
             >
-              اعرض في قسم الأرز
+              {t.catalog.sallamViewRice}
             </Link>
             <a
-              href={quoteWhatsApp("أرز سلام المصري — وكالة حصرية")}
+              href={quoteWhatsApp(t.catalog.sallamTitle, quoteIntro)}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 sm:flex-none inline-flex items-center justify-center min-h-11 px-3 sm:px-5 rounded-xl bg-[#16A34A] text-white font-extrabold text-[13px] sm:text-sm text-center leading-tight touch-manipulation"
             >
-              اطلب تسعيرة سلام
+              {t.catalog.sallamQuote}
             </a>
           </div>
         </div>
@@ -508,6 +553,7 @@ function ProduceFeatureBanner({
   items,
   quoteLabel,
   onPreview,
+  productTitle,
 }: {
   eyebrow: string;
   title: string;
@@ -516,8 +562,11 @@ function ProduceFeatureBanner({
   items: ReadonlyArray<{ id: string; img: string; label: string }>;
   quoteLabel: string;
   onPreview: (id: string) => void;
+  productTitle: (p: { id: string; title: string }) => string;
 }) {
+  const { t } = useLocale();
   const hero = items[0];
+  const heroLabel = productTitle({ id: hero.id, title: hero.label });
   return (
     <div className="mb-5 sm:mb-10 overflow-hidden rounded-[1.35rem] sm:rounded-[1.75rem] border border-[#0E2A47]/12 bg-[linear-gradient(145deg,#0A182D_0%,#123049_55%,#0E2A47_100%)] shadow-[0_24px_60px_-36px_rgba(10,24,45,0.75)]">
       <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr]">
@@ -525,11 +574,11 @@ function ProduceFeatureBanner({
           type="button"
           onClick={() => onPreview(hero.id)}
           className="relative min-h-[190px] sm:min-h-[280px] lg:min-h-[340px] overflow-hidden bg-[radial-gradient(circle_at_40%_30%,#fff,#dbe4ee_75%)] focus:outline-none touch-manipulation"
-          aria-label={`عرض ${hero.label}`}
+          aria-label={t.catalog.previewAria(heroLabel)}
         >
           <img
             src={hero.img}
-            alt={hero.label}
+            alt={heroLabel}
             className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 hover:scale-[1.03]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A182D]/55 via-transparent to-transparent lg:bg-gradient-to-l lg:from-[#0A182D]/45 lg:via-transparent" />
@@ -545,35 +594,37 @@ function ProduceFeatureBanner({
             {subtitle}
           </p>
           <div className="catalog-chip-scroll flex gap-2 overflow-x-auto overscroll-x-contain pb-1 snap-x snap-mandatory">
-            {items.map((item) => (
+            {items.map((item) => {
+              const label = productTitle({ id: item.id, title: item.label });
+              return (
               <button
                 key={item.img}
                 type="button"
                 onClick={() => onPreview(item.id)}
                 className="shrink-0 snap-start w-[76px] sm:w-[88px] rounded-xl overflow-hidden border border-white/15 bg-white/5 text-right touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#F4B41A]/50"
-                aria-label={`عرض ${item.label}`}
+                aria-label={t.catalog.previewAria(label)}
               >
                 <img
                   src={item.img}
-                  alt={item.label}
+                  alt={label}
                   className="h-[4.25rem] sm:h-[5rem] w-full object-cover"
                   loading="lazy"
                 />
                 <div className="px-1.5 py-1.5 text-center text-[10.5px] sm:text-[11px] font-bold text-white/85 leading-tight line-clamp-2">
-                  {item.label}
+                  {label}
                 </div>
               </button>
-            ))}
+            );})}
           </div>
           <div className="flex gap-2 sm:gap-2.5 pt-1">
             <Link
               to={href}
               className="flex-1 sm:flex-none inline-flex items-center justify-center min-h-11 px-3 sm:px-5 rounded-xl bg-[#F4B41A] text-[#0A182D] font-extrabold text-[13px] sm:text-sm text-center leading-tight touch-manipulation"
             >
-              اعرض القسم كامل
+              {t.catalog.viewFullSection}
             </Link>
             <a
-              href={quoteWhatsApp(title)}
+              href={quoteWhatsApp(title, t.catalog.whatsappQuoteIntro)}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 sm:flex-none inline-flex items-center justify-center min-h-11 px-3 sm:px-5 rounded-xl bg-[#16A34A] text-white font-extrabold text-[13px] sm:text-sm text-center leading-tight touch-manipulation"
@@ -620,6 +671,7 @@ function CategoryBlock({
   onPreview,
   onAdd,
   onRequestForm,
+  productTitle,
   mobileRow = false,
   hideHeader = false,
 }: {
@@ -631,10 +683,12 @@ function CategoryBlock({
   onPreview: (p: PurchasableProduct) => void;
   onAdd: (p: PurchasableProduct) => void;
   onRequestForm: (formValue: string) => void;
+  productTitle: (p: { id: string; title: string }) => string;
   /** On phones, show the category as one swipeable row instead of a tall grid. */
   mobileRow?: boolean;
   hideHeader?: boolean;
 }) {
+  const { t } = useLocale();
   return (
     <div>
       {!hideHeader && (
@@ -658,12 +712,12 @@ function CategoryBlock({
               to={href}
               className="shrink-0 inline-flex items-center gap-1 rounded-full bg-[#0E2A47]/5 px-3 py-1.5 text-[11px] sm:text-xs font-extrabold text-[#0E2A47] active:bg-[#0E2A47]/10 touch-manipulation"
             >
-              عرض الكل ({items.length})
+              {t.catalog.viewAll(items.length)}
               <ArrowLeft className="h-3 w-3" />
             </Link>
           ) : (
             <div className="text-[11px] sm:text-xs font-bold text-slate-400 shrink-0">
-              {items.length} منتج
+              {t.catalog.productCount(items.length)}
             </div>
           )}
         </div>
@@ -676,7 +730,9 @@ function CategoryBlock({
             : "grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-5"
         }
       >
-        {items.map((product) => (
+        {items.map((product) => {
+          const displayTitle = productTitle(product);
+          return (
           <article
             key={product.id}
             className={`group flex flex-col rounded-[1.1rem] sm:rounded-[1.35rem] border border-slate-200/90 bg-white overflow-hidden shadow-[0_12px_36px_-28px_rgba(14,42,71,0.55)] sm:shadow-[0_18px_50px_-34px_rgba(14,42,71,0.55)] active:border-[#F4B41A]/70 sm:hover:-translate-y-0.5 sm:hover:border-[#F4B41A]/60 transition-all duration-300 ${
@@ -687,11 +743,11 @@ function CategoryBlock({
               type="button"
               onClick={() => onPreview(product)}
               className="relative aspect-square sm:aspect-[4/3] overflow-hidden bg-[radial-gradient(circle_at_40%_30%,#ffffff,#e8eef4_70%)] focus:outline-none touch-manipulation"
-              aria-label={`عرض ${product.title}`}
+              aria-label={t.catalog.previewAria(displayTitle)}
             >
               <img
                 src={product.img}
-                alt={product.title}
+                alt={displayTitle}
                 loading="lazy"
                 decoding="async"
                 className={`absolute inset-0 h-full w-full transition-transform duration-500 sm:group-hover:scale-[1.03] ${
@@ -701,7 +757,7 @@ function CategoryBlock({
                 }`}
               />
               <span className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-[#F4B41A] text-[#0A182D] text-[10px] sm:text-[11px] font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md shadow-sm">
-                {product.badge || "جملة"}
+                {product.badge || t.catalog.wholesale}
               </span>
               {product.brand && (
                 <span className="absolute top-2 left-2 sm:top-3 sm:left-3 max-w-[48%] truncate bg-white/95 text-[#0A182D] text-[10px] sm:text-[11px] font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md border border-slate-100">
@@ -710,13 +766,13 @@ function CategoryBlock({
               )}
               <span className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 inline-flex items-center justify-center rounded-full bg-[#0E2A47]/88 text-white p-1.5 sm:gap-1 sm:px-2.5 sm:py-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                 <ZoomIn className="h-3 w-3" />
-                <span className="hidden sm:inline text-[10px] font-bold">عرض</span>
+                <span className="hidden sm:inline text-[10px] font-bold">{t.catalog.view}</span>
               </span>
             </button>
 
             <div className="flex flex-col flex-1 p-2.5 sm:p-5 border-t border-slate-100">
               <h4 className="text-[12px] sm:text-base font-black text-[#0A182D] leading-snug mb-1 sm:mb-2 line-clamp-2 min-h-[2.4em]">
-                {product.title}
+                {displayTitle}
               </h4>
               <p className="text-slate-500 text-[10px] sm:text-[13px] leading-relaxed mb-2 line-clamp-2 sm:line-clamp-none flex-1">
                 {product.specs}
@@ -736,38 +792,38 @@ function CategoryBlock({
                   {addedId === product.id ? (
                     <>
                       <Check className="h-3.5 w-3.5" />
-                      <span className="sm:hidden">تمت</span>
-                      <span className="hidden sm:inline">تمت الإضافة</span>
+                      <span className="sm:hidden">{t.catalog.added}</span>
+                      <span className="hidden sm:inline">{t.catalog.addedLong}</span>
                     </>
                   ) : (
                     <>
                       <ShoppingCart className="h-3.5 w-3.5" />
-                      <span className="sm:hidden">للسلة</span>
-                      <span className="hidden sm:inline">أضف للسلة</span>
+                      <span className="sm:hidden">{t.catalog.addCartShort}</span>
+                      <span className="hidden sm:inline">{t.catalog.addCart}</span>
                     </>
                   )}
                 </button>
                 <a
-                  href={quoteWhatsApp(product.title)}
+                  href={quoteWhatsApp(displayTitle, t.catalog.whatsappQuoteIntro)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`طلب تسعيرة ${product.title} على واتساب`}
+                  aria-label={t.catalog.quoteAria(displayTitle)}
                   className="inline-flex items-center justify-center shrink-0 h-10 w-10 sm:w-full sm:h-auto sm:min-h-10 sm:px-4 sm:py-2.5 bg-[#16A34A] active:bg-[#15803D] sm:hover:bg-[#15803D] text-white rounded-lg sm:rounded-xl font-bold text-sm touch-manipulation"
                 >
                   <MessageCircle className="h-4 w-4 sm:hidden" />
-                  <span className="hidden sm:inline">طلب تسعيرة واتساب</span>
+                  <span className="hidden sm:inline">{t.catalog.quoteWhatsapp}</span>
                 </a>
                 <button
                   type="button"
                   onClick={() => onRequestForm(product.formValue)}
                   className="hidden sm:inline-flex items-center justify-center w-full min-h-10 px-4 py-2.5 border border-[#F4B41A]/80 text-[#0A182D] rounded-xl font-bold text-sm sm:hover:bg-[#F4B41A] touch-manipulation"
                 >
-                  طلب عبر النموذج
+                  {t.catalog.requestForm}
                 </button>
               </div>
             </div>
           </article>
-        ))}
+        );})}
       </div>
     </div>
   );

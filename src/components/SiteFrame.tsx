@@ -1,20 +1,12 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Menu, ShoppingCart, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Menu, ShoppingCart, X } from "lucide-react";
 import QuoteRequestForm from "@/src/components/QuoteRequestForm";
+import LanguageSwitch from "@/src/components/LanguageSwitch";
 import { useCart } from "@/src/hooks/useCart";
+import { useLocale } from "@/src/hooks/useLocale";
 
 const WHATSAPP_URL = "https://wa.me/966550266838";
-
-const links = [
-  { label: "الرئيسية", href: "/" },
-  { label: "من نحن", href: "/about" },
-  { label: "المنتجات", href: "/#products" },
-  { label: "المطاعم", href: "/restaurants" },
-  { label: "الأسواق", href: "/markets" },
-  { label: "التوصيل", href: "/delivery" },
-  { label: "تواصل", href: "/#contact" },
-];
 
 type Props = {
   title: string;
@@ -37,7 +29,22 @@ export default function SiteFrame({
   children,
 }: Props) {
   const { count: cartCount } = useCart();
+  const { t, localizePath, dir } = useLocale();
   const [menuOpen, setMenuOpen] = useState(false);
+  const BackIcon = dir === "ltr" ? ArrowRight : ArrowLeft;
+
+  const links = useMemo(
+    () => [
+      { label: t.nav.home, href: localizePath("/") },
+      { label: t.nav.about, href: localizePath("/about") },
+      { label: t.nav.products, href: `${localizePath("/")}#products` },
+      { label: t.nav.restaurants, href: localizePath("/restaurants") },
+      { label: t.nav.markets, href: localizePath("/markets") },
+      { label: t.nav.delivery, href: localizePath("/delivery") },
+      { label: t.nav.contact, href: `${localizePath("/")}#contact` },
+    ],
+    [t, localizePath],
+  );
 
   useEffect(() => {
     const previous = document.title;
@@ -56,9 +63,9 @@ export default function SiteFrame({
       <nav className="bg-[#0E2A47] sticky top-0 z-50">
         <div className="max-w-[1400px] mx-auto px-3.5 sm:px-6 lg:px-12 h-14 md:h-20 flex items-center justify-between gap-3">
           <Link
-            to="/"
+            to={localizePath("/")}
             className="flex items-center gap-2 sm:gap-3 shrink-0 min-w-0"
-            aria-label="تسامي الوطنية — الصفحة الرئيسية"
+            aria-label={t.nav.homeAria}
             onClick={() => setMenuOpen(false)}
           >
             <img
@@ -71,38 +78,40 @@ export default function SiteFrame({
               className="h-9 sm:h-11 w-auto object-contain"
             />
             <span className="font-brand text-[14px] sm:text-xl md:text-2xl font-black leading-tight text-white whitespace-nowrap">
-              تسامي <span className="text-[#2A7A42]">الوطنية</span>
+              {t.brand.name} <span className="text-[#2A7A42]">{t.brand.accent}</span>
             </span>
           </Link>
-          <div className="hidden lg:flex whitespace-nowrap items-center justify-end gap-x-6 xl:gap-8 text-sm font-bold text-white">
+          <div className="hidden lg:flex whitespace-nowrap items-center justify-end gap-x-4 xl:gap-6 text-sm font-bold text-white">
             {links.map((link) => (
               <Link key={link.href} to={link.href} className="hover:text-[#F4B41A] transition-colors">
                 {link.label}
               </Link>
             ))}
+            <LanguageSwitch />
             <Link
-              to="/cart"
+              to={localizePath("/cart")}
               className="relative inline-flex items-center gap-1.5 hover:text-[#F4B41A] transition-colors"
-              aria-label="سلة المشتريات"
+              aria-label={t.nav.cartAria}
             >
               <ShoppingCart className="h-4 w-4" />
-              السلة
+              {t.nav.cart}
               {cartCount > 0 && (
-                <span className="absolute -top-2 -left-3 min-w-5 h-5 px-1 rounded-full bg-[#F4B41A] text-[#0A182D] text-[10px] font-extrabold grid place-items-center">
+                <span className="absolute -top-2 -end-3 min-w-5 h-5 px-1 rounded-full bg-[#F4B41A] text-[#0A182D] text-[10px] font-extrabold grid place-items-center">
                   {cartCount > 99 ? "99+" : cartCount}
                 </span>
               )}
             </Link>
           </div>
           <div className="lg:hidden flex items-center gap-1.5">
+            <LanguageSwitch />
             <Link
-              to="/cart"
+              to={localizePath("/cart")}
               className="relative inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 text-white touch-manipulation"
-              aria-label="سلة المشتريات"
+              aria-label={t.nav.cartAria}
             >
               <ShoppingCart className="h-5 w-5" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -left-1 min-w-4 h-4 px-1 rounded-full bg-[#F4B41A] text-[#0A182D] text-[9px] font-extrabold grid place-items-center">
+                <span className="absolute -top-1 -end-1 min-w-4 h-4 px-1 rounded-full bg-[#F4B41A] text-[#0A182D] text-[9px] font-extrabold grid place-items-center">
                   {cartCount > 99 ? "99+" : cartCount}
                 </span>
               )}
@@ -111,7 +120,7 @@ export default function SiteFrame({
               type="button"
               className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 text-white touch-manipulation active:bg-white/15"
               aria-expanded={menuOpen}
-              aria-label={menuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+              aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
               onClick={() => setMenuOpen((v) => !v)}
             >
               {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -139,42 +148,44 @@ export default function SiteFrame({
       {bare ? (
         <main>{children}</main>
       ) : (
-      <main className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12 py-8 sm:py-16">
-        <p className="text-[#E66A1F] text-xs font-bold tracking-[0.16em] mb-3">مؤسسة تسامي الوطنية</p>
-        <h1 className="text-[1.85rem] sm:text-5xl font-black text-[#0A182D] leading-tight mb-4 sm:mb-5">{heading}</h1>
-        <p className="text-[15px] sm:text-lg text-slate-600 leading-relaxed mb-6 sm:mb-8 max-w-3xl">{lead}</p>
-        <div className="flex flex-col sm:flex-row gap-3 mb-8 sm:mb-12">
-          <a
-            href={`${WHATSAPP_URL}?text=${encodeURIComponent(whatsappText)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center bg-[#15803D] text-white px-6 py-3.5 rounded-md font-bold"
-          >
-            اطلب عرض سعر على واتساب
-            <ArrowLeft className="mr-2 h-4 w-4" />
-          </a>
-          <Link
-            to="/#products"
-            className="inline-flex items-center justify-center border border-[#0E2A47] text-[#0E2A47] px-6 py-3.5 rounded-md font-bold"
-          >
-            عرض المنتجات
-          </Link>
-        </div>
-        {children}
-        <div className="mt-14">
-          <QuoteRequestForm />
-        </div>
-      </main>
+        <main className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12 py-8 sm:py-16">
+          <p className="text-[#E66A1F] text-xs font-bold tracking-[0.16em] mb-3">{t.siteFrame.eyebrow}</p>
+          <h1 className="text-[1.85rem] sm:text-5xl font-black text-[#0A182D] leading-tight mb-4 sm:mb-5">{heading}</h1>
+          <p className="text-[15px] sm:text-lg text-slate-600 leading-relaxed mb-6 sm:mb-8 max-w-3xl">{lead}</p>
+          <div className="flex flex-col sm:flex-row gap-3 mb-8 sm:mb-12">
+            <a
+              href={`${WHATSAPP_URL}?text=${encodeURIComponent(whatsappText)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-[#15803D] text-white px-6 py-3.5 rounded-md font-bold"
+            >
+              {t.siteFrame.whatsappCta}
+              <BackIcon className="ms-2 h-4 w-4" />
+            </a>
+            <Link
+              to={`${localizePath("/")}#products`}
+              className="inline-flex items-center justify-center border border-[#0E2A47] text-[#0E2A47] px-6 py-3.5 rounded-md font-bold"
+            >
+              {t.siteFrame.browseProducts}
+            </Link>
+          </div>
+          {children}
+          <div className="mt-14">
+            <QuoteRequestForm />
+          </div>
+        </main>
       )}
 
       <footer className="bg-[#0A182D] text-white/70 px-4 sm:px-6 lg:px-12 py-10 text-sm leading-relaxed">
         <div className="max-w-[1100px] mx-auto">
-          <p className="text-white font-bold mb-2">مؤسسة تسامي الوطنية</p>
-          <p>ينبع، حي الحدائق، شارع الملك عبدالعزيز ابن عبدالرحمن سعود، مبنى 2452</p>
-          <p>الرمز البريدي 46429 · العنوان المختصر YADB2452</p>
-          <p>السجل التجاري 7051037930 · الرقم الضريبي 314091043600003</p>
+          <p className="text-white font-bold mb-2">{t.siteFrame.footerName}</p>
+          <p>{t.siteFrame.footerAddress}</p>
+          <p>{t.siteFrame.footerPostal}</p>
+          <p>{t.siteFrame.footerCr}</p>
           <p className="mt-3" dir="ltr">
-            <a href="tel:0550266838" className="hover:text-white">055 026 6838</a>
+            <a href="tel:0550266838" className="hover:text-white">
+              055 026 6838
+            </a>
           </p>
         </div>
       </footer>

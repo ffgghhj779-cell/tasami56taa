@@ -9,6 +9,7 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   ChevronDown,
   ArrowLeft,
+  ArrowRight,
   Check,
   ShieldCheck,
   FileText,
@@ -30,6 +31,8 @@ import { useAuth } from "@/src/hooks/useAuth";
 import { useCart } from "@/src/hooks/useCart";
 import ProductsCatalog from "@/src/pages/ProductsCatalog";
 import QuoteRequestForm from "@/src/components/QuoteRequestForm";
+import LanguageSwitch from "@/src/components/LanguageSwitch";
+import { useLocale } from "@/src/hooks/useLocale";
 
 const WHATSAPP_URL = "https://wa.me/966550266838";
 
@@ -109,130 +112,34 @@ function HScroll({
    Static marketing blocks (CMS-managed: products / FAQ / testimonials)
 ───────────────────────────────────────────── */
 
-const stats = [
-  { value: "10+", label: "سنوات في توريد الدواجن والأغذية" },
-  { value: "500+", label: "عميل راضٍ في أنحاء المملكة" },
-  { value: "100%", label: "منتجات حلال ومعتمدة" },
-  { value: "24/7", label: "سلاسل إمداد مبردة ولوجستيات" },
-];
-
-const certifications = [
-  {
-    icon: Check,
-    title: "حلال Halal",
-    desc: "مصانع معتمدة ومطابقة لمواصفات الغذاء والدواء والجهات الإسلامية.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "نظام الهاسب HACCP",
-    desc: "تحليل المخاطر ونقاط التحكم الحرجة في كل مرحلة إنتاج.",
-  },
-  {
-    icon: FileText,
-    title: "أيزو ISO 22000",
-    desc: "المعيار العالمي لإدارة سلامة الأغذية.",
-  },
-  {
-    icon: Scale,
-    title: "هيئة الغذاء والدواء",
-    desc: "امتثال كامل لاشتراطات SFDA في المملكة العربية السعودية.",
-  },
-  {
-    icon: Snowflake,
-    title: "سلاسل التبريد",
-    desc: "نقل وتخزين في درجة التبريد المناسبة للحفاظ على الجودة.",
-  },
-];
-
-const miniCards = [
-  {
-    title: "المهمة",
-    desc: "توريد منتجات غذائية بالجملة للمطاعم والأسواق.",
-  },
-  {
-    title: "التركيز الإقليمي",
-    desc: "توريد للمطاعم والأسواق داخل المملكة العربية السعودية.",
-  },
-  {
-    title: "الجودة",
-    desc: "نراجع الشهادات والوثائق المصاحبة للتوريد.",
-  },
-  {
-    title: "اللوجستيات",
-    desc: "سلاسل إمداد مبردة موثوقة من أرض المصدر إلى وجهتك.",
-  },
-];
-
-const processSteps = [
-  {
-    num: "01",
-    title: "تقديم الاستفسار",
-    desc: "شاركنا المنتج المطلوب، الكميات، والمدينة.",
-  },
-  {
-    num: "02",
-    title: "استلام التسعيرة",
-    desc: "نراجع الطلب ونرسل عرض السعر للجملة.",
-  },
-  {
-    num: "03",
-    title: "الجودة والوثائق",
-    desc: "الفحص، الشهادات، وتجهيز الوثائق.",
-  },
-  {
-    num: "04",
-    title: "التعبئة والتبريد",
-    desc: "تغليف آمن ضمن سلاسل مبردة.",
-  },
-  {
-    num: "05",
-    title: "التوصيل السريع",
-    desc: "شحن مباشر إلى مستودعاتك أو مطعمك.",
-  },
-];
-
-const reasons = [
-  "منتجات غذائية بالجملة للمطاعم والأسواق",
-  "عرض سعر للجملة بعد مراجعة الكمية والمدينة",
-  "لوجستيات توريد موثوقة ومجدولة بدقة",
-  "تغليف مرن وتعبئة مخصصة حسب الطلب",
-  "الامتثال الصارم لمعايير الغذاء والدواء (SFDA)",
-  "فريق دعم مخصص لخدمة عملاء الجملة والتوريد",
-  "توثيق كامل لجميع الشحنات لضمان الشفافية",
-  "أسطول مبرد متكامل لتوصيل آمن وسريع",
-];
-
-const navLinks = [
-  { label: "الرئيسية", href: "/#home" },
-  { label: "من نحن", href: "/about" },
-  { label: "المنتجات", href: "/#products" },
-  { label: "المطاعم", href: "/restaurants" },
-  { label: "الأسواق", href: "/markets" },
-  { label: "التوصيل", href: "/delivery" },
-  { label: "الأسئلة", href: "/#faq" },
-  { label: "تواصل", href: "/#contact" },
-];
+const CERT_ICONS = [Check, ShieldCheck, FileText, Scale, Snowflake] as const;
 
 function HomeNavLink({
   href,
   label,
   className,
   onDone,
+  homePath,
 }: {
   href: string;
   label: string;
   className?: string;
   onDone?: () => void;
+  homePath: string;
 }) {
-  if (href.startsWith("/#")) {
-    const id = href.slice(2);
+  const hashIdx = href.indexOf("#");
+  if (hashIdx >= 0) {
+    const id = href.slice(hashIdx + 1);
     return (
       <a
         href={`#${id}`}
         className={className}
         onClick={(e) => {
           onDone?.();
-          if (window.location.pathname === "/") {
+          const onHome =
+            window.location.pathname === homePath ||
+            window.location.pathname === `${homePath}/`;
+          if (onHome) {
             e.preventDefault();
             scrollToSection(id);
           }
@@ -256,6 +163,27 @@ function HomeNavLink({
 export default function HomePage() {
   const { user, isTeam, signOut } = useAuth();
   const { count: cartCount } = useCart();
+  const { t, localizePath, dir } = useLocale();
+  const homePath = localizePath("/");
+  const navLinks = [
+    { label: t.nav.home, href: `${homePath}#home` },
+    { label: t.nav.about, href: localizePath("/about") },
+    { label: t.nav.products, href: `${homePath}#products` },
+    { label: t.nav.restaurants, href: localizePath("/restaurants") },
+    { label: t.nav.markets, href: localizePath("/markets") },
+    { label: t.nav.delivery, href: localizePath("/delivery") },
+    { label: t.nav.faq, href: `${homePath}#faq` },
+    { label: t.nav.contact, href: `${homePath}#contact` },
+  ];
+  const stats = t.home.stats;
+  const certifications = t.home.certifications.map((c, i) => ({
+    ...c,
+    icon: CERT_ICONS[i] ?? Check,
+  }));
+  const miniCards = t.home.miniCards;
+  const processSteps = t.home.processSteps;
+  const reasons = t.home.reasons;
+  const CtaArrow = dir === "ltr" ? ArrowRight : ArrowLeft;
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -301,7 +229,7 @@ export default function HomePage() {
           <a
             href="#home"
             className="flex items-center gap-2 sm:gap-3 shrink-0 min-w-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F4B41A]/60 rounded-lg"
-            aria-label="تسامي الوطنية — الصفحة الرئيسية"
+            aria-label={t.nav.homeAria}
             onClick={() => setMobileNavOpen(false)}
           >
             <img
@@ -315,10 +243,10 @@ export default function HomePage() {
             />
             <span className="flex flex-col justify-center md:border-r border-white/15 md:pr-3 min-w-0 text-start">
               <span className="font-brand text-[14px] sm:text-xl md:text-2xl font-black leading-tight tracking-tight text-white">
-                تسامي <span className="text-[#2A7A42]">الوطنية</span>
+                {t.brand.name} <span className="text-[#2A7A42]">{t.brand.accent}</span>
               </span>
               <span className="font-brand mt-0.5 text-[9px] sm:text-xs md:text-[13px] font-bold leading-snug text-[#E66A1F] hidden sm:block">
-                توريدات الجملة للمطاعم والأسواق
+                {t.brand.tagline}
               </span>
             </span>
           </a>
@@ -329,18 +257,20 @@ export default function HomePage() {
                 key={link.href}
                 href={link.href}
                 label={link.label}
+                homePath={homePath}
                 className={`transition-colors hover:text-[#F4B41A] ${
                   i === 0 ? "text-[#F4B41A]" : ""
                 }`}
               />
             ))}
+            <LanguageSwitch />
             <Link
-              to="/cart"
+              to={localizePath("/cart")}
               className="relative inline-flex items-center gap-1.5 transition-colors hover:text-[#F4B41A]"
-              aria-label="سلة المشتريات"
+              aria-label={t.nav.cartAria}
             >
               <ShoppingCart className="h-4 w-4" />
-              السلة
+              {t.nav.cart}
               {cartCount > 0 && (
                 <span className="absolute -top-2 -left-3 min-w-5 h-5 px-1 rounded-full bg-[#F4B41A] text-[#0A182D] text-[10px] font-extrabold grid place-items-center">
                   {cartCount > 99 ? "99+" : cartCount}
@@ -350,39 +280,40 @@ export default function HomePage() {
             {user ? (
               <>
                 <Link
-                  to={isTeam ? "/admin" : "/account"}
+                  to={localizePath(isTeam ? "/admin" : "/account")}
                   className="transition-colors hover:text-[#F4B41A] text-[#F4B41A]"
                 >
-                  {isTeam ? "لوحة التحكم" : "حسابي"}
+                  {isTeam ? t.nav.admin : t.nav.account}
                 </Link>
                 <button
                   type="button"
                   onClick={() => void signOut()}
                   className="transition-colors hover:text-[#F4B41A] text-white/80"
                 >
-                  خروج
+                  {t.nav.logout}
                 </button>
               </>
             ) : (
               <>
-                <Link to="/login" className="transition-colors hover:text-[#F4B41A]">
-                  دخول
+                <Link to={localizePath("/login")} className="transition-colors hover:text-[#F4B41A]">
+                  {t.nav.login}
                 </Link>
                 <Link
-                  to="/register"
+                  to={localizePath("/register")}
                   className="rounded-lg bg-[#16A34A] hover:bg-[#15803D] px-3 py-1.5 text-white"
                 >
-                  إنشاء حساب
+                  {t.nav.register}
                 </Link>
               </>
             )}
           </div>
 
           <div className="xl:hidden flex items-center gap-1.5">
+            <LanguageSwitch />
             <Link
-              to="/cart"
+              to={localizePath("/cart")}
               className="relative inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 text-white touch-manipulation"
-              aria-label="سلة المشتريات"
+              aria-label={t.nav.cartAria}
             >
               <ShoppingCart className="h-5 w-5" />
               {cartCount > 0 && (
@@ -395,7 +326,7 @@ export default function HomePage() {
               type="button"
               className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 text-white touch-manipulation active:bg-white/15"
               aria-expanded={mobileNavOpen}
-              aria-label={mobileNavOpen ? "إغلاق القائمة" : "فتح القائمة"}
+              aria-label={mobileNavOpen ? t.nav.closeMenu : t.nav.openMenu}
               onClick={() => setMobileNavOpen((v) => !v)}
             >
               {mobileNavOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -411,6 +342,7 @@ export default function HomePage() {
                   key={link.href}
                   href={link.href}
                   label={link.label}
+                  homePath={homePath}
                   onDone={() => setMobileNavOpen(false)}
                   className="rounded-xl px-3 py-3 text-sm font-bold text-white/90 active:bg-white/10 touch-manipulation"
                 />
@@ -492,39 +424,36 @@ export default function HomePage() {
             <div className="flex items-center justify-center gap-2 sm:gap-3 text-[#F4B41A] font-bold text-[10px] sm:text-xs tracking-[0.12em] uppercase mb-5 sm:mb-8 flex-wrap px-1">
               <span className="inline-flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#F4B41A]" />
-                توريد دواجن حلال
+                {t.home.heroBadge1}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#F4B41A]" />
-                أغذية سعودية
+                {t.home.heroBadge2}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#F4B41A]" />
-                سجل تجاري 7051037930
+                {t.home.heroBadge3}
               </span>
             </div>
 
             <h1 className="text-[1.9rem] leading-[1.22] sm:text-5xl md:text-6xl lg:text-[4.25rem] font-black text-white tracking-tight mb-5 sm:mb-8 max-w-4xl mx-auto">
-              منتجات غذائية بالجملة
-              <br className="sm:hidden" />{" "}
-              للمطاعم والأسواق
+              {t.home.heroTitle}
             </h1>
 
             <p className="text-white/85 text-[0.95rem] sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed font-light px-1">
-              نورد الدواجن المبردة، البطاطس المجمدة، والبيض الطازج للمطاعم
-              والأسواق، مع توصيل مبرد. اطلب عرض السعر الآن.
+              {t.home.heroLead}
             </p>
 
             {/* CTAs — stacked full-width on mobile like Shengda */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-14 max-w-sm sm:max-w-none mx-auto">
               <a
-                href={`${WHATSAPP_URL}?text=${encodeURIComponent("السلام عليكم، أرغب في طلب عرض سعر للجملة")}`}
+                href={`${WHATSAPP_URL}?text=${encodeURIComponent(t.home.heroWhatsappMsg)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#15803D] active:bg-[#166534] hover:bg-[#166534] text-white px-8 py-3.5 sm:py-4 rounded-md font-bold transition-colors text-base sm:text-lg touch-manipulation"
               >
-                طلب عرض سعر
-                <ArrowLeft size={18} className="sm:w-5 sm:h-5" />
+                {t.home.heroWhatsapp}
+                <CtaArrow size={18} className="sm:w-5 sm:h-5" />
               </a>
               <a
                 href="#products"
@@ -534,7 +463,7 @@ export default function HomePage() {
                 }}
                 className="w-full sm:w-auto inline-flex items-center justify-center bg-transparent active:bg-white/10 hover:bg-white/10 text-white border border-white/40 px-8 py-3.5 sm:py-4 rounded-md font-bold transition-colors text-base sm:text-lg touch-manipulation"
               >
-                عرض المنتجات
+                {t.home.heroProducts}
               </a>
             </div>
 
@@ -560,11 +489,10 @@ export default function HomePage() {
 
               <div className="glass-card bg-black/25 md:bg-white/10 md:backdrop-blur-md border border-white/25 rounded-2xl p-6 sm:p-8 shadow-xl flex flex-col justify-center">
                 <h3 className="text-[#F4B41A] font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-center sm:text-start">
-                  لماذا تختارنا؟
+                  {t.home.whyTitle}
                 </h3>
                 <p className="text-white text-[0.95rem] sm:text-lg leading-relaxed font-medium text-center sm:text-start">
-                  نورد الدواجن والبطاطس والبيض وباقي أقسام الكتالوج للمطاعم والأسواق.
-                  عرض السعر يُرسل بعد تحديد الكمية والمدينة.
+                  {t.home.whyBody}
                 </p>
               </div>
             </div>
@@ -575,21 +503,21 @@ export default function HomePage() {
       <section className="bg-white border-b border-slate-100">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 py-6 grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
           <div>
-            <div className="text-[11px] font-bold text-slate-400">السجل التجاري</div>
+            <div className="text-[11px] font-bold text-slate-400">{t.home.crLabel}</div>
             <div className="font-black text-[#0A182D]">7051037930</div>
           </div>
           <div>
-            <div className="text-[11px] font-bold text-slate-400">الرقم الضريبي</div>
+            <div className="text-[11px] font-bold text-slate-400">{t.home.vatLabel}</div>
             <div className="font-black text-[#0A182D]">314091043600003</div>
           </div>
           <div>
-            <div className="text-[11px] font-bold text-slate-400">عنوان المنشأة</div>
-            <div className="font-black text-[#0A182D]">ينبع · YADB2452</div>
+            <div className="text-[11px] font-bold text-slate-400">{t.home.addressLabel}</div>
+            <div className="font-black text-[#0A182D]">{t.home.addressValue}</div>
           </div>
           <div>
-            <div className="text-[11px] font-bold text-slate-400">التوصيل</div>
-            <Link to="/delivery" className="font-black text-[#15803D]">
-              مبرد، حسب المدينة
+            <div className="text-[11px] font-bold text-slate-400">{t.home.deliveryLabel}</div>
+            <Link to={localizePath("/delivery")} className="font-black text-[#15803D]">
+              {t.home.deliveryLink}
             </Link>
           </div>
         </div>
@@ -597,24 +525,24 @@ export default function HomePage() {
 
       <section className="py-14 sm:py-20 bg-slate-50">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
-          <h2 className="text-3xl sm:text-4xl font-black text-[#0A182D] mb-3">لمن نورّد</h2>
+          <h2 className="text-3xl sm:text-4xl font-black text-[#0A182D] mb-3">{t.home.supplyTitle}</h2>
           <p className="text-slate-500 mb-8 max-w-2xl">
-            اختر نوع نشاطك. الأقسام المعروضة هي الموجودة في الكتالوج فقط.
+            {t.home.supplyLead}
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              ["مطاعم", "/restaurants"],
-              ["كافيهات ومخابز", "/restaurants"],
-              ["فنادق وتموين", "/restaurants"],
-              ["أسواق وبقالات", "/markets"],
+              [t.home.supplyRestaurants, localizePath("/restaurants")],
+              [t.home.supplyCafes, localizePath("/restaurants")],
+              [t.home.supplyHotels, localizePath("/restaurants")],
+              [t.home.supplyMarkets, localizePath("/markets")],
             ].map(([label, href]) => (
               <Link
-                key={label}
+                key={String(label)}
                 to={href}
                 className="rounded-2xl bg-white border border-slate-200 p-6 font-black text-[#0A182D] hover:border-[#F4B41A]"
               >
                 {label}
-                <span className="block mt-2 text-sm font-bold text-[#15803D]">اعرض الصفحة</span>
+                <span className="block mt-2 text-sm font-bold text-[#15803D]">{t.home.viewPage}</span>
               </Link>
             ))}
           </div>

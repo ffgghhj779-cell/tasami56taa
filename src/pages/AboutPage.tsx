@@ -2,6 +2,7 @@ import { useEffect, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft,
+  ArrowRight,
   BadgeCheck,
   Building2,
   ChefHat,
@@ -24,6 +25,7 @@ import {
   Truck,
 } from "lucide-react";
 import SiteFrame from "@/src/components/SiteFrame";
+import { useLocale } from "@/src/hooks/useLocale";
 import { catalogCategories, catalogProducts, type CatalogCategoryId } from "@/src/data/catalog";
 
 const WHATSAPP = "https://wa.me/966550266838";
@@ -317,12 +319,14 @@ function useAboutJsonLd() {
 
 export default function AboutPage() {
   useAboutJsonLd();
+  const { t, localizePath, dir } = useLocale();
+  const BackIcon = dir === "ltr" ? ArrowRight : ArrowLeft;
 
   return (
     <SiteFrame
       bare
-      title="من نحن | مؤسسة تسامي الوطنية لتوريد الأغذية بالجملة"
-      description={`مؤسسة تسامي الوطنية، ينبع: توريد أغذية بالجملة للمطاعم والفنادق والأسواق. ${PRODUCT_COUNT} صنفًا في ${CATEGORY_COUNT} قسمًا، توصيل مبرد، والوكيل الحصري لأرز سلام في السعودية.`}
+      title={t.about.pageTitle}
+      description={t.about.metaDescription(PRODUCT_COUNT, CATEGORY_COUNT)}
     >
       {/* ── Hero ── */}
       <section className="relative overflow-hidden bg-[#FBF8F3]">
@@ -332,44 +336,42 @@ export default function AboutPage() {
         />
         <Shell className="relative grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-center py-10 sm:py-16 lg:py-20">
           <div className="min-w-0">
-            <Eyebrow>عن مؤسسة تسامي الوطنية</Eyebrow>
+            <Eyebrow>{t.about.eyebrow}</Eyebrow>
             <h1 className="font-brand text-[2.1rem] leading-[1.2] sm:text-5xl lg:text-[3.6rem] font-black text-[#0A182D]">
-              مورد أغذية بالجملة
+              {t.about.heroTitle}
               <br />
-              <span className="text-[#E66A1F]">للمطاعم والأسواق</span>
+              <span className="text-[#E66A1F]">{t.about.heroAccent}</span>
             </h1>
             <p className="mt-4 sm:mt-5 font-brand text-lg sm:text-2xl font-bold text-[#0E2A47] leading-snug">
-              أصناف واضحة، عرض سعر مكتوب، وتوصيل مبرد حتى مطبخك.
+              {t.about.heroLead}
             </p>
             <p className="mt-4 text-[15px] sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
-              مؤسسة تسامي الوطنية منشأة سعودية تأسست عام {LEGAL.founded}، مسجلة في ينبع، تورد منتجات غذائية بالجملة للمطاعم والكافيهات
-              والمخابز والفنادق وشركات التموين والأسواق والبقالات داخل المملكة. يضم كتالوجنا {PRODUCT_COUNT} صنفًا
-              في {CATEGORY_COUNT} قسمًا، ونحن الوكيل الحصري لأرز سلام المصري في السعودية.
+              {t.about.heroBody(LEGAL.founded, PRODUCT_COUNT, CATEGORY_COUNT)}
             </p>
             <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3">
               <a
-                href={waLink("السلام عليكم، أرغب في الاستفسار عن توريد الجملة من تسامي الوطنية")}
+                href={waLink(t.about.whatsappMsg)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 min-h-12 px-6 rounded-xl bg-[#15803D] text-white font-extrabold shadow-[0_12px_30px_-12px_rgba(21,128,61,0.7)] touch-manipulation"
               >
                 <MessageCircle className="h-5 w-5" />
-                اطلب عرض سعر على واتساب
+                {t.about.whatsappCta}
               </a>
               <Link
-                to="/#products"
+                to={`${localizePath("/")}#products`}
                 className="inline-flex items-center justify-center gap-2 min-h-12 px-6 rounded-xl border-2 border-[#0E2A47] text-[#0E2A47] font-extrabold touch-manipulation"
               >
-                تصفح الكتالوج
-                <ArrowLeft className="h-4 w-4" />
+                {t.about.browseCatalog}
+                <BackIcon className="h-4 w-4" />
               </Link>
             </div>
             <dl className="mt-8 grid grid-cols-4 gap-2 sm:gap-4 max-w-2xl">
               {[
-                { v: LEGAL.founded, l: "سنة التأسيس" },
-                { v: String(CATEGORY_COUNT), l: "قسمًا في الكتالوج" },
-                { v: String(PRODUCT_COUNT), l: "صنفًا للجملة" },
-                { v: String(BRANDS.length), l: "علامة تجارية نوردها" },
+                { v: LEGAL.founded, l: t.about.statFounded },
+                { v: String(CATEGORY_COUNT), l: t.about.statCategories },
+                { v: String(PRODUCT_COUNT), l: t.about.statProducts },
+                { v: String(BRANDS.length), l: t.about.statBrands },
               ].map((s) => (
                 <div key={s.l} className="rounded-2xl bg-white border border-[#0E2A47]/10 px-2.5 py-3 sm:px-4 sm:py-4 shadow-sm">
                   <dt className="sr-only">{s.l}</dt>
