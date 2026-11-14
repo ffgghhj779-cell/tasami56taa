@@ -32,6 +32,7 @@ const waLink = (text: string) => `${WHATSAPP}?text=${encodeURIComponent(text)}`;
 const LEGAL = {
   name: "مؤسسة تسامي الوطنية",
   trade: "تسامي الوطنية",
+  founded: "2011",
   cr: "7051037930",
   vat: "314091043600003",
   address: "ينبع، حي الحدائق، شارع الملك عبدالعزيز ابن عبدالرحمن سعود، مبنى 2452",
@@ -203,7 +204,7 @@ const VALUES = [
 const FAQS = [
   {
     q: "من هي مؤسسة تسامي الوطنية؟",
-    a: `منشأة سعودية مسجلة في ينبع (سجل تجاري ${LEGAL.cr})، تورد منتجات غذائية بالجملة للمطاعم والكافيهات والمخابز والفنادق وشركات التموين والأسواق والبقالات داخل المملكة.`,
+    a: `منشأة سعودية تأسست عام ${LEGAL.founded}، مسجلة في ينبع (سجل تجاري ${LEGAL.cr})، تورد منتجات غذائية بالجملة للمطاعم والكافيهات والمخابز والفنادق وشركات التموين والأسواق والبقالات داخل المملكة.`,
   },
   {
     q: "ما المنتجات التي توردونها؟",
@@ -341,7 +342,7 @@ export default function AboutPage() {
               أصناف واضحة، عرض سعر مكتوب، وتوصيل مبرد حتى مطبخك.
             </p>
             <p className="mt-4 text-[15px] sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
-              مؤسسة تسامي الوطنية منشأة سعودية مسجلة في ينبع، تورد منتجات غذائية بالجملة للمطاعم والكافيهات
+              مؤسسة تسامي الوطنية منشأة سعودية تأسست عام {LEGAL.founded}، مسجلة في ينبع، تورد منتجات غذائية بالجملة للمطاعم والكافيهات
               والمخابز والفنادق وشركات التموين والأسواق والبقالات داخل المملكة. يضم كتالوجنا {PRODUCT_COUNT} صنفًا
               في {CATEGORY_COUNT} قسمًا، ونحن الوكيل الحصري لأرز سلام المصري في السعودية.
             </p>
@@ -363,16 +364,17 @@ export default function AboutPage() {
                 <ArrowLeft className="h-4 w-4" />
               </Link>
             </div>
-            <dl className="mt-8 grid grid-cols-3 gap-2.5 sm:gap-4 max-w-xl">
+            <dl className="mt-8 grid grid-cols-4 gap-2 sm:gap-4 max-w-2xl">
               {[
+                { v: LEGAL.founded, l: "سنة التأسيس" },
                 { v: String(CATEGORY_COUNT), l: "قسمًا في الكتالوج" },
                 { v: String(PRODUCT_COUNT), l: "صنفًا للجملة" },
                 { v: String(BRANDS.length), l: "علامة تجارية نوردها" },
               ].map((s) => (
-                <div key={s.l} className="rounded-2xl bg-white border border-[#0E2A47]/10 px-3 py-3.5 sm:px-4 sm:py-4 shadow-sm">
+                <div key={s.l} className="rounded-2xl bg-white border border-[#0E2A47]/10 px-2.5 py-3 sm:px-4 sm:py-4 shadow-sm">
                   <dt className="sr-only">{s.l}</dt>
-                  <dd className="font-brand text-2xl sm:text-4xl font-black text-[#0E2A47] leading-none">{s.v}</dd>
-                  <dd className="mt-1.5 text-[11px] sm:text-sm font-bold text-slate-500 leading-tight">{s.l}</dd>
+                  <dd className="font-brand text-xl sm:text-4xl font-black text-[#0E2A47] leading-none">{s.v}</dd>
+                  <dd className="mt-1.5 text-[10.5px] sm:text-sm font-bold text-slate-500 leading-tight">{s.l}</dd>
                 </div>
               ))}
             </dl>
@@ -418,6 +420,7 @@ export default function AboutPage() {
         <Shell>
           <ul className="flex gap-3 sm:gap-6 overflow-x-auto py-4 text-[13px] sm:text-sm font-bold whitespace-nowrap [scrollbar-width:none]">
             {[
+              `منذ ${LEGAL.founded}`,
               `سجل تجاري ${LEGAL.cr}`,
               `رقم ضريبي ${LEGAL.vat}`,
               "توصيل مبرد",
@@ -498,6 +501,7 @@ export default function AboutPage() {
               {[
                 ["الاسم النظامي", LEGAL.name],
                 ["الاسم التجاري", LEGAL.trade],
+                ["سنة التأسيس", LEGAL.founded],
                 ["السجل التجاري", LEGAL.cr],
                 ["الرقم الضريبي", LEGAL.vat],
                 ["المقر", "ينبع، حي الحدائق"],
