@@ -160,7 +160,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "p-chilled-rahan",
-    img: "/catalog/img-005.jpg",
+    img: "/catalog/clean/img-005.jpg",
     title: "دجاج كامل مبرد الرهان الماسي",
     brand: "دواجن الرهان الماسي",
     specs: "دجاج كامل طازج مبرد، وزن صافي 1100 جم.",
@@ -205,7 +205,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "p-alwadi",
-    img: "/catalog/img-102.jpg",
+    img: "/catalog/clean/img-102.jpg",
     title: "دجاج الوادي مبرد طازج",
     brand: "الوادي",
     specs: "دجاج طازج مبرد، وزن صافي 1200 جم.",
@@ -214,7 +214,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "p-zad-safy",
-    img: "/catalog/img-103.jpg",
+    img: "/catalog/clean/img-103.jpg",
     title: "دجاج الزاد الصافي مبرد",
     brand: "الزاد الصافي",
     specs: "دجاج مبرد، وزن صافي 1000 جم.",
@@ -223,7 +223,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "p-shorouq",
-    img: "/catalog/img-105.jpg",
+    img: "/catalog/clean/img-105.jpg",
     title: "دجاج الثروات مبرد",
     brand: "الثروات",
     specs: "دجاج مبرد طازج حلال، وزن صافي 700 جم (±20).",
@@ -232,7 +232,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "p-nesmat",
-    img: "/catalog/img-124.jpg",
+    img: "/catalog/clean/img-124.jpg",
     title: "دجاج نسمات مبرد فاخر",
     brand: "دواجن نسمات",
     specs: "دجاج مبرد فاخر 1000 جم، تغذية نباتية 100%.",
@@ -241,7 +241,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "p-shatr",
-    img: "/catalog/img-125.jpg",
+    img: "/catalog/clean/img-125.jpg",
     title: "دجاج شاطر طازج مبرد",
     brand: "شاطر",
     specs: "دجاج طازج مبرد، أوزان متاحة 800 و900 جم.",
@@ -256,8 +256,7 @@ export const catalogProducts: CatalogProduct[] = [
     title: "برتقال طازج مستورد",
     specs: "برتقال طازج معبأ في كراتين جملة للتوريد اليومي.",
     formValue: "برتقال طازج",
-    category: "fresh_produce",
-    gallery: ["/catalog/premium/fresh-orange.jpg", "/catalog/img-002.jpg"],
+    category: "fresh_produce",
   },
   {
     id: "f-pomegranate",
@@ -273,8 +272,7 @@ export const catalogProducts: CatalogProduct[] = [
     title: "ليمون أضاليا طازج",
     specs: "ليمون أضاليا طازج في كراتين جملة للتوريد.",
     formValue: "ليمون أضاليا طازج",
-    category: "fresh_produce",
-    gallery: ["/catalog/premium/fresh-lemon-adalia.jpg", "/catalog/img-079.jpg"],
+    category: "fresh_produce",
   },
   {
     id: "f-tomato",
@@ -282,8 +280,7 @@ export const catalogProducts: CatalogProduct[] = [
     title: "طماطم طازجة",
     specs: "طماطم طازجة، عبوات بوزن ظاهر 250 جم للعبوة الصغيرة والجملة بالصناديق.",
     formValue: "طماطم طازجة",
-    category: "fresh_produce",
-    gallery: ["/catalog/premium/fresh-tomato.jpg", "/catalog/img-121.jpg"],
+    category: "fresh_produce",
   },
   {
     id: "f-onion",
@@ -307,8 +304,7 @@ export const catalogProducts: CatalogProduct[] = [
     title: "ثوم طازج",
     specs: "ثوم طازج وفصوص مقشرة حسب الطلب للتوريد.",
     formValue: "ثوم طازج",
-    category: "fresh_produce",
-    gallery: ["/catalog/premium/fresh-garlic.jpg", "/catalog/img-143.jpg"],
+    category: "fresh_produce",
   },
   {
     id: "f-dates-showcase",
@@ -316,8 +312,7 @@ export const catalogProducts: CatalogProduct[] = [
     title: "تمور فاخرة",
     specs: "تمور فاخرة بالجملة بدرجات متعددة حسب الطلب.",
     formValue: "تمور فاخرة",
-    category: "fresh_produce",
-    gallery: ["/catalog/premium/fresh-dates.jpg", "/catalog/img-035.jpg"],
+    category: "fresh_produce",
   },
   {
     id: "f-broccoli",
@@ -325,8 +320,7 @@ export const catalogProducts: CatalogProduct[] = [
     title: "بروكلي طازج",
     specs: "رؤوس بروكلي طازجة تُورَّد بالصندوق.",
     formValue: "بروكلي طازج",
-    category: "fresh_produce",
-    gallery: ["/catalog/premium/fresh-broccoli.jpg", "/catalog/img-146.jpg"],
+    category: "fresh_produce",
   },
   {
     id: "f-cauliflower",
@@ -346,7 +340,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "f-sweet-potato",
-    img: "/catalog/img-003.jpg",
+    img: "/catalog/premium/fresh-sweet-potato.jpg",
     title: "بطاطا حلوة طازجة",
     specs: "بطاطا حلوة طازجة سائبة في صناديق بلاستيكية.",
     formValue: "بطاطا حلوة",
@@ -354,7 +348,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "f-lettuce",
-    img: "/catalog/img-077.jpg",
+    img: "/catalog/premium/fresh-lettuce.jpg",
     title: "خس آيسبرغ طازج",
     specs: "رؤوس خس آيسبرغ مغلفة للتوريد للمطاعم.",
     formValue: "خس آيسبرغ",
@@ -362,7 +356,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "f-cucumber",
-    img: "/catalog/img-120.jpg",
+    img: "/catalog/premium/fresh-cucumber.jpg",
     title: "خيار طازج",
     specs: "خيار طازج معبأ في كراتين للمطاعم والأسواق.",
     formValue: "خيار طازج",
@@ -370,7 +364,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "f-mini-cucumber",
-    img: "/catalog/img-127.jpg",
+    img: "/catalog/premium/fresh-mini-cucumber.jpg",
     title: "خيار صغير طازج",
     specs: "خيار صغير (بيبي) في عبوات كرتونية.",
     formValue: "خيار صغير",
@@ -378,7 +372,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "f-chili",
-    img: "/catalog/img-147.jpg",
+    img: "/catalog/premium/fresh-red-chili.jpg",
     title: "فلفل أحمر حار طازج",
     specs: "فلفل أحمر طويل حار، توريد بالصناديق.",
     formValue: "فلفل أحمر حار",
@@ -386,7 +380,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "f-spring-onion",
-    img: "/catalog/img-148.jpg",
+    img: "/catalog/premium/fresh-spring-onion.jpg",
     title: "بصل أخضر طازج",
     specs: "بصل أخضر (Spring Onion) في عبوات كرتونية.",
     formValue: "بصل أخضر",
@@ -394,7 +388,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "f-carrot",
-    img: "/catalog/img-149.jpg",
+    img: "/catalog/premium/fresh-carrot.jpg",
     title: "جزر طازج",
     specs: "جزر طازج في أكياس جملة للمطابخ المركزية.",
     formValue: "جزر طازج",
@@ -402,7 +396,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "f-mango",
-    img: "/catalog/img-151.jpg",
+    img: "/catalog/premium/fresh-green-mango.jpg",
     title: "مانجو خضراء طازجة",
     specs: "مانجو طازجة مغلفة فردياً للتوريد.",
     formValue: "مانجو طازجة",
@@ -410,7 +404,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "f-red-cabbage",
-    img: "/catalog/img-158.jpg",
+    img: "/catalog/premium/fresh-red-cabbage.jpg",
     title: "ملفوف أحمر طازج",
     specs: "ملفوف أحمر طازج، منشأ مصر ظاهر على بعض الصناديق.",
     formValue: "ملفوف أحمر",
@@ -418,7 +412,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "f-bell-pepper",
-    img: "/catalog/img-169.jpg",
+    img: "/catalog/premium/fresh-red-bell-pepper.jpg",
     title: "فلفل رومي أحمر طازج",
     specs: "فلفل رومي أحمر معبأ في صناديق جملة.",
     formValue: "فلفل رومي أحمر",
@@ -432,8 +426,7 @@ export const catalogProducts: CatalogProduct[] = [
     title: "بطاطس مجمدة نصف مقلية",
     specs: "أصابع بطاطس نصف مقلية مجمدة للجملة.",
     formValue: "بطاطس مجمدة نصف مقلية",
-    category: "frozen_veg_fruit",
-    gallery: ["/catalog/premium/frozen-fries.jpg", "/catalog/img-039.jpg"],
+    category: "frozen_veg_fruit",
   },
   {
     id: "fv-mixed",
@@ -450,8 +443,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "لبدا",
     specs: "فاصوليا خضراء مجمدة، 400 جم.",
     formValue: "فاصوليا لبدا 400 جم",
-    category: "frozen_veg_fruit",
-    gallery: ["/catalog/premium/frozen-green-beans.jpg", "/catalog/img-134.jpg"],
+    category: "frozen_veg_fruit",
   },
   {
     id: "fv-peas-sol",
@@ -460,8 +452,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "صول الذهبية",
     specs: "بسلة سكري مجمدة بجودة ممتازة.",
     formValue: "بسلة سكري صول مجمدة",
-    category: "frozen_veg_fruit",
-    gallery: ["/catalog/premium/frozen-sweet-peas.jpg", "/catalog/img-048.jpg"],
+    category: "frozen_veg_fruit",
   },
   {
     id: "fv-okra-sol",
@@ -496,8 +487,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "لبدا",
     specs: "ملوخية مجمدة، عبوة 400 جم.",
     formValue: "ملوخية لبدا 400 جم",
-    category: "frozen_veg_fruit",
-    gallery: ["/catalog/premium/frozen-molokhia.jpg", "/catalog/img-136.jpg"],
+    category: "frozen_veg_fruit",
   },
   {
     id: "fv-fava",
@@ -522,8 +512,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "Fresh Friends",
     specs: "فراولة مجمدة سريعاً، وزن صافي 400 جم.",
     formValue: "فراولة فريش فريندز 400 جم",
-    category: "frozen_veg_fruit",
-    gallery: ["/catalog/premium/frozen-strawberry.jpg", "/catalog/img-044.jpg"],
+    category: "frozen_veg_fruit",
   },
   {
     id: "fv-mango-lebda",
@@ -532,8 +521,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "لبدا",
     specs: "شرائح مانجو مجمدة، وزن صافي 1 كجم.",
     formValue: "مانجو لبدا 1 كيلو",
-    category: "frozen_veg_fruit",
-    gallery: ["/catalog/premium/frozen-mango.jpg", "/catalog/img-133.jpg"],
+    category: "frozen_veg_fruit",
   },
   {
     id: "fv-pomegranate-arils",
@@ -586,8 +574,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "لبدا",
     specs: "بازلاء خضراء مجمدة، 400 جم.",
     formValue: "بازلاء لبدا 400 جم",
-    category: "frozen_veg_fruit",
-    gallery: ["/catalog/premium/frozen-sweet-peas.jpg", "/catalog/img-131.jpg"],
+    category: "frozen_veg_fruit",
   },
   {
     id: "fv-strawberry-lebda",
@@ -596,8 +583,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "لبدا",
     specs: "فراولة مجمدة، وزن صافي 1 كجم.",
     formValue: "فراولة لبدا 1 كيلو",
-    category: "frozen_veg_fruit",
-    gallery: ["/catalog/premium/frozen-strawberry.jpg", "/catalog/img-132.jpg"],
+    category: "frozen_veg_fruit",
   },
   {
     id: "fv-peas-vilera",
@@ -606,8 +592,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "فيليرا",
     specs: "بازلاء خضراء مجمدة بجودة ممتازة.",
     formValue: "بازلاء فيليرا مجمدة",
-    category: "frozen_veg_fruit",
-    gallery: ["/catalog/premium/frozen-sweet-peas.jpg", "/catalog/img-139.jpg"],
+    category: "frozen_veg_fruit",
   },
   {
     id: "fv-strawberry-naeem",
@@ -616,8 +601,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "النعيم",
     specs: "فراولة مجمدة 100% طبيعية.",
     formValue: "فراولة النعيم مجمدة",
-    category: "frozen_veg_fruit",
-    gallery: ["/catalog/premium/frozen-strawberry.jpg", "/catalog/img-141.jpg"],
+    category: "frozen_veg_fruit",
   },
   {
     id: "fv-peas-naeem",
@@ -626,8 +610,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "النعيم",
     specs: "بازلاء خضراء مجمدة.",
     formValue: "بازلاء النعيم مجمدة",
-    category: "frozen_veg_fruit",
-    gallery: ["/catalog/premium/frozen-sweet-peas.jpg", "/catalog/img-142.jpg"],
+    category: "frozen_veg_fruit",
   },
   {
     id: "fv-beans-viera",
@@ -636,8 +619,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "فييرا",
     specs: "فاصوليا خضراء مجمدة.",
     formValue: "فاصوليا فييرا مجمدة",
-    category: "frozen_veg_fruit",
-    gallery: ["/catalog/premium/frozen-green-beans.jpg", "/catalog/img-145.jpg"],
+    category: "frozen_veg_fruit",
   },
 
   // ── Fries ──
@@ -648,8 +630,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "Premium",
     specs: "نصف مقلية مجمدة، تقطيع كلاسيكي 10 مم، وزن 2.5 كجم.",
     formValue: "بطاطس بريميوم 10مم 2.5 كجم",
-    category: "frozen_fries",
-    gallery: ["/catalog/premium/frozen-fries.jpg", "/catalog/img-039.jpg"],
+    category: "frozen_fries",
   },
   {
     id: "fr-sol-strips",
@@ -671,7 +652,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "fr-lion",
-    img: "/catalog/img-068.jpg",
+    img: "/catalog/premium/frozen-fries.jpg",
     title: "بطاطس لايون فرايز مجمدة",
     brand: "لايون فرايز",
     specs: "أصابع بطاطس مجمدة، عبوة 2.5 كجم.",
@@ -680,7 +661,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "fr-green-foods",
-    img: "/catalog/img-075.jpg",
+    img: "/catalog/premium/frozen-fries.jpg",
     title: "بطاطس Green Foods رفيعة",
     brand: "Green Foods",
     specs: "أصابع رفيعة Allumettes، عبوة 2.5 كجم، حفظ عند −18°م.",
@@ -689,7 +670,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "fr-uncle-chef",
-    img: "/catalog/img-137.jpg",
+    img: "/catalog/clean/img-137.jpg",
     title: "بطاطس العم شيف مجمدة",
     brand: "العم شيف",
     specs: "2.5 كجم، بدون كوليسترول أو مواد حافظة، تُقلى خلال 3 دقائق.",
@@ -745,7 +726,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "o-sol-sunflower",
-    img: "/catalog/img-055.jpg",
+    img: "/catalog/clean/img-055.jpg",
     title: "زيت دوار الشمس صول الذهبية",
     brand: "صول الذهبية",
     specs: "زيت دوار الشمس نقي 100%، خفيف للقلي والطبخ.",
@@ -771,7 +752,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "o-luna-paste",
-    img: "/catalog/img-128.jpg",
+    img: "/catalog/clean/img-128.jpg",
     title: "صلصة طماطم لونا",
     brand: "لونا",
     specs: "معجون طماطم طبيعي 100%، عبوة 400 جم.",
@@ -780,7 +761,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "o-familia-tuna",
-    img: "/catalog/img-085.jpg",
+    img: "/catalog/premium/tuna-chunks.jpg",
     title: "تونة فاميليا قطع بزيت دوار الشمس",
     brand: "Familia",
     specs: "قطع تونة خفيفة بزيت دوار الشمس، 1850 جم، غنية بأوميغا 3.",
@@ -789,7 +770,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "o-lio-tuna",
-    img: "/catalog/img-088.jpg",
+    img: "/catalog/premium/tuna-chunks.jpg",
     title: "تونة ليو قطع بزيت نباتي",
     brand: "Lio",
     specs: "قطع تونة بزيت نباتي، عبوة 185 جم.",
@@ -798,7 +779,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "o-olives",
-    img: "/catalog/img-154.jpg",
+    img: "/catalog/premium/green-olives.jpg",
     title: "زيتون أخضر مشوي منزوع النوى",
     specs: "زيتون أخضر مشوي/مخطّط منزوع النوى للتوريد بالجملة.",
     formValue: "زيتون أخضر مشوي",
@@ -808,7 +789,7 @@ export const catalogProducts: CatalogProduct[] = [
   // ── Juices ──
   {
     id: "j-berto-mango",
-    img: "/catalog/img-024.jpg",
+    img: "/catalog/premium/mango-pulp.jpg",
     title: "لب مانجو بيرتو توتابوري",
     brand: "BERTO",
     specs: "لب مانجو توتابوري معبأ للاستخدام في العصائر والمعجنات.",
@@ -817,7 +798,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "j-awar-qalb",
-    img: "/catalog/img-064.jpg",
+    img: "/catalog/premium/juice-mango-strawberry.jpg",
     title: "عصير أوار قلب فريش جاكر",
     brand: "فريش جاكر",
     specs: "330 مل — فراولة ومانجو وفانيليا وعسل.",
@@ -826,7 +807,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "j-guava",
-    img: "/catalog/img-065.jpg",
+    img: "/catalog/premium/juice-guava.jpg",
     title: "عصير جوافة فريش جاكر",
     brand: "فريش جاكر",
     specs: "330 مل — جوافة مع عسل.",
@@ -835,7 +816,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "j-avocado",
-    img: "/catalog/img-066.jpg",
+    img: "/catalog/premium/juice-avocado-mango.jpg",
     title: "عصير أفوكادو فريش جاكر",
     brand: "فريش جاكر",
     specs: "330 مل — أفوكادو ومانجو وعسل.",
@@ -844,7 +825,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "j-asfahani",
-    img: "/catalog/img-067.jpg",
+    img: "/catalog/premium/juice-mixed-fruit.jpg",
     title: "عصير أصفهاني فريش جاكر",
     brand: "فريش جاكر",
     specs: "330 مل — مانجو وموز وفانيليا وعسل.",
@@ -864,12 +845,7 @@ export const catalogProducts: CatalogProduct[] = [
     formValue: "أرز سلام المصري 5 كجم",
     category: "rice_pulses",
     badge: "وكيل حصري",
-    gallery: [
-      "/catalog/sallam-egyptian-5kg.jpg",
-      "/catalog/sallam-feature-egypt.jpg",
-      "/catalog/sallam-feature-grain.jpg",
-      "/catalog/sallam-family.jpg",
-    ],
+    gallery: ["/catalog/sallam-egyptian-5kg.jpg", "/catalog/sallam-feature-egypt.jpg", "/catalog/sallam-feature-grain.jpg"],
   },
   {
     id: "r-sallam-egyptian-25",
@@ -881,12 +857,7 @@ export const catalogProducts: CatalogProduct[] = [
     formValue: "أرز سلام المصري 25 كجم",
     category: "rice_pulses",
     badge: "وكيل حصري",
-    gallery: [
-      "/catalog/sallam-egyptian-25kg.jpg",
-      "/catalog/sallam-sizes.jpg",
-      "/catalog/sallam-family.jpg",
-      "/catalog/sallam-feature-friday.jpg",
-    ],
+    gallery: ["/catalog/sallam-egyptian-25kg.jpg", "/catalog/sallam-sizes.jpg", "/catalog/sallam-feature-friday.jpg"],
   },
   {
     id: "r-sallam-calrose",
@@ -898,15 +869,11 @@ export const catalogProducts: CatalogProduct[] = [
     formValue: "أرز سلام كالروز",
     category: "rice_pulses",
     badge: "وكيل حصري",
-    gallery: [
-      "/catalog/sallam-calrose.jpg",
-      "/catalog/sallam-sizes.jpg",
-      "/catalog/sallam-family.jpg",
-    ],
+    gallery: ["/catalog/sallam-calrose.jpg", "/catalog/sallam-sizes.jpg"],
   },
   {
     id: "r-mazza-40",
-    img: "/catalog/img-007.jpg",
+    img: "/catalog/premium/rice-basmati-2.jpg",
     title: "أرز بسمتي مزّة سيلا ملك الفخامة",
     brand: "ملك الفخامة",
     specs: "أرز بسمتي سيلا هندي مزّة، كيس 40 كجم.",
@@ -915,7 +882,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "r-1121-alfakhama",
-    img: "/catalog/img-009.jpg",
+    img: "/catalog/premium/rice-basmati-3.jpg",
     title: "أرز بسمتي 1121 ملك الفخامة",
     brand: "ملك الفخامة",
     specs: "أرز بسمتي هندي 1121 ذهبي طويل الحبة، 40 كجم.",
@@ -933,7 +900,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "r-pasta-sol",
-    img: "/catalog/img-050.jpg",
+    img: "/catalog/premium/pasta-assorted.jpg",
     title: "مكرونة صول الذهبية",
     brand: "صول الذهبية",
     specs: "مكرونة من أجود القمح، 400 جم — خواتم وسباجيتي وحلزوني.",
@@ -942,7 +909,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "r-canned-legumes",
-    img: "/catalog/img-051.jpg",
+    img: "/catalog/clean/img-051.jpg",
     title: "بقوليات صول المعلبة",
     brand: "صول",
     specs: "عبوات 400 جم: بازلاء، فول مدمس، فاصوليا حمراء وبيضاء.",
@@ -951,7 +918,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "r-zamzam",
-    img: "/catalog/img-060.jpg",
+    img: "/catalog/premium/rice-basmati-2.jpg",
     title: "أرز زمزم سيلا بسمتي 1121",
     brand: "زمزم",
     specs: "ذهبي طويل الحبة، نسبة كسر 1%، كيس 40 كجم.",
@@ -960,7 +927,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "r-horse",
-    img: "/catalog/img-082.jpg",
+    img: "/catalog/premium/rice-basmati-3.jpg",
     title: "أرز الحصان سيلا بسمتي 1121",
     brand: "الحصان",
     specs: "طويل الحبة، نسبة كسر 1%، كيس 40 كجم.",
@@ -969,7 +936,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "r-albayt-sella",
-    img: "/catalog/img-087.jpg",
+    img: "/catalog/premium/rice-basmati-2.jpg",
     title: "أرز البيت بسمتي سيلا ذهبي",
     brand: "البيت",
     specs: "أرز بسمتي سيلا ذهبي طويل الحبة XXL، كيس 15 كجم.",
@@ -978,7 +945,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "r-sonar",
-    img: "/catalog/img-089.jpg",
+    img: "/catalog/premium/rice-basmati-3.jpg",
     title: "أرز سونار سيلا مزّة",
     brand: "Sonar",
     specs: "أرز سيلا مزّة متوسط الحبة، كيس 3 كجم، منتج باكستان.",
@@ -987,7 +954,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "r-albayt-egyptian",
-    img: "/catalog/img-084.jpg",
+    img: "/catalog/premium/rice-egyptian.jpg",
     title: "أرز البيت المصري الشعير",
     brand: "البيت",
     specs: "أرز مصري فاخر (Baladi)، كيس 5 كجم.",
@@ -998,7 +965,7 @@ export const catalogProducts: CatalogProduct[] = [
   // ── Eggs ──
   {
     id: "e-morooj",
-    img: "/catalog/img-014.jpg",
+    img: "/catalog/premium/eggs-brown.jpg",
     title: "بيض طازج المروج",
     brand: "المروج",
     specs: "كرتون 12 صينية × 30 بيضة = 360 بيضة، إنتاج الخرج.",
@@ -1007,7 +974,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "e-naqi",
-    img: "/catalog/img-080.jpg",
+    img: "/catalog/premium/eggs-farm.jpg",
     title: "بيض نقي طازج",
     brand: "نقي",
     specs: "بيض مائدة طازج 100% نباتي التغذية.",
@@ -1016,7 +983,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "e-white-tray",
-    img: "/catalog/img-015.jpg",
+    img: "/catalog/premium/eggs-white.jpg",
     title: "بيض أبيض طازج",
     specs: "بيض أبيض طازج في أطباق كرتونية للتوريد.",
     formValue: "بيض أبيض طازج",
@@ -1031,8 +998,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "التمام",
     specs: "لحم جاموس هندي حلال مجمد بدون عظم — سيلفرسايد.",
     formValue: "لحم جاموس سيلفرسايد",
-    category: "frozen_meat",
-    gallery: ["/catalog/premium/meat-silverside.jpg", "/catalog/img-016.jpg"],
+    category: "frozen_meat",
   },
   {
     id: "m-knuckles",
@@ -1041,8 +1007,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "التمام",
     specs: "لحم جاموس هندي حلال مجمد بدون عظم — كنكلز، كرتون 20 كجم.",
     formValue: "لحم جاموس كنكلز 20 كيلو",
-    category: "frozen_meat",
-    gallery: ["/catalog/premium/meat-knuckle.jpg", "/catalog/img-017.jpg"],
+    category: "frozen_meat",
   },
   {
     id: "m-thick-flank",
@@ -1051,8 +1016,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "كامل",
     specs: "لحم جاموس هندي مجمد — ثيك فلانك، كرتون 20 كجم.",
     formValue: "لحم جاموس ثيك فلانك 20 كيلو",
-    category: "frozen_meat",
-    gallery: ["/catalog/premium/meat-thick-flank.jpg", "/catalog/img-018.jpg"],
+    category: "frozen_meat",
   },
   {
     id: "m-topmeat-leg",
@@ -1061,8 +1025,7 @@ export const catalogProducts: CatalogProduct[] = [
     brand: "TOP MEAT",
     specs: "لحم جاموس هندي حلال مجمد بدون عظم — قطع الرجل.",
     formValue: "لحم جاموس رجل توب ميت",
-    category: "frozen_meat",
-    gallery: ["/catalog/premium/meat-leg.jpg", "/catalog/img-021.jpg"],
+    category: "frozen_meat",
   },
   {
     id: "m-lamb",
@@ -1071,13 +1034,12 @@ export const catalogProducts: CatalogProduct[] = [
     specs: "ذبيحة خروف كاملة أو نصف خروف حسب الطلب.",
     formValue: "خروف صافي مبرد",
     category: "frozen_meat",
-    gallery: ["/catalog/premium/lamb-chilled.jpg", "/catalog/img-135.jpg"],
   },
 
   // ── Dates ──
   {
     id: "d-ajwa",
-    img: "/catalog/img-034.jpg",
+    img: "/catalog/premium/dates-ajwa.jpg",
     title: "عجوة المدينة المباركة",
     brand: "نخبة العجوة",
     specs: "تمر عجوة فاخر من المدينة المنورة في علب تقديم وهدايا.",
@@ -1086,7 +1048,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "d-khalas-royal",
-    img: "/catalog/img-090.jpg",
+    img: "/catalog/premium/dates-khalas.jpg",
     title: "تمر خلاص ملكي",
     brand: "تمور القصيم الملكية",
     specs: "تمر خلاص ملكي معبأ بالتفريغ.",
@@ -1099,8 +1061,7 @@ export const catalogProducts: CatalogProduct[] = [
     title: "تمر فاخر بالجملة",
     specs: "تمر سائب بدرجات وكميات متعددة حسب الطلب.",
     formValue: "تمر سائب جملة",
-    category: "dates",
-    gallery: ["/catalog/premium/fresh-dates.jpg", "/catalog/img-035.jpg"],
+    category: "dates",
   },
 
   // ── Dairy ──
@@ -1124,7 +1085,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "da-cheese-obour",
-    img: "/catalog/img-062.jpg",
+    img: "/catalog/clean/img-062.jpg",
     title: "جبنة بيضاء عبور لاند",
     brand: "عبور لاند",
     specs: "جبنة بيضاء قابلة للدهن، عبوة 900 جم.",
@@ -1133,7 +1094,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "da-cheese-lotfy",
-    img: "/catalog/img-063.jpg",
+    img: "/catalog/clean/img-063.jpg",
     title: "جبنة بيضاء لطفي",
     brand: "لطفي",
     specs: "جبنة بيضاء قابلة للدهن في برطمان زجاجي.",
@@ -1142,7 +1103,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "da-cheese-raghbi",
-    img: "/catalog/img-106.jpg",
+    img: "/catalog/clean/img-106.jpg",
     title: "جبنة بيضاء رغبي",
     brand: "رغبي",
     specs: "جبنة بيضاء، عبوة 500 جم.",
@@ -1153,7 +1114,7 @@ export const catalogProducts: CatalogProduct[] = [
   // ── Beverages ──
   {
     id: "b-rb-original",
-    img: "/catalog/img-026.jpg",
+    img: "/catalog/premium/red-bull-can.jpg",
     title: "ريد بول الأصلي",
     brand: "Red Bull",
     specs: "مشروب طاقة غازي مع التاورين — النسخة الأصلية.",
@@ -1162,7 +1123,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "b-rb-sugarfree",
-    img: "/catalog/img-027.jpg",
+    img: "/catalog/clean/img-027.jpg",
     title: "ريد بول بدون سكر",
     brand: "Red Bull",
     specs: "مشروب طاقة خالٍ من السكر مع التاورين.",
@@ -1180,7 +1141,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "b-rb-white",
-    img: "/catalog/img-160.jpg",
+    img: "/catalog/clean/img-160.jpg",
     title: "ريد بول وايت إديشن جوز الهند والتوت",
     brand: "Red Bull",
     specs: "White Edition بنكهة جوز الهند والتوت.",
@@ -1189,7 +1150,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "b-rb-summer",
-    img: "/catalog/img-161.jpg",
+    img: "/catalog/clean/img-161.jpg",
     title: "ريد بول سمر إديشن",
     brand: "Red Bull",
     specs: "إصدار الصيف — مشروب طاقة.",
@@ -1198,7 +1159,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "b-rb-peach",
-    img: "/catalog/img-162.jpg",
+    img: "/catalog/clean/img-162.jpg",
     title: "ريد بول بيتش إديشن",
     brand: "Red Bull",
     specs: "إصدار الخوخ — مشروب طاقة.",
@@ -1216,7 +1177,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "b-moussy-pineapple",
-    img: "/catalog/img-030.jpg",
+    img: "/catalog/clean/img-030.jpg",
     title: "موسي أناناس",
     brand: "موسي",
     specs: "مشروب شعير غير كحولي بنكهة الأناناس، 330 مل.",
@@ -1225,7 +1186,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "b-moussy-apple",
-    img: "/catalog/img-167.jpg",
+    img: "/catalog/clean/img-167.jpg",
     title: "موسي تفاح",
     brand: "موسي",
     specs: "مشروب شعير غير كحولي بنكهة التفاح.",
@@ -1234,7 +1195,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "b-suntop-black",
-    img: "/catalog/img-157.jpg",
+    img: "/catalog/clean/img-157.jpg",
     title: "سن توب بلاك كرانت",
     brand: "سن توب",
     specs: "مشروب فواكه بنكهة الكشمش الأسود، عبوة كرتونية.",
@@ -1243,7 +1204,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "b-suntop-berries",
-    img: "/catalog/img-164.jpg",
+    img: "/catalog/clean/img-164.jpg",
     title: "سن توب توت مشكل",
     brand: "سن توب",
     specs: "مشروب فواكه بنكهة التوت المشكل.",
@@ -1252,7 +1213,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "b-nescafe",
-    img: "/catalog/img-159.jpg",
+    img: "/catalog/clean/img-159.jpg",
     title: "نسكافيه جاهز للشرب",
     brand: "نسكافيه",
     specs: "قهوة باردة جاهزة: لاتيه وكابتشينو وموكا.",
@@ -1261,7 +1222,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "b-double-dare",
-    img: "/catalog/img-163.jpg",
+    img: "/catalog/clean/img-163.jpg",
     title: "دبل دير عنب",
     brand: "دبل دير",
     specs: "مشروب غازي منكّه بنكهة العنب.",
@@ -1270,7 +1231,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "b-cozzo-jelly",
-    img: "/catalog/img-086.jpg",
+    img: "/catalog/clean/img-086.jpg",
     title: "جيلي كوزو خوخ وتوت أزرق",
     brand: "Cozzo",
     specs: "جيلي بنكهة الخوخ والتوت الأزرق، 300 جم، نسبة عصير 16%.",
@@ -1281,7 +1242,7 @@ export const catalogProducts: CatalogProduct[] = [
   // ── Water ──
   {
     id: "w-naga",
-    img: "/catalog/img-093.jpg",
+    img: "/catalog/clean/img-093.jpg",
     title: "مياه ناقة آسيا",
     brand: "ناقة آسيا",
     specs: "مياه شرب معبأة بأحجام متعددة للمطاعم والفنادق.",
