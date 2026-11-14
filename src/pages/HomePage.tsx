@@ -280,7 +280,7 @@ export default function HomePage() {
             {user ? (
               <>
                 <Link
-                  to={localizePath(isTeam ? "/admin" : "/account")}
+                  to={isTeam ? "/admin" : localizePath("/account")}
                   className="transition-colors hover:text-[#F4B41A] text-[#F4B41A]"
                 >
                   {isTeam ? t.nav.admin : t.nav.account}
@@ -352,11 +352,11 @@ export default function HomePage() {
               {user ? (
                 <>
                   <Link
-                    to={isTeam ? "/admin" : "/account"}
+                    to={isTeam ? "/admin" : localizePath("/account")}
                     onClick={() => setMobileNavOpen(false)}
                     className="flex-1 text-center rounded-xl bg-[#F4B41A] text-[#0A182D] px-3 py-3 text-sm font-extrabold touch-manipulation"
                   >
-                    {isTeam ? "لوحة التحكم" : "حسابي"}
+                    {isTeam ? t.nav.admin : t.nav.account}
                   </Link>
                   <button
                     type="button"
@@ -366,24 +366,24 @@ export default function HomePage() {
                     }}
                     className="rounded-xl bg-white/10 px-4 py-3 text-sm font-bold text-white touch-manipulation"
                   >
-                    خروج
+                    {t.nav.logout}
                   </button>
                 </>
               ) : (
                 <>
                   <Link
-                    to="/login"
+                    to={localizePath("/login")}
                     onClick={() => setMobileNavOpen(false)}
                     className="flex-1 text-center rounded-xl bg-white/10 px-3 py-3 text-sm font-bold text-white touch-manipulation"
                   >
-                    دخول
+                    {t.nav.login}
                   </Link>
                   <Link
-                    to="/register"
+                    to={localizePath("/register")}
                     onClick={() => setMobileNavOpen(false)}
                     className="flex-1 text-center rounded-xl bg-[#16A34A] px-3 py-3 text-sm font-extrabold text-white touch-manipulation"
                   >
-                    إنشاء حساب
+                    {t.nav.register}
                   </Link>
                 </>
               )}
