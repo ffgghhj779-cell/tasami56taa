@@ -8,6 +8,7 @@ const WHATSAPP_URL = "https://wa.me/966550266838";
 
 const links = [
   { label: "الرئيسية", href: "/" },
+  { label: "من نحن", href: "/about" },
   { label: "المنتجات", href: "/#products" },
   { label: "المطاعم", href: "/restaurants" },
   { label: "الأسواق", href: "/markets" },
@@ -18,9 +19,11 @@ const links = [
 type Props = {
   title: string;
   description: string;
-  heading: string;
-  lead: string;
-  whatsappText: string;
+  heading?: string;
+  lead?: string;
+  whatsappText?: string;
+  /** Full-width page: children own the whole layout between header and footer. */
+  bare?: boolean;
   children: ReactNode;
 };
 
@@ -29,7 +32,8 @@ export default function SiteFrame({
   description,
   heading,
   lead,
-  whatsappText,
+  whatsappText = "",
+  bare = false,
   children,
 }: Props) {
   const { count: cartCount } = useCart();
@@ -70,7 +74,7 @@ export default function SiteFrame({
               تسامي <span className="text-[#2A7A42]">الوطنية</span>
             </span>
           </Link>
-          <div className="hidden md:flex items-center justify-end gap-x-6 lg:gap-8 text-sm font-bold text-white">
+          <div className="hidden lg:flex whitespace-nowrap items-center justify-end gap-x-6 xl:gap-8 text-sm font-bold text-white">
             {links.map((link) => (
               <Link key={link.href} to={link.href} className="hover:text-[#F4B41A] transition-colors">
                 {link.label}
@@ -90,7 +94,7 @@ export default function SiteFrame({
               )}
             </Link>
           </div>
-          <div className="md:hidden flex items-center gap-1.5">
+          <div className="lg:hidden flex items-center gap-1.5">
             <Link
               to="/cart"
               className="relative inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 text-white touch-manipulation"
@@ -115,7 +119,7 @@ export default function SiteFrame({
           </div>
         </div>
         {menuOpen && (
-          <div className="md:hidden border-t border-white/10 bg-[#0E2A47] px-3.5 pb-4 pt-2 shadow-xl">
+          <div className="lg:hidden border-t border-white/10 bg-[#0E2A47] px-3.5 pb-4 pt-2 shadow-xl">
             <div className="flex flex-col gap-1">
               {links.map((link) => (
                 <Link
@@ -132,6 +136,9 @@ export default function SiteFrame({
         )}
       </nav>
 
+      {bare ? (
+        <main>{children}</main>
+      ) : (
       <main className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12 py-8 sm:py-16">
         <p className="text-[#E66A1F] text-xs font-bold tracking-[0.16em] mb-3">مؤسسة تسامي الوطنية</p>
         <h1 className="text-[1.85rem] sm:text-5xl font-black text-[#0A182D] leading-tight mb-4 sm:mb-5">{heading}</h1>
@@ -158,6 +165,7 @@ export default function SiteFrame({
           <QuoteRequestForm />
         </div>
       </main>
+      )}
 
       <footer className="bg-[#0A182D] text-white/70 px-4 sm:px-6 lg:px-12 py-10 text-sm leading-relaxed">
         <div className="max-w-[1100px] mx-auto">

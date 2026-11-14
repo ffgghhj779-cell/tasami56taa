@@ -204,6 +204,7 @@ const reasons = [
 
 const navLinks = [
   { label: "الرئيسية", href: "/#home" },
+  { label: "من نحن", href: "/about" },
   { label: "المنتجات", href: "/#products" },
   { label: "المطاعم", href: "/restaurants" },
   { label: "الأسواق", href: "/markets" },
@@ -322,7 +323,7 @@ export default function HomePage() {
             </span>
           </a>
 
-          <div className="hidden md:flex flex-wrap items-center justify-end gap-x-6 lg:gap-10 font-bold text-white text-sm">
+          <div className="hidden xl:flex flex-nowrap whitespace-nowrap items-center justify-end gap-x-5 2xl:gap-x-8 font-bold text-white text-sm">
             {navLinks.map((link, i) => (
               <HomeNavLink
                 key={link.href}
@@ -377,7 +378,7 @@ export default function HomePage() {
             )}
           </div>
 
-          <div className="md:hidden flex items-center gap-1.5">
+          <div className="xl:hidden flex items-center gap-1.5">
             <Link
               to="/cart"
               className="relative inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 text-white touch-manipulation"
@@ -403,7 +404,7 @@ export default function HomePage() {
         </div>
 
         {mobileNavOpen && (
-          <div className="md:hidden border-t border-white/10 bg-[#0E2A47] px-3.5 pb-4 pt-2 shadow-xl">
+          <div className="xl:hidden border-t border-white/10 bg-[#0E2A47] px-3.5 pb-4 pt-2 shadow-xl">
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <HomeNavLink
@@ -1068,16 +1069,9 @@ export default function HomePage() {
                   </Link>
                 </li>
                 <li>
-                  <a
-                    href="#about"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection("about");
-                    }}
-                    className="hover:text-white transition-colors"
-                  >
+                  <Link to="/about" className="hover:text-white transition-colors">
                     من نحن
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a

@@ -20,6 +20,7 @@ import FaqsPage from "@/src/pages/admin/FaqsPage";
 import WhatsAppPage from "@/src/pages/admin/WhatsAppPage";
 import CategoryPage from "@/src/pages/CategoryPage";
 import { DeliveryPage, MarketsPage, RestaurantsPage } from "@/src/pages/SupplyPages";
+import AboutPage from "@/src/pages/AboutPage";
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/restaurants" element={<RestaurantsPage />} />
             <Route path="/markets" element={<MarketsPage />} />
             <Route path="/delivery" element={<DeliveryPage />} />
