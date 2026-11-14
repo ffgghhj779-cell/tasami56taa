@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Check, Search, ShoppingCart, X, ZoomIn } from "lucide-react";
+import { ArrowLeft, Check, MessageCircle, Search, ShoppingCart, X, ZoomIn } from "lucide-react";
 import {
   catalogCategories,
   catalogProducts,
@@ -92,30 +92,71 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
     };
   }, [preview]);
 
-  const showSallamFeature =
-    !query.trim() &&
-    (lockedCategory === "rice_pulses" || active === "all" || active === "rice_pulses");
+  const isAllView = active === "all" && !query.trim() && !lockedCategory;
+  const currentCategory = lockedCategory ?? (active === "all" ? null : active);
 
-  const showFreshFeature =
-    !query.trim() &&
-    (lockedCategory === "fresh_produce" ||
-      active === "all" ||
-      active === "fresh_produce");
+  function previewById(id: string) {
+    const product = catalogProducts.find((p) => p.id === id);
+    if (product) openPreview(withPrice(product));
+  }
 
-  const showPoultryFeature =
-    !query.trim() &&
-    (lockedCategory === "poultry" || active === "all" || active === "poultry");
-
-  const showMeatFeature =
-    !query.trim() &&
-    (lockedCategory === "frozen_meat" || active === "all" || active === "frozen_meat");
-
-  const showFrozenFeature =
-    !query.trim() &&
-    (lockedCategory === "frozen_veg_fruit" ||
-      active === "all" ||
-      active === "frozen_veg_fruit" ||
-      active === "frozen_fries");
+  function renderFeature(categoryId: CatalogCategoryId) {
+    switch (categoryId) {
+      case "rice_pulses":
+        return <SallamFeatureBanner />;
+      case "poultry":
+        return (
+          <ProduceFeatureBanner
+            eyebrow="مبرد · طازج يومي"
+            title="الدجاج المبرد والمجمد"
+            subtitle="دجاج كامل مبرد، صدور بدون جلد أو عظم، ودجاج مجمد — من ماركات سعودية متعددة بالجملة."
+            href="/products/poultry"
+            items={POULTRY_SHOWCASE}
+            quoteLabel="اطلب تسعيرة الدجاج"
+            onPreview={previewById}
+          />
+        );
+      case "frozen_meat":
+        return (
+          <ProduceFeatureBanner
+            eyebrow="لحوم · مبرد ومجمد"
+            title="اللحوم المبردة والمجمدة"
+            subtitle="خروف مبرد، وقطعيات لحم حمراء بدون عظم: سيلفرسايد، كنكلز، ثيك فلانك، وقطع الرجل."
+            href="/products/meat"
+            items={MEAT_SHOWCASE}
+            quoteLabel="اطلب تسعيرة اللحوم"
+            onPreview={previewById}
+          />
+        );
+      case "fresh_produce":
+        return (
+          <ProduceFeatureBanner
+            eyebrow="طازج · تصوير احترافي"
+            title="المنتجات الطازجة"
+            subtitle="برتقال، رمان، ليمون أضاليا، طماطم، بصل، بطاطس، ثوم، تمور، بروكلي، قرنبيط، وكرنب."
+            href="/products/fresh-produce"
+            items={FRESH_SHOWCASE}
+            quoteLabel="اطلب تسعيرة الطازج"
+            onPreview={previewById}
+          />
+        );
+      case "frozen_veg_fruit":
+      case "frozen_fries":
+        return (
+          <ProduceFeatureBanner
+            eyebrow="مجمد · جودة بريميوم"
+            title="المنتجات المجمدة"
+            subtitle="بطاطس نصف مقلية، خضار مشكل، فاصوليا، بسلة سكري، بامية إكسترا، بروكلي، ذرة، ملوخية، فول فص، سبانخ، فراولة، مانجو، رمان حب، جوافة، وبرتقال مجمد."
+            href="/products/frozen-vegetables"
+            items={FROZEN_SHOWCASE}
+            quoteLabel="اطلب تسعيرة المجمد"
+            onPreview={previewById}
+          />
+        );
+      default:
+        return null;
+    }
+  }
 
   return (
     <section
@@ -152,87 +193,29 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
           </div>
         </div>
 
-        <div className="sticky top-14 md:top-24 z-30 -mx-3.5 px-3.5 sm:mx-0 sm:px-0 mb-7 sm:mb-10">
-          <div className="relative rounded-2xl border border-slate-200/90 bg-white/95 backdrop-blur-md shadow-[0_10px_40px_-24px_rgba(14,42,71,0.5)] p-1.5 sm:p-3">
-            <div className="catalog-chip-scroll flex gap-1.5 sm:gap-2 overflow-x-auto overscroll-x-contain pb-0.5 snap-x snap-mandatory">
-              {!lockedCategory && (
+        {!lockedCategory && (
+          <div className="sticky top-14 md:top-24 z-30 -mx-3.5 px-3.5 sm:mx-0 sm:px-0 mb-7 sm:mb-10">
+            <div className="relative rounded-2xl border border-slate-200/90 bg-white/95 backdrop-blur-md shadow-[0_10px_40px_-24px_rgba(14,42,71,0.5)] p-1.5 sm:p-3">
+              <div className="catalog-chip-scroll flex gap-1.5 sm:gap-2 overflow-x-auto overscroll-x-contain pb-0.5 snap-x snap-mandatory">
                 <Chip
                   active={active === "all"}
                   onClick={() => setActive("all")}
                   label={`الكل (${catalogProducts.length})`}
                 />
-              )}
-              {catalogCategories
-                .filter((cat) => !lockedCategory || cat.id === lockedCategory)
-                .map((cat) => (
-                <Chip
-                  key={cat.id}
-                  active={active === cat.id}
-                  onClick={() => setActive(cat.id)}
-                  label={`${cat.title} (${counts[cat.id]})`}
-                />
-              ))}
+                {catalogCategories.map((cat) => (
+                  <Chip
+                    key={cat.id}
+                    active={active === cat.id}
+                    onClick={() => setActive(cat.id)}
+                    label={`${cat.title} (${counts[cat.id]})`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
-        {showSallamFeature && <SallamFeatureBanner />}
-        {showPoultryFeature && (
-          <ProduceFeatureBanner
-            eyebrow="مبرد · طازج يومي"
-            title="الدجاج المبرد والمجمد"
-            subtitle="دجاج كامل مبرد، صدور بدون جلد أو عظم، ودجاج مجمد — من ماركات سعودية متعددة بالجملة."
-            href="/products/poultry"
-            items={POULTRY_SHOWCASE}
-            quoteLabel="اطلب تسعيرة الدجاج"
-            onPreview={(id) => {
-              const product = catalogProducts.find((p) => p.id === id);
-              if (product) openPreview(withPrice(product));
-            }}
-          />
-        )}
-        {showMeatFeature && (
-          <ProduceFeatureBanner
-            eyebrow="لحوم · مبرد ومجمد"
-            title="اللحوم المبردة والمجمدة"
-            subtitle="خروف مبرد، وقطعيات لحم حمراء بدون عظم: سيلفرسايد، كنكلز، ثيك فلانك، وقطع الرجل."
-            href="/products/meat"
-            items={MEAT_SHOWCASE}
-            quoteLabel="اطلب تسعيرة اللحوم"
-            onPreview={(id) => {
-              const product = catalogProducts.find((p) => p.id === id);
-              if (product) openPreview(withPrice(product));
-            }}
-          />
-        )}
-        {showFreshFeature && (
-          <ProduceFeatureBanner
-            eyebrow="طازج · تصوير احترافي"
-            title="المنتجات الطازجة"
-            subtitle="صور الثمار فقط بجودة عالية — برتقال، رمان، ليمون أضاليا، طماطم، بصل، بطاطس، ثوم، تمور، بروكلي، قرنبيط، وكرنب."
-            href="/products/fresh-produce"
-            items={FRESH_SHOWCASE}
-            quoteLabel="اطلب تسعيرة الطازج"
-            onPreview={(id) => {
-              const product = catalogProducts.find((p) => p.id === id);
-              if (product) openPreview(withPrice(product));
-            }}
-          />
-        )}
-        {showFrozenFeature && (
-          <ProduceFeatureBanner
-            eyebrow="مجمد · جودة بريميوم"
-            title="المنتجات المجمدة"
-            subtitle="بطاطس نصف مقلية، خضار مشكل، فاصوليا، بسلة سكري، بامية إكسترا، بروكلي، ذرة، ملوخية، فول فص، سبانخ، فراولة، مانجو، رمان حب، جوافة، وبرتقال مجمد."
-            href="/products/frozen-vegetables"
-            items={FROZEN_SHOWCASE}
-            quoteLabel="اطلب تسعيرة المجمد"
-            onPreview={(id) => {
-              const product = catalogProducts.find((p) => p.id === id);
-              if (product) openPreview(withPrice(product));
-            }}
-          />
-        )}
+        {!isAllView && !query.trim() && currentCategory && renderFeature(currentCategory)}
 
         {filtered.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-slate-200 bg-white p-10 sm:p-12 text-center">
@@ -246,7 +229,7 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
               اسأل عن المنتج على واتساب
             </a>
           </div>
-        ) : active === "all" && !query.trim() && !lockedCategory ? (
+        ) : isAllView ? (
           <div className="space-y-10 sm:space-y-20">
             {catalogCategories.map((cat) => {
               const items = catalogProducts
@@ -254,37 +237,41 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
                 .map(withPrice);
               if (!items.length) return null;
               return (
-                <CategoryBlock
-                  key={cat.id}
-                  title={cat.title}
-                  href={`/products/${cat.slug}`}
-                  subtitle={cat.subtitle}
-                  items={items}
-                  addedId={addedId}
-                  onPreview={openPreview}
-                  onAdd={handleAdd}
-                  onRequestForm={openRequestForm}
-                />
+                <div key={cat.id}>
+                  {cat.id !== "frozen_fries" && renderFeature(cat.id)}
+                  <CategoryBlock
+                    title={cat.title}
+                    href={`/products/${cat.slug}`}
+                    subtitle={cat.subtitle}
+                    items={items}
+                    addedId={addedId}
+                    onPreview={openPreview}
+                    onAdd={handleAdd}
+                    onRequestForm={openRequestForm}
+                    mobileRow
+                  />
+                </div>
               );
             })}
           </div>
         ) : (
           <CategoryBlock
             title={
-              active === "all"
+              active === "all" && !lockedCategory
                 ? "نتائج البحث"
-                : catalogCategories.find((c) => c.id === active)?.title || ""
+                : catalogCategories.find((c) => c.id === currentCategory)?.title || ""
             }
             subtitle={
-              active === "all"
+              active === "all" && !lockedCategory
                 ? `${filtered.length} منتج`
-                : catalogCategories.find((c) => c.id === active)?.subtitle || ""
+                : catalogCategories.find((c) => c.id === currentCategory)?.subtitle || ""
             }
             items={filtered.map(withPrice)}
             addedId={addedId}
             onPreview={openPreview}
             onAdd={handleAdd}
             onRequestForm={openRequestForm}
+            hideHeader={!!lockedCategory && !query.trim()}
           />
         )}
       </div>
@@ -453,9 +440,9 @@ const FROZEN_SHOWCASE = [
 
 function SallamFeatureBanner() {
   return (
-    <div className="mb-8 sm:mb-12 overflow-hidden rounded-[1.35rem] sm:rounded-[1.75rem] border border-[#0E2A47]/15 bg-[#0A182D] shadow-[0_24px_60px_-36px_rgba(10,24,45,0.8)]">
-      <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
-        <div className="relative min-h-[220px] sm:min-h-[280px] lg:min-h-[320px]">
+    <div className="mb-5 sm:mb-10 overflow-hidden rounded-[1.35rem] sm:rounded-[1.75rem] border border-[#0E2A47]/15 bg-[#0A182D] shadow-[0_24px_60px_-36px_rgba(10,24,45,0.8)]">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="relative min-h-[190px] sm:min-h-[280px] lg:min-h-[320px]">
           <img
             src="/catalog/sallam-feature-egypt.jpg"
             alt="أرز سلام المصري — من أرض مصر لسفرتك"
@@ -463,7 +450,7 @@ function SallamFeatureBanner() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A182D]/75 via-[#0A182D]/15 to-transparent lg:bg-gradient-to-l lg:from-[#0A182D]/80 lg:via-transparent" />
         </div>
-        <div className="relative flex flex-col justify-center gap-4 p-5 sm:p-8 text-white">
+        <div className="relative min-w-0 flex flex-col justify-center gap-3 sm:gap-4 p-4 sm:p-8 text-white">
           <p className="text-[#F4B41A] text-[10px] sm:text-xs font-extrabold tracking-[0.18em] uppercase">
             وكالة حصرية · تسامي الوطنية
           </p>
@@ -491,10 +478,10 @@ function SallamFeatureBanner() {
               </div>
             ))}
           </div>
-          <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
+          <div className="flex gap-2 sm:gap-2.5 pt-1">
             <Link
               to="/products/rice"
-              className="inline-flex items-center justify-center min-h-11 px-5 rounded-xl bg-[#F4B41A] text-[#0A182D] font-extrabold text-sm touch-manipulation"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center min-h-11 px-3 sm:px-5 rounded-xl bg-[#F4B41A] text-[#0A182D] font-extrabold text-[13px] sm:text-sm text-center leading-tight touch-manipulation"
             >
               اعرض في قسم الأرز
             </Link>
@@ -502,7 +489,7 @@ function SallamFeatureBanner() {
               href={quoteWhatsApp("أرز سلام المصري — وكالة حصرية")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center min-h-11 px-5 rounded-xl bg-[#16A34A] text-white font-extrabold text-sm touch-manipulation"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center min-h-11 px-3 sm:px-5 rounded-xl bg-[#16A34A] text-white font-extrabold text-[13px] sm:text-sm text-center leading-tight touch-manipulation"
             >
               اطلب تسعيرة سلام
             </a>
@@ -532,12 +519,12 @@ function ProduceFeatureBanner({
 }) {
   const hero = items[0];
   return (
-    <div className="mb-8 sm:mb-12 overflow-hidden rounded-[1.35rem] sm:rounded-[1.75rem] border border-[#0E2A47]/12 bg-[linear-gradient(145deg,#0A182D_0%,#123049_55%,#0E2A47_100%)] shadow-[0_24px_60px_-36px_rgba(10,24,45,0.75)]">
-      <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
+    <div className="mb-5 sm:mb-10 overflow-hidden rounded-[1.35rem] sm:rounded-[1.75rem] border border-[#0E2A47]/12 bg-[linear-gradient(145deg,#0A182D_0%,#123049_55%,#0E2A47_100%)] shadow-[0_24px_60px_-36px_rgba(10,24,45,0.75)]">
+      <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr]">
         <button
           type="button"
           onClick={() => onPreview(hero.id)}
-          className="relative min-h-[220px] sm:min-h-[280px] lg:min-h-[340px] overflow-hidden bg-[radial-gradient(circle_at_40%_30%,#fff,#dbe4ee_75%)] focus:outline-none touch-manipulation"
+          className="relative min-h-[190px] sm:min-h-[280px] lg:min-h-[340px] overflow-hidden bg-[radial-gradient(circle_at_40%_30%,#fff,#dbe4ee_75%)] focus:outline-none touch-manipulation"
           aria-label={`عرض ${hero.label}`}
         >
           <img
@@ -547,7 +534,7 @@ function ProduceFeatureBanner({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A182D]/55 via-transparent to-transparent lg:bg-gradient-to-l lg:from-[#0A182D]/45 lg:via-transparent" />
         </button>
-        <div className="relative flex flex-col justify-center gap-3.5 sm:gap-4 p-5 sm:p-8 text-white">
+        <div className="relative min-w-0 flex flex-col justify-center gap-3 sm:gap-4 p-4 sm:p-8 text-white">
           <p className="text-[#F4B41A] text-[10px] sm:text-xs font-extrabold tracking-[0.18em] uppercase">
             {eyebrow}
           </p>
@@ -578,10 +565,10 @@ function ProduceFeatureBanner({
               </button>
             ))}
           </div>
-          <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
+          <div className="flex gap-2 sm:gap-2.5 pt-1">
             <Link
               to={href}
-              className="inline-flex items-center justify-center min-h-11 px-5 rounded-xl bg-[#F4B41A] text-[#0A182D] font-extrabold text-sm touch-manipulation"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center min-h-11 px-3 sm:px-5 rounded-xl bg-[#F4B41A] text-[#0A182D] font-extrabold text-[13px] sm:text-sm text-center leading-tight touch-manipulation"
             >
               اعرض القسم كامل
             </Link>
@@ -589,7 +576,7 @@ function ProduceFeatureBanner({
               href={quoteWhatsApp(title)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center min-h-11 px-5 rounded-xl bg-[#16A34A] text-white font-extrabold text-sm touch-manipulation"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center min-h-11 px-3 sm:px-5 rounded-xl bg-[#16A34A] text-white font-extrabold text-[13px] sm:text-sm text-center leading-tight touch-manipulation"
             >
               {quoteLabel}
             </a>
@@ -633,6 +620,8 @@ function CategoryBlock({
   onPreview,
   onAdd,
   onRequestForm,
+  mobileRow = false,
+  hideHeader = false,
 }: {
   title: string;
   href?: string;
@@ -642,34 +631,57 @@ function CategoryBlock({
   onPreview: (p: PurchasableProduct) => void;
   onAdd: (p: PurchasableProduct) => void;
   onRequestForm: (formValue: string) => void;
+  /** On phones, show the category as one swipeable row instead of a tall grid. */
+  mobileRow?: boolean;
+  hideHeader?: boolean;
 }) {
   return (
     <div>
-      <div className="mb-4 sm:mb-8 flex flex-wrap items-end justify-between gap-2 border-b border-slate-200/80 pb-3 sm:pb-4">
-        <div className="min-w-0 flex-1">
-          {href ? (
-            <Link to={href} className="font-brand text-lg sm:text-2xl font-black text-[#0A182D] leading-snug hover:text-[#15803D]">
-              {title}
+      {!hideHeader && (
+        <div className="mb-4 sm:mb-8 flex items-end justify-between gap-3 border-b border-slate-200/80 pb-3 sm:pb-4">
+          <div className="min-w-0 flex-1">
+            {href ? (
+              <Link to={href} className="font-brand text-lg sm:text-2xl font-black text-[#0A182D] leading-snug hover:text-[#15803D]">
+                {title}
+              </Link>
+            ) : (
+              <h3 className="font-brand text-lg sm:text-2xl font-black text-[#0A182D] leading-snug">
+                {title}
+              </h3>
+            )}
+            <p className="text-[12px] sm:text-sm text-slate-500 mt-1 leading-relaxed line-clamp-1 sm:line-clamp-none">
+              {subtitle}
+            </p>
+          </div>
+          {href && mobileRow ? (
+            <Link
+              to={href}
+              className="shrink-0 inline-flex items-center gap-1 rounded-full bg-[#0E2A47]/5 px-3 py-1.5 text-[11px] sm:text-xs font-extrabold text-[#0E2A47] active:bg-[#0E2A47]/10 touch-manipulation"
+            >
+              عرض الكل ({items.length})
+              <ArrowLeft className="h-3 w-3" />
             </Link>
           ) : (
-            <h3 className="font-brand text-lg sm:text-2xl font-black text-[#0A182D] leading-snug">
-              {title}
-            </h3>
+            <div className="text-[11px] sm:text-xs font-bold text-slate-400 shrink-0">
+              {items.length} منتج
+            </div>
           )}
-          <p className="text-[12px] sm:text-sm text-slate-500 mt-1 leading-relaxed">
-            {subtitle}
-          </p>
         </div>
-        <div className="text-[11px] sm:text-xs font-bold text-slate-400 shrink-0">
-          {items.length} منتج
-        </div>
-      </div>
+      )}
 
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-5">
+      <div
+        className={
+          mobileRow
+            ? "catalog-chip-scroll -mx-3.5 px-3.5 flex gap-2.5 overflow-x-auto overscroll-x-contain snap-x snap-mandatory pb-2 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-5 sm:overflow-visible"
+            : "grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-5"
+        }
+      >
         {items.map((product) => (
           <article
             key={product.id}
-            className="group flex flex-col rounded-[1.1rem] sm:rounded-[1.35rem] border border-slate-200/90 bg-white overflow-hidden shadow-[0_12px_36px_-28px_rgba(14,42,71,0.55)] sm:shadow-[0_18px_50px_-34px_rgba(14,42,71,0.55)] active:border-[#F4B41A]/70 sm:hover:-translate-y-0.5 sm:hover:border-[#F4B41A]/60 transition-all duration-300"
+            className={`group flex flex-col rounded-[1.1rem] sm:rounded-[1.35rem] border border-slate-200/90 bg-white overflow-hidden shadow-[0_12px_36px_-28px_rgba(14,42,71,0.55)] sm:shadow-[0_18px_50px_-34px_rgba(14,42,71,0.55)] active:border-[#F4B41A]/70 sm:hover:-translate-y-0.5 sm:hover:border-[#F4B41A]/60 transition-all duration-300 ${
+              mobileRow ? "w-[44%] shrink-0 snap-start sm:w-auto" : ""
+            }`}
           >
             <button
               type="button"
@@ -715,16 +727,17 @@ function CategoryBlock({
                   / {product.unit}
                 </span>
               </div>
-              <div className="flex flex-col gap-1.5 sm:gap-2 mt-auto">
+              <div className="flex sm:flex-col gap-1.5 sm:gap-2 mt-auto">
                 <button
                   type="button"
                   onClick={() => onAdd(product)}
-                  className="inline-flex items-center justify-center gap-1 w-full min-h-9 sm:min-h-10 px-2 sm:px-4 py-2 sm:py-2.5 bg-[#0E2A47] active:bg-[#0A182D] sm:hover:bg-[#0A182D] text-white rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-sm touch-manipulation"
+                  className="flex-1 inline-flex items-center justify-center gap-1 sm:w-full min-h-10 px-2 sm:px-4 py-2 sm:py-2.5 bg-[#0E2A47] active:bg-[#0A182D] sm:hover:bg-[#0A182D] text-white rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-sm touch-manipulation"
                 >
                   {addedId === product.id ? (
                     <>
                       <Check className="h-3.5 w-3.5" />
-                      تمت الإضافة
+                      <span className="sm:hidden">تمت</span>
+                      <span className="hidden sm:inline">تمت الإضافة</span>
                     </>
                   ) : (
                     <>
@@ -738,18 +751,18 @@ function CategoryBlock({
                   href={quoteWhatsApp(product.title)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-full min-h-9 sm:min-h-10 px-2 sm:px-4 py-2 sm:py-2.5 bg-[#16A34A] active:bg-[#15803D] sm:hover:bg-[#15803D] text-white rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-sm touch-manipulation"
+                  aria-label={`طلب تسعيرة ${product.title} على واتساب`}
+                  className="inline-flex items-center justify-center shrink-0 h-10 w-10 sm:w-full sm:h-auto sm:min-h-10 sm:px-4 sm:py-2.5 bg-[#16A34A] active:bg-[#15803D] sm:hover:bg-[#15803D] text-white rounded-lg sm:rounded-xl font-bold text-sm touch-manipulation"
                 >
-                  <span className="sm:hidden">واتساب</span>
+                  <MessageCircle className="h-4 w-4 sm:hidden" />
                   <span className="hidden sm:inline">طلب تسعيرة واتساب</span>
                 </a>
                 <button
                   type="button"
                   onClick={() => onRequestForm(product.formValue)}
-                  className="inline-flex items-center justify-center w-full min-h-9 sm:min-h-10 px-2 sm:px-4 py-2 sm:py-2.5 border border-[#F4B41A]/80 text-[#0A182D] rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-sm active:bg-[#F4B41A] sm:hover:bg-[#F4B41A] touch-manipulation"
+                  className="hidden sm:inline-flex items-center justify-center w-full min-h-10 px-4 py-2.5 border border-[#F4B41A]/80 text-[#0A182D] rounded-xl font-bold text-sm sm:hover:bg-[#F4B41A] touch-manipulation"
                 >
-                  <span className="sm:hidden">النموذج</span>
-                  <span className="hidden sm:inline">طلب عبر النموذج</span>
+                  طلب عبر النموذج
                 </button>
               </div>
             </div>
