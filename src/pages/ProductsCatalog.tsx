@@ -404,8 +404,11 @@ export default function ProductsCatalog({ lockedCategory }: CatalogProps = {}) {
 }
 
 const POULTRY_SHOWCASE = [
+  { id: "p-nasiriya", img: "/catalog/premium/chicken-whole-chilled.jpg", label: "دجاج كامل مبرد" },
   { id: "p-breast-rahan", img: "/catalog/premium/chicken-breast.jpg", label: "صدور دجاج مبردة" },
+  { id: "p-golden-furooj", img: "/catalog/premium/chicken-whole-chilled-2.jpg", label: "دجاج كامل طازج" },
   { id: "p-breast-rahan", img: "/catalog/premium/chicken-breast-slate.jpg", label: "صدور بدون جلد أو عظم" },
+  { id: "p-frozen-rahan-5", img: "/catalog/premium/chicken-whole-frozen.jpg", label: "دجاج كامل مجمد" },
 ] as const;
 
 const MEAT_SHOWCASE = [

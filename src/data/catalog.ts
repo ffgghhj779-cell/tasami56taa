@@ -169,7 +169,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "p-frozen-rahan-5",
-    img: "/catalog/img-006.jpg",
+    img: "/catalog/premium/chicken-whole-frozen.jpg",
     title: "دجاج كامل مجمد الرهان الماسي",
     brand: "دواجن الرهان الماسي",
     specs: "دجاج كامل مجمد سريعاً، وزن صافي 5 كجم.",
@@ -187,7 +187,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "p-golden-furooj",
-    img: "/catalog/img-072.jpg",
+    img: "/catalog/premium/chicken-whole-chilled-2.jpg",
     title: "دجاج الفروج الذهبي",
     brand: "الفروج الذهبي",
     specs: "دجاج كامل، عبوة 5 كجم، صناعة سعودية.",
@@ -196,7 +196,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     id: "p-nasiriya",
-    img: "/catalog/img-076.jpg",
+    img: "/catalog/premium/chicken-whole-chilled.jpg",
     title: "دجاج الناصرية الدولية مبرد",
     brand: "الناصرية الدولية للدواجن",
     specs: "دجاج كامل مبرد، وزن تقريبي 800 جم (±50).",
