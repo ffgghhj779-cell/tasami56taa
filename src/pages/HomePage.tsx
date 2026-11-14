@@ -90,7 +90,7 @@ function HScroll({
         <button
           type="button"
           onClick={scrollNext}
-          className="sm:hidden text-xs font-bold text-[#E66A1F] mb-4 mx-auto flex items-center justify-center gap-1 touch-manipulation active:opacity-70"
+          className="sm:hidden text-xs font-bold text-[#E66A1F] mb-2 mx-auto flex items-center justify-center gap-1 min-h-9 px-4 rounded-full bg-[#E66A1F]/10 touch-manipulation active:opacity-70"
         >
           {hint}
         </button>

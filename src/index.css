@@ -13,6 +13,15 @@
   --font-brand: "Cairo", "Tajawal", sans-serif;
 }
 
+/* iOS Safari zooms the page when a focused field is under 16px (unlayered so utilities can't undercut it) */
+@media (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
@@ -30,7 +39,6 @@
     background-color: #E66A1F;
     color: #ffffff;
   }
-
   /* Hero factory video — never capture touch (fixes frozen scroll) */
   .hero-video-bg,
   .hero-video-bg video {

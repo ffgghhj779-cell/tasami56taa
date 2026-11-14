@@ -472,7 +472,7 @@ function SallamFeatureBanner() {
                 className="shrink-0 w-[72px] sm:w-20 rounded-xl overflow-hidden border border-white/15 bg-white/5"
               >
                 <img src={src} alt={label} className="h-16 sm:h-[4.5rem] w-full object-cover" />
-                <div className="px-1.5 py-1 text-center text-[9px] font-bold text-white/75">
+                <div className="px-1.5 py-1 text-center text-[10.5px] font-bold text-white/80">
                   {label}
                 </div>
               </div>
@@ -559,7 +559,7 @@ function ProduceFeatureBanner({
                   className="h-[4.25rem] sm:h-[5rem] w-full object-cover"
                   loading="lazy"
                 />
-                <div className="px-1.5 py-1.5 text-center text-[9px] sm:text-[10px] font-bold text-white/80 leading-tight line-clamp-2">
+                <div className="px-1.5 py-1.5 text-center text-[10.5px] sm:text-[11px] font-bold text-white/85 leading-tight line-clamp-2">
                   {item.label}
                 </div>
               </button>
@@ -700,11 +700,11 @@ function CategoryBlock({
                     : "object-cover"
                 }`}
               />
-              <span className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-[#F4B41A] text-[#0A182D] text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md shadow-sm">
+              <span className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-[#F4B41A] text-[#0A182D] text-[10px] sm:text-[11px] font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md shadow-sm">
                 {product.badge || "جملة"}
               </span>
               {product.brand && (
-                <span className="absolute top-2 left-2 sm:top-3 sm:left-3 max-w-[48%] truncate bg-white/95 text-[#0A182D] text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md border border-slate-100">
+                <span className="absolute top-2 left-2 sm:top-3 sm:left-3 max-w-[48%] truncate bg-white/95 text-[#0A182D] text-[10px] sm:text-[11px] font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md border border-slate-100">
                   {product.brand}
                 </span>
               )}
